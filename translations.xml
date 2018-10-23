@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<translations>
+	<language id="de">
+		<version>0.1</version>
+		<main_window_title>Grundlagen Bildverarbeitung</main_window_title>
+	</language>
+	<language id="en">
+		<version>0.1</version>
+		<main_window_title>Image Processing</main_window_title>
+	</language>
+</translations>
