@@ -5,6 +5,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import utils.Translation;
+import views.ViewMain;
 
 public class Main extends Application {
 
@@ -18,6 +19,9 @@ public class Main extends Application {
 		Translation.getInstance();
 		
 		BorderPane borderPane = new BorderPane();
+		
+		// initialize main view
+		new ViewMain().init(borderPane, null);
 		
 		Scene scene = new Scene(borderPane, 500, 400);
 		stage.setTitle("V" + Translation.fetch("version") + " " + Translation.fetch("main_window_title"));

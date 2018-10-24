@@ -29,7 +29,7 @@ import org.w3c.dom.NodeList;
 	</language>
 </translations>
 
- * @author
+ * @author Michael Schreiber
  *
  */
 public class Translation {
