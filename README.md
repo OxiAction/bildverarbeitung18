@@ -2,7 +2,7 @@
 authors: RR, MI, MS
 
 ## Setup
-a) download and extract
-b) init a new project in your IDE (e.g. Eclipse)
-c) select the extracted folder as project root
-d) run / compile the src/Main.java
+* download and extract
+* init a new project in your IDE (e.g. Eclipse)
+* select the extracted folder as project root
+* run / compile the src/Main.java
