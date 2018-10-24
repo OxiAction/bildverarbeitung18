@@ -1,7 +1,7 @@
-#### Grundlagen Bildverarbeitung 2018 WS
-authors: RR, MI, MS
+## Grundlagen Bildverarbeitung 2018 WS
+Authors: RR, MI, MS
 
-## Setup
+##### Setup
 * download and extract
 * init a new project in your IDE (e.g. Eclipse)
 * select the extracted folder as project root
