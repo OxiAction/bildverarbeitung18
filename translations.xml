@@ -9,6 +9,8 @@
 		<loading><![CDATA[Geladen]]></loading>
 		<image><![CDATA[Bild]]></image>
 		<folder><![CDATA[Ordner]]></folder>
+		<k_factor><![CDATA[K-Faktor]]></k_factor>
+		<heuristic><![CDATA[Heuristik]]></heuristic>
 		<button_new_scan_select_image><![CDATA[Bild wählen...]]></button_new_scan_select_image>
 		<button_new_scan_select_source_folder><![CDATA[Ordner wählen...]]></button_new_scan_select_source_folder>
 		<button_new_scan_start_scan><![CDATA[Starten]]></button_new_scan_start_scan>
@@ -29,6 +31,8 @@ Tristique senectus et netus et. Praesent semper feugiat nibh sed pulvinar proin.
 		<loading><![CDATA[Loading]]></loading>
 		<image><![CDATA[Image]]></image>
 		<folder><![CDATA[Folder]]></folder>
+		<k_factor><![CDATA[K-Factor]]></k_factor>
+		<heuristic><![CDATA[Heuristic]]></heuristic>
 		<button_new_scan_select_image><![CDATA[Select Image...]]></button_new_scan_select_image>
 		<button_new_scan_select_source_folder><![CDATA[Select Folder...]]></button_new_scan_select_source_folder>
 		<button_new_scan_start_scan><![CDATA[Start]]></button_new_scan_start_scan>

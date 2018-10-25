@@ -34,6 +34,10 @@ import java.net.URI;
  */
 public class ViewTabNewScan implements ViewInterface {
 
+	protected TextField textFieldSourceFolder;
+	protected Image image;
+	protected Button buttonStartScan;
+
 	/**
 	 * initialize / show components
 	 * 
@@ -83,13 +87,14 @@ public class ViewTabNewScan implements ViewInterface {
 		fileChooser.setTitle(Translation.fetch("filechooser_new_scan_title"));
 		buttonSelectImage.setOnAction(
 			new EventHandler<ActionEvent>() {
-			    @Override
+
+				@Override
 			    public void handle(final ActionEvent e) {
 			        File selectedFile = fileChooser.showOpenDialog(Config.stage);
 			        
 			        if (selectedFile != null) {
 			        	URI uri = selectedFile.toURI();
-			        	Image image = new Image(uri.toString());
+			        	image = new Image(uri.toString());
 			        	imageView.setImage(image);
 			        	System.out.println(uri.toString());
 			        } else {
@@ -102,7 +107,7 @@ public class ViewTabNewScan implements ViewInterface {
 	// source folder select
 		
 		Label labelSourceFolder = new Label(Translation.fetch("folder") + ":");
-		TextField textFieldSourceFolder = new TextField ();
+		textFieldSourceFolder = new TextField ();
 		HBox hBoxSourceFolder = new HBox();
 		hBoxSourceFolder.getChildren().addAll(labelSourceFolder, textFieldSourceFolder);
 		hBoxSourceFolder.setSpacing(10);
@@ -125,13 +130,55 @@ public class ViewTabNewScan implements ViewInterface {
 				        }
 				    }
 				});
+		
+		textFieldSourceFolder.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateButtonStartScan();
+		});
+		
 		vBox.getChildren().add(buttonSelectSourceFolder);
 		
-		Button buttonStartScan = new Button(Translation.fetch("button_new_scan_start_scan"));
-		buttonStartScan.setDisable(true);
-		vBox.getChildren().add(buttonStartScan);
+	// k-factor
 		
-	// ...
+		Label labelKFactor = new Label(Translation.fetch("k_factor") + ":");
+		ComboBox<String> comboBoxKFactor = new ComboBox<String>(FXCollections.observableArrayList(
+		        "2",
+		        "4",
+		        "8",
+		        "16"
+		    ));
+		comboBoxKFactor.getSelectionModel().select(0);
+		HBox hBoxKFactor = new HBox();
+		hBoxKFactor.getChildren().addAll(labelKFactor, comboBoxKFactor);
+		hBoxKFactor.setSpacing(10);
+		vBox.getChildren().add(hBoxKFactor);
+		
+	// heuristic
+		
+		Label labelHeuristic = new Label(Translation.fetch("heuristic") + ":");
+		ComboBox<String> comboBoxHeuristic = new ComboBox<String>(FXCollections.observableArrayList(
+		        "A",
+		        "B",
+		        "C",
+		        "D"
+		    ));
+		comboBoxHeuristic.getSelectionModel().select(0);
+		HBox hBoxHeuristic = new HBox();
+		hBoxHeuristic.getChildren().addAll(labelHeuristic, comboBoxHeuristic);
+		hBoxHeuristic.setSpacing(10);
+		vBox.getChildren().add(hBoxHeuristic);
+		
+	// start scan
+		
+		buttonStartScan = new Button(Translation.fetch("button_new_scan_start_scan"));
+		buttonStartScan.setDisable(true);
+		buttonStartScan.setOnAction(
+				new EventHandler<ActionEvent>() {
+
+					@Override
+				    public void handle(final ActionEvent e) {
+						System.out.println("-> start scan");
+					}});
+		vBox.getChildren().add(buttonStartScan);
 		
 		scrollPane.setContent(vBox);
 		
@@ -155,5 +202,15 @@ public class ViewTabNewScan implements ViewInterface {
 				text.setWrappingWidth(newBounds.getWidth() - 25);
 			}  
 		});
+	}
+	
+	protected void updateButtonStartScan() {
+		String sourceFolderValue = textFieldSourceFolder.getText().trim();
+		
+		if (!sourceFolderValue.isEmpty() && image != null) {
+			buttonStartScan.setDisable(false);
+		} else {
+			buttonStartScan.setDisable(true);
+		}
 	}
 }
