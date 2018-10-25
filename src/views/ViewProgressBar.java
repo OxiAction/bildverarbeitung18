@@ -38,7 +38,6 @@ public class ViewProgressBar implements ViewInterface {
 		flowpane.setOrientation(Orientation.HORIZONTAL);
 		flowpane.setHgap(10);
 		
-		
 		Label label = new Label();
 		label.setText(Translation.fetch("loading") + ":");
 		label.setPadding(new Insets(5, 5, 5, 5));

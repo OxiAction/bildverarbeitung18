@@ -2,11 +2,14 @@ package views;
 
 import javafx.event.*;
 import javafx.geometry.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import events.*;
 import utils.*;
 
@@ -30,20 +33,33 @@ public class ViewTabWelcome implements ViewInterface {
 			throw new Exception("container doesnt seem to be of type TabPane!");
 		}
 		
-		TabPane tabPane = (TabPane) container;	
-		
-		TextArea textArea = new TextArea();
-		textArea.setText(Translation.fetch("text_welcome"));
-		textArea.setWrapText(true);
+		TabPane tabPane = (TabPane) container;
 		
 		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setContent(textArea);
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
+		
+		VBox  vBox = new VBox();
+		vBox.setSpacing(10);
+		vBox.setPadding(new Insets(10, 10, 10, 10));
+		
+		Text text = new Text();
+		text.setWrappingWidth(300);
+		text.setText(Translation.fetch("text_welcome"));
+		vBox.getChildren().add(text);
+		
+		scrollPane.setContent(vBox);
 		
 		Tab tab = new Tab(Translation.fetch("welcome"));
 		tab.setContent(scrollPane);
 		
 		tabPane.getTabs().add(tab);
+		
+		// @TODO just a quick fix for resizing Text Nodes...
+		scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
+			@Override public void changed(ObservableValue<? extends Bounds> bounds, Bounds oldBounds, Bounds newBounds) {
+				text.setWrappingWidth(newBounds.getWidth() - 25);
+			}  
+		});
 	}
 }
