@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.geometry.Insets;
@@ -64,11 +65,17 @@ public class ViewTabNewScan implements ViewInterface {
 		text.setText(Translation.fetch("text_new_scan"));
 		vBox.getChildren().add(text);
 		
+	// image select
+		
+		Label labelImage = new Label(Translation.fetch("image") + ":");
 		ImageView imageView = new ImageView();
 		imageView.setFitWidth(100);
 		imageView.setPreserveRatio(true);
 		imageView.setSmooth(true);
-		vBox.getChildren().add(imageView);
+		HBox hBoxImage = new HBox();
+		hBoxImage.getChildren().addAll(labelImage, imageView);
+		hBoxImage.setSpacing(10);
+		vBox.getChildren().add(hBoxImage);
 		
 		Button buttonSelectImage = new Button(Translation.fetch("button_new_scan_select_image"));
 		FileChooser fileChooser = new FileChooser();
@@ -85,10 +92,46 @@ public class ViewTabNewScan implements ViewInterface {
 			        	Image image = new Image(uri.toString());
 			        	imageView.setImage(image);
 			        	System.out.println(uri.toString());
+			        } else {
+			        	// no file selected
 			        }
 			    }
 			});
 		vBox.getChildren().add(buttonSelectImage);
+		
+	// source folder select
+		
+		Label labelSourceFolder = new Label(Translation.fetch("folder") + ":");
+		TextField textFieldSourceFolder = new TextField ();
+		HBox hBoxSourceFolder = new HBox();
+		hBoxSourceFolder.getChildren().addAll(labelSourceFolder, textFieldSourceFolder);
+		hBoxSourceFolder.setSpacing(10);
+		vBox.getChildren().add(hBoxSourceFolder);
+		
+		Button buttonSelectSourceFolder = new Button(Translation.fetch("button_new_scan_select_source_folder"));
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		buttonSelectSourceFolder.setOnAction(
+				new EventHandler<ActionEvent>() {
+				    @Override
+				    public void handle(final ActionEvent e) {
+				    	File selectedDirectory = directoryChooser.showDialog(Config.stage);
+				        
+				        if (selectedDirectory != null) {
+				        	URI uri = selectedDirectory.toURI();
+				        	textFieldSourceFolder.setText(uri.toString());
+				        	System.out.println(uri.toString());
+				        } else {
+				        	// no directory selected
+				        }
+				    }
+				});
+		vBox.getChildren().add(buttonSelectSourceFolder);
+		
+		Button buttonStartScan = new Button(Translation.fetch("button_new_scan_start_scan"));
+		buttonStartScan.setDisable(true);
+		vBox.getChildren().add(buttonStartScan);
+		
+	// ...
 		
 		scrollPane.setContent(vBox);
 		

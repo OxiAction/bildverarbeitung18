@@ -7,7 +7,11 @@
 		<config><![CDATA[Einstellungen]]></config>
 		<welcome><![CDATA[Willkommen]]></welcome>
 		<loading><![CDATA[Geladen]]></loading>
+		<image><![CDATA[Bild]]></image>
+		<folder><![CDATA[Ordner]]></folder>
 		<button_new_scan_select_image><![CDATA[Bild wählen...]]></button_new_scan_select_image>
+		<button_new_scan_select_source_folder><![CDATA[Ordner wählen...]]></button_new_scan_select_source_folder>
+		<button_new_scan_start_scan><![CDATA[Starten]]></button_new_scan_start_scan>
 		<filechooser_new_scan_type><![CDATA[Bilder]]></filechooser_new_scan_type>
 		<filechooser_new_scan_title><![CDATA[Bitte wählen Sie ein Bild als Quelle]]></filechooser_new_scan_title>
 		<text_config><![CDATA[Lorem ipsum dolor sit amet.]]></text_config>
@@ -23,7 +27,11 @@ Tristique senectus et netus et. Praesent semper feugiat nibh sed pulvinar proin.
 		<config><![CDATA[Config]]></config>
 		<welcome><![CDATA[Welcome]]></welcome>
 		<loading><![CDATA[Loading]]></loading>
+		<image><![CDATA[Image]]></image>
+		<folder><![CDATA[Folder]]></folder>
 		<button_new_scan_select_image><![CDATA[Select Image...]]></button_new_scan_select_image>
+		<button_new_scan_select_source_folder><![CDATA[Select Folder...]]></button_new_scan_select_source_folder>
+		<button_new_scan_start_scan><![CDATA[Start]]></button_new_scan_start_scan>
 		<filechooser_new_scan_type><![CDATA[Images]]></filechooser_new_scan_type>
 		<filechooser_new_scan_title><![CDATA[Please choose one image file as source]]></filechooser_new_scan_title>
 		<text_config><![CDATA[Lorem ipsum dolor sit amet.]]></text_config>
