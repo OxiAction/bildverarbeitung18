@@ -7,6 +7,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -20,6 +22,8 @@ import java.io.IOException;
 import config.Config;
 import events.*;
 import utils.*;
+
+import java.net.URI;
 
 /**
  * View: 
@@ -60,6 +64,12 @@ public class ViewTabNewScan implements ViewInterface {
 		text.setText(Translation.fetch("text_new_scan"));
 		vBox.getChildren().add(text);
 		
+		ImageView imageView = new ImageView();
+		imageView.setFitWidth(100);
+		imageView.setPreserveRatio(true);
+		imageView.setSmooth(true);
+		vBox.getChildren().add(imageView);
+		
 		Button buttonSelectImage = new Button(Translation.fetch("button_new_scan_select_image"));
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter(Translation.fetch("filechooser_new_scan_type"), "*.jpg", "*.png"));
@@ -71,11 +81,13 @@ public class ViewTabNewScan implements ViewInterface {
 			        File selectedFile = fileChooser.showOpenDialog(Config.stage);
 			        
 			        if (selectedFile != null) {
-			        	System.out.println(selectedFile.getName());
+			        	URI uri = selectedFile.toURI();
+			        	Image image = new Image(uri.toString());
+			        	imageView.setImage(image);
+			        	System.out.println(uri.toString());
 			        }
 			    }
 			});
-		
 		vBox.getChildren().add(buttonSelectImage);
 		
 		scrollPane.setContent(vBox);
