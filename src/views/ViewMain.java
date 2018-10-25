@@ -1,13 +1,6 @@
 package views;
 
-import javafx.event.*;
-import javafx.collections.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
 import javafx.scene.layout.*;
-
-import events.*;
-import utils.*;
 
 /**
  * View:

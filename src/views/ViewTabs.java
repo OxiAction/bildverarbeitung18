@@ -65,5 +65,18 @@ public class ViewTabs implements ViewInterface {
 			}
 		};
 		EventManager.add(eventButtonConfig);
+		
+		EventButtonStartScanClicked eventButtonStartScanClicked = new EventButtonStartScanClicked() {
+			@Override
+			public void dispatch(Object extraData) {
+				try {
+					new ViewTabScanResults().init(tabPane, extraData);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		EventManager.add(eventButtonStartScanClicked);
 	}
 }

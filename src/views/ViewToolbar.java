@@ -44,7 +44,7 @@ public class ViewToolbar implements ViewInterface {
 		buttonNewScan.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("-> new scan");
+				Debug.log("-> new scan");
 				
 				EventManager.dispatch(new EventButtonNewScanClicked());
 			}
@@ -53,7 +53,7 @@ public class ViewToolbar implements ViewInterface {
 		buttonConfig.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("-> config");
+				Debug.log("-> config");
 				
 				EventManager.dispatch(new EventButtonConfigClicked());
 			}

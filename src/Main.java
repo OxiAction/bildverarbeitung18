@@ -1,15 +1,11 @@
-import java.io.File;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
+import utils.Debug;
 import utils.Translation;
 import views.ViewMain;
-
-import config.Config;
 
 public class Main extends Application {
 
@@ -19,7 +15,8 @@ public class Main extends Application {
 	
 	@Override
 	public void start(final Stage stage) throws Exception {
-		Config.stage = stage;
+		// enable / disable Debug mode
+		Debug.enabled = true;
 		
 		// initialize translation singleton
 		Translation.getInstance();

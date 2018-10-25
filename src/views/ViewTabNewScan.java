@@ -20,11 +20,12 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
-import config.Config;
 import events.*;
 import utils.*;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * View: 
@@ -37,6 +38,7 @@ public class ViewTabNewScan implements ViewInterface {
 	protected TextField textFieldSourceFolder;
 	protected Image image;
 	protected Button buttonStartScan;
+	protected String imagePath;
 
 	/**
 	 * initialize / show components
@@ -60,9 +62,9 @@ public class ViewTabNewScan implements ViewInterface {
 		vBox.setSpacing(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 		
-		CheckBox checkBox = new CheckBox();
-		checkBox.setText("Foo");
-		vBox.getChildren().add(checkBox);
+//		CheckBox checkBox = new CheckBox();
+//		checkBox.setText("Foo");
+//		vBox.getChildren().add(checkBox);
 		
 		Text text = new Text();
 		text.setWrappingWidth(300);
@@ -90,13 +92,13 @@ public class ViewTabNewScan implements ViewInterface {
 
 				@Override
 			    public void handle(final ActionEvent e) {
-			        File selectedFile = fileChooser.showOpenDialog(Config.stage);
+			        File selectedFile = fileChooser.showOpenDialog(null);
 			        
 			        if (selectedFile != null) {
 			        	URI uri = selectedFile.toURI();
 			        	image = new Image(uri.toString());
 			        	imageView.setImage(image);
-			        	System.out.println(uri.toString());
+			        	Debug.log(uri.toString());
 			        } else {
 			        	// no file selected
 			        }
@@ -107,7 +109,7 @@ public class ViewTabNewScan implements ViewInterface {
 	// source folder select
 		
 		Label labelSourceFolder = new Label(Translation.fetch("folder") + ":");
-		textFieldSourceFolder = new TextField ();
+		textFieldSourceFolder = new TextField();
 		HBox hBoxSourceFolder = new HBox();
 		hBoxSourceFolder.getChildren().addAll(labelSourceFolder, textFieldSourceFolder);
 		hBoxSourceFolder.setSpacing(10);
@@ -119,12 +121,13 @@ public class ViewTabNewScan implements ViewInterface {
 				new EventHandler<ActionEvent>() {
 				    @Override
 				    public void handle(final ActionEvent e) {
-				    	File selectedDirectory = directoryChooser.showDialog(Config.stage);
+				    	File selectedDirectory = directoryChooser.showDialog(null);
 				        
 				        if (selectedDirectory != null) {
-				        	URI uri = selectedDirectory.toURI();
-				        	textFieldSourceFolder.setText(uri.toString());
-				        	System.out.println(uri.toString());
+				        	URI imageURI = selectedDirectory.toURI();
+				        	imagePath = imageURI.toString();
+				        	textFieldSourceFolder.setText(imagePath);
+				        	Debug.log("-> iamge path: " + imagePath);
 				        } else {
 				        	// no directory selected
 				        }
@@ -170,13 +173,23 @@ public class ViewTabNewScan implements ViewInterface {
 	// start scan
 		
 		buttonStartScan = new Button(Translation.fetch("button_new_scan_start_scan"));
-		buttonStartScan.setDisable(true);
+		if (!Debug.enabled) {
+			buttonStartScan.setDisable(true);
+		}
 		buttonStartScan.setOnAction(
 				new EventHandler<ActionEvent>() {
 
 					@Override
 				    public void handle(final ActionEvent e) {
-						System.out.println("-> start scan");
+						Debug.log("-> start scan");
+						
+						HashMap<String, String> data = new HashMap<String, String>();
+						data.put("image_path", imagePath);
+						data.put("source_folder", textFieldSourceFolder.getText().trim());
+						data.put("k_factor", comboBoxKFactor.getValue());
+						data.put("heuristic", comboBoxHeuristic.getValue());
+						
+						EventManager.dispatch(new EventButtonStartScanClicked(), data);
 					}});
 		vBox.getChildren().add(buttonStartScan);
 		
@@ -209,7 +222,7 @@ public class ViewTabNewScan implements ViewInterface {
 		
 		if (!sourceFolderValue.isEmpty() && image != null) {
 			buttonStartScan.setDisable(false);
-		} else {
+		} else if (!Debug.enabled) {
 			buttonStartScan.setDisable(true);
 		}
 	}
