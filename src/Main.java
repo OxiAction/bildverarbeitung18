@@ -4,9 +4,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utils.Debug;
-import utils.Translation;
+import core.parsers.Translation;
 import views.ViewMain;
 
+/**
+ * Main app entry point
+ */
 public class Main extends Application {
 
 	public static void main(String[] args) {

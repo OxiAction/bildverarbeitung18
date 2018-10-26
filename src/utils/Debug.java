@@ -5,12 +5,16 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
+ * Collection of utilities
  *
  * @author Michael Schreiber
  *
  */
 public class Debug {
 	
+	/**
+	 * globally enable / disable (debug mode)
+	 */
 	public static boolean enabled = false;
 
 	/**

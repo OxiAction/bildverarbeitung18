@@ -1,15 +1,14 @@
-package core;
+package core.parsers;
 
 import java.util.HashMap;
 
-
 /**
- * ImageDataParser: ...
+ * Store / read data to / from .xml
  * 
  * @author Michael Schreiber
  *
  */
-public class ImageDataParser {
+public class Data {
 	
 	public static void save(HashMap<?, ?> data) {
 		

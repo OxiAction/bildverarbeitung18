@@ -1,7 +1,6 @@
 package events;
 
 /**
- * event of type error
  * 
  * @author Michael Schreiber
  *

@@ -20,19 +20,19 @@ import javafx.geometry.Insets;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-
-import events.*;
-import utils.*;
-
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import core.ImageEvaluation;
+import events.*;
+import utils.*;
+import core.evaluations.*;
+import core.parsers.*;
+import core.graphics.*;
 
 /**
- * View: Adds (and sets focus to) a new Tab which is reliable for rendering image scan related stuff
+ * Tab content for the "scan results" section of the App
  * 
  * @author 
  *
@@ -81,10 +81,10 @@ public class ViewTabScanResults implements ViewInterface {
 		EventManager.dispatch(new EventLoadingStarted(), null);
 		
 		// evaluation
-		String foo = ImageEvaluation.getResults(data);
+		String foo = Evaluation.get(data);
 		
 		// get drawn histogram
-		Canvas histogram = Histogram.draw();
+		Canvas histogram = Histogram.get();
 		vBox.getChildren().add(histogram);
 		
 		// store data

@@ -8,9 +8,10 @@ import javafx.scene.layout.*;
 
 import events.*;
 import utils.*;
+import core.parsers.*;
 
 /**
- * View: 
+ * Toolbar with different buttons
  * 
  * @author Michael Schreiber
  *

@@ -9,11 +9,13 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+
 import events.*;
 import utils.*;
+import core.parsers.*;
 
 /**
- * View: 
+ * Tab content for the "config" section of the App 
  * 
  * @author Michael Schreiber
  *

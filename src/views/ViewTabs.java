@@ -9,9 +9,10 @@ import javafx.scene.layout.*;
 
 import events.*;
 import utils.*;
+import core.parsers.*;
 
 /**
- * View: 
+ * Container for the tabs 
  * 
  * @author Michael Schreiber
  *

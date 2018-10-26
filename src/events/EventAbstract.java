@@ -1,7 +1,7 @@
 package events;
 
 /**
- * abstract event object
+ * Abstract event object
  * 
  * @author Michael Schreiber
  *

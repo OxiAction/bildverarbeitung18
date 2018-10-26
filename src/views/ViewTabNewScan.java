@@ -19,16 +19,16 @@ import javafx.geometry.Insets;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-
-import events.*;
-import utils.*;
-
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+import events.*;
+import utils.*;
+import core.parsers.*;
+
 /**
- * View: 
+ * Tab content for the "new scan" section of the App  
  * 
  * @author Michael Schreiber
  *

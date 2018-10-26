@@ -3,7 +3,7 @@ package views;
 import javafx.scene.layout.BorderPane;
 
 /**
- * View interface - every View must implement this!
+ * Every View must implement this
  * 
  * @author Michael Schreiber
  *

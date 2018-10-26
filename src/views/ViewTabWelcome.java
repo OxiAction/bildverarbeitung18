@@ -10,11 +10,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+
 import events.*;
 import utils.*;
+import core.parsers.*;
 
 /**
- * View: 
+ * Tab content for the "welcome" (start screen) section of the App
  * 
  * @author Michael Schreiber
  *

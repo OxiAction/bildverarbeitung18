@@ -3,7 +3,7 @@ package views;
 import javafx.scene.layout.*;
 
 /**
- * View:
+ * Setup main regions for the views
  * 
  * @author Michael Schreiber
  *

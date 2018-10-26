@@ -3,7 +3,7 @@ package events;
 import java.util.ArrayList;
 
 /**
- * simple event manager (observer) :)
+ * Simple event manager (subscribe pattern)
  * 
  * @author Michael Schreiber
  *

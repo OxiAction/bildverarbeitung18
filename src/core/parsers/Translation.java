@@ -1,4 +1,4 @@
-package utils;
+package core.parsers;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * be sure that the translations.xml file exists inside the root folder
+ * Be sure that the translations.xml file exists inside the root folder
  * 
  * XML-structure example:
 

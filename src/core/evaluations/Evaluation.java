@@ -1,18 +1,22 @@
-package core;
+package core.evaluations;
 
 import java.util.HashMap;
 
 import utils.Debug;
 
 /**
- * TODO implement
+ * TODO description
  * 
  * @author 
  *
  */
-public class ImageEvaluation {
+public class Evaluation {
 	
-	public static String getResults(HashMap<?, ?> data) {
+	/**
+	 * Returns evaluated data based on incoming image data
+	 * TODO implement
+	 */
+	public static String get(HashMap<?, ?> data) {
 		String imagePath = (String) data.get("image_path");
 		String sourceFolder = (String) data.get("source_folder");
 		String kFactor = (String) data.get("k_factor");
