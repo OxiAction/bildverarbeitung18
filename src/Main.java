@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utils.Debug;
-import core.parsers.Translation;
+import utils.Translation;
 import views.ViewMain;
 
 /**

@@ -23,9 +23,9 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+import core.data.*;
 import events.*;
 import utils.*;
-import core.parsers.*;
 
 /**
  * Tab content for the "new scan" section of the App  

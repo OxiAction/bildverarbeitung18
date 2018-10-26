@@ -27,9 +27,9 @@ import java.util.Map;
 
 import events.*;
 import utils.*;
-import core.evaluations.*;
-import core.parsers.*;
-import core.graphics.*;
+import core.data.*;
+import core.evaluation.*;
+import core.graphic.*;
 
 /**
  * Tab content for the "scan results" section of the App
@@ -81,18 +81,18 @@ public class ViewTabScanResults implements ViewInterface {
 		EventManager.dispatch(new EventLoadingStarted(), null);
 		
 		// evaluation
-		String foo = Evaluation.get(data);
+		EvaluationDataSet set = Evaluation.get(data);
 		
-		// get drawn histogram
-		Canvas histogram = Histogram.get();
+		// histogram
+		Canvas histogram = Histogram.get(set);
 		vBox.getChildren().add(histogram);
 		
 		// store data
-//		ImageParser.save(data);
+		Data.save(set);
 		
 		Text text = new Text();
 		text.setWrappingWidth(300);
-		text.setText(foo);
+		text.setText("Test");
 		vBox.getChildren().add(text);
 		
 		// TODO use Histogram.draw(...) to draw a Canvas

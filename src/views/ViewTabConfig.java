@@ -9,10 +9,9 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-
+import core.data.*;
 import events.*;
 import utils.*;
-import core.parsers.*;
 
 /**
  * Tab content for the "config" section of the App 
