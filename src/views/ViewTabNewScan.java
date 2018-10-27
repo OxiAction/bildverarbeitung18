@@ -20,6 +20,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -149,7 +150,6 @@ public class ViewTabNewScan implements ViewInterface {
 				        	Debug.log("-> source folder: " + uri.toString());
 				        } else {
 				        	// no directory selected
-				        	Debug.log("-> ummm");
 				        }
 				    }
 				});
@@ -204,17 +204,12 @@ public class ViewTabNewScan implements ViewInterface {
 						Debug.log("-> start scan");
 						
 						EvaluationDataSet data = new EvaluationDataSet(
+								new Timestamp(System.currentTimeMillis()),
 								textFieldName.getText().trim(),
 								imagePath,
 								textFieldSourceFolder.getText().trim(),
 								comboBoxKFactor.getValue(),
 								comboBoxHeuristic.getValue());
-						
-//						HashMap<String, String> data = new HashMap<String, String>();
-//						data.put("image_path", imagePath);
-//						data.put("source_folder", textFieldSourceFolder.getText().trim());
-//						data.put("k_factor", comboBoxKFactor.getValue());
-//						data.put("heuristic", comboBoxHeuristic.getValue());
 						
 						EventManager.dispatch(new EventButtonStartScanClicked(), data);
 					}});

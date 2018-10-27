@@ -1,5 +1,6 @@
 package core.evaluation;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import core.data.DataView;
  *
  */
 public class EvaluationDataSet implements DataView {
+	protected Timestamp timestamp;
 	protected String name;
 	protected String imagePath;
 	protected String sourceFolder;
@@ -32,13 +34,15 @@ public class EvaluationDataSet implements DataView {
 	/**
 	 * constructor for a new EvaluationDataSet
 	 * 
+	 * @param timestamp		the timestamp (creation date of this set)
 	 * @param name			the name of the set
 	 * @param imagePath		the full image path of the selected image
 	 * @param sourceFolder	the full path of the selected scan folder
 	 * @param kFactor		maximum number of files to be scanned
 	 * @param heuristic		the heuristic which was used for the scan
 	 */
-	public EvaluationDataSet(String name, String imagePath, String sourceFolder, String kFactor, String heuristic) {
+	public EvaluationDataSet(Timestamp timestamp, String name, String imagePath, String sourceFolder, String kFactor, String heuristic) {
+		this.timestamp = timestamp;
 		this.name = name;
 		this.imagePath = imagePath;
 		this.sourceFolder = sourceFolder;
@@ -71,6 +75,20 @@ public class EvaluationDataSet implements DataView {
 	 */
 	public Integer getEntriesSize() {
 		return entries.size();
+	}
+	
+	/**
+	 * @return the timestamp
+	 */
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	/**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 	/**
@@ -159,7 +177,8 @@ public class EvaluationDataSet implements DataView {
 	
 	@Override
 	public String toString() {
-		return "name: " + this.getName() + 
+		return "timestamp: " + this.getTimestamp() + 
+				"\nname: " + this.getName() + 
 				"\nimagePath: " + this.getImagePath() + 
 				"\nsourceFolder: " + this.getSourceFolder() + 
 				"\nkFactor: " + this.getKFactor() + 

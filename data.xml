@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <data>
 	<sets>
-		<set timestamp="">
-			<image path="" data="10101010"/>
+		<set timestamp="2018-10-27 23:49:04.209" name="test1" imagePath="file:/C:/Users/Michi/Pictures/logo.jpg" sourceFolder="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder/" kFactor="2" heuristic="A">
+			<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder" fileName="test" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
 		</set>
 	</sets>
 </data>

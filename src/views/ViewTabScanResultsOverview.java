@@ -72,6 +72,14 @@ public class ViewTabScanResultsOverview implements ViewInterface {
 		text.setText(Translation.fetch("text_scan_results_overview"));
 		vBox.getChildren().add(text);
 		
+	// accordion
+		
+		Accordion accordion = new Accordion ();
+		TitledPane p1 = new TitledPane("Ergebnis 1", new Text("...\n....\n....."));
+		TitledPane p2 = new TitledPane("Ergebnis 2", new Text("...\n....\n....."));
+		accordion.getPanes().addAll(new TitledPane[] {p1, p2});
+		vBox.getChildren().add(accordion);
+		
 	// setup
 		
 		scrollPane.setContent(vBox);
