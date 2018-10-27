@@ -25,7 +25,11 @@ public class Evaluation {
 		Debug.log("-> scan settings:");
 		Debug.hashMap(data);
 		
-		EvaluationDataSet results = new EvaluationDataSet();
+		EvaluationDataSet results = new EvaluationDataSet("test", imagePath, sourceFolder, kFactor, heuristic);
+		
+		EvaluationDataSetEntry entry1 = new EvaluationDataSetEntry("fileName", "fileName", "fileExtension", new int[][] {{8, 8, 8, 10, 10}, {8, 9, 9, 9, 9}});
+		
+		results.addEntry(entry1);
 		
 		return results;
 	}
