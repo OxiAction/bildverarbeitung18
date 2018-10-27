@@ -29,33 +29,15 @@ public class ViewToolbar implements ViewInterface {
 			throw new Exception("container doesnt seem to be of type BorderPane!");
 		}
 		
-		// setup
-		
-		BorderPane borderPane = (BorderPane) container;	
+	// new scan
 		
 		Button buttonNewScan = new Button(Translation.fetch("new_scan"));
-		Button buttonConfig = new Button(Translation.fetch("config"));
-		
-		ToolBar toolBar = new ToolBar(buttonNewScan, buttonConfig);
-		borderPane.setTop(toolBar);
-		
-		// bindings
-		
 		buttonNewScan.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				Debug.log("-> new scan");
 				
 				EventManager.dispatch(new EventButtonNewScanClicked());
-			}
-		});
-		
-		buttonConfig.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Debug.log("-> config");
-				
-				EventManager.dispatch(new EventButtonConfigClicked());
 			}
 		});
 		
@@ -75,6 +57,46 @@ public class ViewToolbar implements ViewInterface {
 		};
 		EventManager.add(eventTabNewScanClosed);
 		
+	// scan results overview
+		
+		Button buttonScanResultsOverview = new Button(Translation.fetch("scan_results_overview"));
+		buttonScanResultsOverview.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Debug.log("-> scan results overview");
+				
+				EventManager.dispatch(new EventButtonScanResultsOverviewClicked());
+			}
+		});
+		
+		EventButtonScanResultsOverviewClicked eventButtonScanResultsOverview = new EventButtonScanResultsOverviewClicked() {
+			@Override
+			public void dispatch(Object extraData) {
+				buttonScanResultsOverview.setDisable(true);
+			}
+		};
+		EventManager.add(eventButtonScanResultsOverview);
+		
+		EventTabScanResultsOverviewClosed eventTabScanResultsOverviewClosed = new EventTabScanResultsOverviewClosed() {
+			@Override
+			public void dispatch(Object extraData) {
+				buttonScanResultsOverview.setDisable(false);
+			}
+		};
+		EventManager.add(eventTabScanResultsOverviewClosed);
+		
+	// config
+		
+		Button buttonConfig = new Button(Translation.fetch("config"));
+		buttonConfig.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Debug.log("-> config");
+				
+				EventManager.dispatch(new EventButtonConfigClicked());
+			}
+		});
+		
 		EventButtonConfigClicked eventButtonConfig = new EventButtonConfigClicked() {
 			@Override
 			public void dispatch(Object extraData) {
@@ -90,5 +112,11 @@ public class ViewToolbar implements ViewInterface {
 			}
 		};
 		EventManager.add(eventTabConfigClosed);
+		
+	// setup
+	
+		BorderPane borderPane = (BorderPane) container;
+		ToolBar toolBar = new ToolBar(buttonNewScan, buttonScanResultsOverview, buttonConfig);
+		borderPane.setTop(toolBar);
 	}
 }

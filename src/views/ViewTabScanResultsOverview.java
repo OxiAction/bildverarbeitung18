@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.geometry.Insets;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -32,12 +31,12 @@ import core.evaluation.*;
 import core.graphic.*;
 
 /**
- * Tab content for the "scan results" section of the App
+ * Tab content for the "scan results overview" section of the App
  * 
  * @author 
  *
  */
-public class ViewTabScanResults implements ViewInterface {
+public class ViewTabScanResultsOverview implements ViewInterface {
 
 	protected TextField textFieldSourceFolder;
 	protected Image image;
@@ -66,51 +65,32 @@ public class ViewTabScanResults implements ViewInterface {
 		vBox.setSpacing(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 		
-	// TODO implement -> evaluate data
-		
-		HashMap<?, ?> data;
-		
-		// verify data
-		if (!(extraData instanceof HashMap<?, ?>)) {
-			throw new Exception("extraData doesnt seem to be of type HashMap<?, ?>!");
-		} else {
-			data = (HashMap<?, ?>) extraData;
-		}
-		
-		// globally fire an event to let everybody know that we ENTER "loading" state
-		EventManager.dispatch(new EventLoadingStarted(), null);
-		
-		// evaluation
-		EvaluationDataSet set = Evaluation.get(data);
-		
-		// histogram
-		Canvas histogram = Histogram.get(set);
-		vBox.getChildren().add(histogram);
-		
-		// store data
-		Data.save(set);
+	// intro text
 		
 		Text text = new Text();
 		text.setWrappingWidth(300);
-		text.setText("Test");
+		text.setText(Translation.fetch("text_scan_results_overview"));
 		vBox.getChildren().add(text);
-		
-		// TODO use Histogram.draw(...) to draw a Canvas
-		
-		// globally fire an event to let everybody know that we LEAVE "loading" state
-		EventManager.dispatch(new EventLoadingFinished(), null);
 		
 	// setup
 		
 		scrollPane.setContent(vBox);
 		
-		Tab tab = new Tab(Translation.fetch("scan_results"));
+		Tab tab = new Tab(Translation.fetch("scan_results_overview"));
 		tab.setContent(scrollPane);
 		
 		tabPane.getTabs().add(tab);
 		
 		tabPane.getSelectionModel().select(tab);
 		
+		tab.setOnCloseRequest(new EventHandler<Event>() {
+		    @Override
+		    public void handle(Event e) {
+		    	EventManager.dispatch(new EventTabScanResultsOverviewClosed());
+		    }
+		});
+		
+		// @TODO just a quick fix for resizing Text Nodes...
 		scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
 			@Override public void changed(ObservableValue<? extends Bounds> bounds, Bounds oldBounds, Bounds newBounds) {
 				text.setWrappingWidth(newBounds.getWidth() - 25);

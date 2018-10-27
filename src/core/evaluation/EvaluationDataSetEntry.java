@@ -12,31 +12,36 @@ import core.data.DataView;
  *
  */
 public class EvaluationDataSetEntry implements DataView {
-	protected String filePath;
+	protected String fileFolderPath;
 	protected String fileName;
 	protected String fileExtension;
 	protected int[][] greyScaleValues;
 	
 	/**
+	 * constructor for a new EvaluationDataSet
+	 * 
 	 * @deprecated use {@link #EvaluationDataSetEntry(String filePath, String fileName, String fileExtension, int[][] greyScaleValues)} instead. 
 	 */
 	public EvaluationDataSetEntry() {
-		
 	}
 	
-	public EvaluationDataSetEntry(String filePath, String fileName, String fileExtension, int[][] greyScaleValues) {
-		this.filePath = filePath;
+	/**
+	 * constructor for a new EvaluationDataSetEntry
+	 * 
+	 * @param fileFolderPath	the folder path of the file
+	 * @param fileName			the file name (without extension!)
+	 * @param fileExtension		the file extension (without .) - e.g. "jpg"
+	 * @param greyScaleValues	the grey scale values as 2d int array
+	 */
+	public EvaluationDataSetEntry(String fileFolderPath, String fileName, String fileExtension, int[][] greyScaleValues) {
+		this.fileFolderPath = fileFolderPath;
 		this.fileName = fileName;
 		this.fileExtension = fileExtension;
 		this.greyScaleValues = greyScaleValues;
 	}
 	
-
 	@Override
 	public Node toXMLNode() {
-//		Element element = (Element) new Node();
-//		element.setAttribute("file_path", this.filePath);
-		
 		// TODO Auto-generated method stub
 		return null;
 	}

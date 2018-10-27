@@ -35,6 +35,7 @@ import utils.*;
  */
 public class ViewTabNewScan implements ViewInterface {
 
+	protected TextField textFieldName;
 	protected TextField textFieldSourceFolder;
 	protected Image image;
 	protected Button buttonStartScan;
@@ -62,14 +63,25 @@ public class ViewTabNewScan implements ViewInterface {
 		vBox.setSpacing(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 		
-//		CheckBox checkBox = new CheckBox();
-//		checkBox.setText("Foo");
-//		vBox.getChildren().add(checkBox);
+	// intro text
 		
 		Text text = new Text();
 		text.setWrappingWidth(300);
 		text.setText(Translation.fetch("text_new_scan"));
 		vBox.getChildren().add(text);
+		
+	// name
+		
+		Label labelName = new Label(Translation.fetch("name") + ":");
+		textFieldName = new TextField();
+		HBox hBoxName = new HBox();
+		hBoxName.getChildren().addAll(labelName, textFieldName);
+		hBoxName.setSpacing(10);
+		vBox.getChildren().add(hBoxName);
+		
+		textFieldName.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateButtonStartScan();
+		});
 		
 	// image select
 		
@@ -98,6 +110,9 @@ public class ViewTabNewScan implements ViewInterface {
 			        	URI uri = selectedFile.toURI();
 			        	image = new Image(uri.toString());
 			        	imageView.setImage(image);
+			        	
+			        	updateButtonStartScan();
+			        	
 			        	Debug.log(uri.toString());
 			        } else {
 			        	// no file selected
@@ -127,6 +142,9 @@ public class ViewTabNewScan implements ViewInterface {
 				        	URI imageURI = selectedDirectory.toURI();
 				        	imagePath = imageURI.toString();
 				        	textFieldSourceFolder.setText(imagePath);
+				        	
+				        	updateButtonStartScan();
+				        	
 				        	Debug.log("-> iamge path: " + imagePath);
 				        } else {
 				        	// no directory selected
@@ -170,7 +188,7 @@ public class ViewTabNewScan implements ViewInterface {
 		hBoxHeuristic.setSpacing(10);
 		vBox.getChildren().add(hBoxHeuristic);
 		
-	// start scan
+	// button start scan
 		
 		buttonStartScan = new Button(Translation.fetch("button_new_scan_start_scan"));
 		if (!Debug.enabled) {
@@ -192,6 +210,8 @@ public class ViewTabNewScan implements ViewInterface {
 						EventManager.dispatch(new EventButtonStartScanClicked(), data);
 					}});
 		vBox.getChildren().add(buttonStartScan);
+		
+	// setup
 		
 		scrollPane.setContent(vBox);
 		
@@ -218,9 +238,11 @@ public class ViewTabNewScan implements ViewInterface {
 	}
 	
 	protected void updateButtonStartScan() {
-		String sourceFolderValue = textFieldSourceFolder.getText().trim();
-		
-		if (!sourceFolderValue.isEmpty() && image != null) {
+		if (
+				textFieldName.getText().trim().length() > 0 
+				&& !textFieldSourceFolder.getText().trim().isEmpty() 
+				&& image != null
+			) {
 			buttonStartScan.setDisable(false);
 		} else if (!Debug.enabled) {
 			buttonStartScan.setDisable(true);

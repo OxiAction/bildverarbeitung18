@@ -6,17 +6,20 @@
 		<new_scan><![CDATA[Neuer Scan]]></new_scan>
 		<config><![CDATA[Einstellungen]]></config>
 		<welcome><![CDATA[Willkommen]]></welcome>
+		<name><![CDATA[Name]]></name>
 		<loading><![CDATA[Geladen]]></loading>
 		<image><![CDATA[Bild]]></image>
 		<folder><![CDATA[Ordner]]></folder>
 		<k_factor><![CDATA[K-Faktor]]></k_factor>
 		<heuristic><![CDATA[Heuristik]]></heuristic>
+		<scan_results_overview><![CDATA[Scan Ergebnisse]]></scan_results_overview>
 		<button_new_scan_select_image><![CDATA[Bild wählen...]]></button_new_scan_select_image>
 		<button_new_scan_select_source_folder><![CDATA[Ordner wählen...]]></button_new_scan_select_source_folder>
 		<button_new_scan_start_scan><![CDATA[Starten]]></button_new_scan_start_scan>
 		<filechooser_new_scan_type><![CDATA[Bilder]]></filechooser_new_scan_type>
 		<filechooser_new_scan_title><![CDATA[Bitte wählen Sie ein Bild als Quelle]]></filechooser_new_scan_title>
-		<text_config><![CDATA[Lorem ipsum dolor sit amet.]]></text_config>
+		<text_config><![CDATA[Dignissim enim sit amet venenatis urna cursus.]]></text_config>
+		<text_scan_results_overview><![CDATA[Pretium fusce id velit ut tortor pretium viverra suspendisse potenti.]]></text_scan_results_overview>
 		<text_new_scan><![CDATA[Lorem ipsum dolor sit amet.]]></text_new_scan>
 		<text_welcome><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi proin sed libero enim sed faucibus. Non curabitur gravida arcu ac tortor dignissim convallis aenean. Blandit cursus risus at ultrices mi tempus. Consectetur adipiscing elit pellentesque habitant. Consectetur libero id faucibus nisl tincidunt eget. Porta nibh venenatis cras sed felis eget. Nunc sed id semper risus. Cursus vitae congue mauris rhoncus aenean vel elit. Dignissim enim sit amet venenatis urna cursus. Urna id volutpat lacus laoreet non. Enim blandit volutpat maecenas volutpat. Velit euismod in pellentesque massa placerat duis.
 
@@ -28,17 +31,20 @@ Tristique senectus et netus et. Praesent semper feugiat nibh sed pulvinar proin.
 		<new_scan><![CDATA[New Scan]]></new_scan>
 		<config><![CDATA[Config]]></config>
 		<welcome><![CDATA[Welcome]]></welcome>
+		<name><![CDATA[Name]]></name>
 		<loading><![CDATA[Loading]]></loading>
 		<image><![CDATA[Image]]></image>
 		<folder><![CDATA[Folder]]></folder>
 		<k_factor><![CDATA[K-Factor]]></k_factor>
 		<heuristic><![CDATA[Heuristic]]></heuristic>
+		<scan_results_overview><![CDATA[Scan Results]]></scan_results_overview>
 		<button_new_scan_select_image><![CDATA[Select Image...]]></button_new_scan_select_image>
 		<button_new_scan_select_source_folder><![CDATA[Select Folder...]]></button_new_scan_select_source_folder>
 		<button_new_scan_start_scan><![CDATA[Start]]></button_new_scan_start_scan>
 		<filechooser_new_scan_type><![CDATA[Images]]></filechooser_new_scan_type>
 		<filechooser_new_scan_title><![CDATA[Please choose one image file as source]]></filechooser_new_scan_title>
-		<text_config><![CDATA[Lorem ipsum dolor sit amet.]]></text_config>
+		<text_config><![CDATA[Dignissim enim sit amet venenatis urna cursus.]]></text_config>
+		<text_scan_results_overview><![CDATA[Pretium fusce id velit ut tortor pretium viverra suspendisse potenti.]]></text_scan_results_overview>
 		<text_new_scan><![CDATA[Lorem ipsum dolor sit amet.]]></text_new_scan>
 		<text_welcome><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi proin sed libero enim sed faucibus. Non curabitur gravida arcu ac tortor dignissim convallis aenean. Blandit cursus risus at ultrices mi tempus. Consectetur adipiscing elit pellentesque habitant. Consectetur libero id faucibus nisl tincidunt eget. Porta nibh venenatis cras sed felis eget. Nunc sed id semper risus. Cursus vitae congue mauris rhoncus aenean vel elit. Dignissim enim sit amet venenatis urna cursus. Urna id volutpat lacus laoreet non. Enim blandit volutpat maecenas volutpat. Velit euismod in pellentesque massa placerat duis.
 

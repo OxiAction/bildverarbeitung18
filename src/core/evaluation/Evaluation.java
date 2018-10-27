@@ -27,7 +27,7 @@ public class Evaluation {
 		
 		EvaluationDataSet results = new EvaluationDataSet("test", imagePath, sourceFolder, kFactor, heuristic);
 		
-		EvaluationDataSetEntry entry1 = new EvaluationDataSetEntry("fileName", "fileName", "fileExtension", new int[][] {{8, 8, 8, 10, 10}, {8, 9, 9, 9, 9}});
+		EvaluationDataSetEntry entry1 = new EvaluationDataSetEntry("fileFolderPath", "fileName", "fileExtension", new int[][] {{8, 8, 8, 10, 10}, {8, 9, 9, 9, 9}});
 		
 		results.addEntry(entry1);
 		

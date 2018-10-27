@@ -22,12 +22,22 @@ public class EvaluationDataSet implements DataView {
 	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
 	
 	/**
+	 * constructor for a new EvaluationDataSet
+	 * 
 	 * @deprecated use {@link #EvaluationDataSet(String name, String imagePath, String sourceFolder, String kFactor, String heuristic)} instead. 
 	 */
 	public EvaluationDataSet() {
-		
 	}
 	
+	/**
+	 * constructor for a new EvaluationDataSet
+	 * 
+	 * @param name			the name of the set
+	 * @param imagePath		the full image path of the selected image
+	 * @param sourceFolder	the full path of the selected scan folder
+	 * @param kFactor		maximum number of files to be scanned
+	 * @param heuristic		the heuristic which was used for the scan
+	 */
 	public EvaluationDataSet(String name, String imagePath, String sourceFolder, String kFactor, String heuristic) {
 		this.name = name;
 		this.imagePath = imagePath;
@@ -36,14 +46,29 @@ public class EvaluationDataSet implements DataView {
 		this.heuristic = heuristic;
 	}
 	
+	/**
+	 * adds a new EvaluationDataSetEntry to the list of entries
+	 * 
+	 * @param entry	the EvaluationDataSetEntry to be added
+	 */
 	public void addEntry(EvaluationDataSetEntry entry) {
 		entries.add(entry);
 	}
 	
+	/**
+	 * returns all EvaluationDataSetEntries as a List
+	 * 
+	 * @return	all EvaluationDataSetEntries as a List
+	 */
 	public List<EvaluationDataSetEntry> getEntries() {
 		return entries;
 	}
 	
+	/**
+	 * returns the size of the EvaluationDataSetEntries list
+	 * 
+	 * @return	size of the EvaluationDataSetEntries list
+	 */
 	public Integer getEntriesSize() {
 		return entries.size();
 	}

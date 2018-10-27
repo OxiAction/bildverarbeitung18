@@ -38,7 +38,7 @@ public class ViewTabs implements ViewInterface {
 		
 		borderPane.setCenter(tabPane);
 		
-		// events
+	// new scan
 		
 		EventButtonNewScanClicked eventButtonNewScan = new EventButtonNewScanClicked() {
 			@Override
@@ -53,18 +53,7 @@ public class ViewTabs implements ViewInterface {
 		};
 		EventManager.add(eventButtonNewScan);
 		
-		EventButtonConfigClicked eventButtonConfig = new EventButtonConfigClicked() {
-			@Override
-			public void dispatch(Object extraData) {
-				try {
-					new ViewTabConfig().init(tabPane, extraData);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		};
-		EventManager.add(eventButtonConfig);
+	// start scan
 		
 		EventButtonStartScanClicked eventButtonStartScanClicked = new EventButtonStartScanClicked() {
 			@Override
@@ -78,5 +67,35 @@ public class ViewTabs implements ViewInterface {
 			}
 		};
 		EventManager.add(eventButtonStartScanClicked);
+		
+	// scan results overview
+		
+		EventButtonScanResultsOverviewClicked eventButtonScanResultsOverview = new EventButtonScanResultsOverviewClicked() {
+			@Override
+			public void dispatch(Object extraData) {
+				try {
+					new ViewTabScanResultsOverview().init(tabPane, extraData);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		EventManager.add(eventButtonScanResultsOverview);
+		
+	// config
+		
+		EventButtonConfigClicked eventButtonConfig = new EventButtonConfigClicked() {
+			@Override
+			public void dispatch(Object extraData) {
+				try {
+					new ViewTabConfig().init(tabPane, extraData);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		EventManager.add(eventButtonConfig);
 	}
 }
