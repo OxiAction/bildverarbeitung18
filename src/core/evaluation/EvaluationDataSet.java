@@ -72,6 +72,76 @@ public class EvaluationDataSet implements DataView {
 	public Integer getEntriesSize() {
 		return entries.size();
 	}
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the imagePath
+	 */
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	/**
+	 * @param imagePath the imagePath to set
+	 */
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	/**
+	 * @return the sourceFolder
+	 */
+	public String getSourceFolder() {
+		return sourceFolder;
+	}
+
+	/**
+	 * @param sourceFolder the sourceFolder to set
+	 */
+	public void setSourceFolder(String sourceFolder) {
+		this.sourceFolder = sourceFolder;
+	}
+
+	/**
+	 * @return the kFactor
+	 */
+	public String getKFactor() {
+		return kFactor;
+	}
+
+	/**
+	 * @param kFactor the kFactor to set
+	 */
+	public void setKFactor(String kFactor) {
+		this.kFactor = kFactor;
+	}
+
+	/**
+	 * @return the heuristic
+	 */
+	public String getHeuristic() {
+		return heuristic;
+	}
+
+	/**
+	 * @param heuristic the heuristic to set
+	 */
+	public void setHeuristic(String heuristic) {
+		this.heuristic = heuristic;
+	}
 
 	@Override
 	public Node toXMLNode() {
@@ -83,6 +153,17 @@ public class EvaluationDataSet implements DataView {
 	public DataView fromXMLNode() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	// general stuff
+	
+	@Override
+	public String toString() {
+		return "name: " + this.getName() + 
+				"\nimagePath: " + this.getImagePath() + 
+				"\nsourceFolder: " + this.getSourceFolder() + 
+				"\nkFactor: " + this.getKFactor() + 
+				"\nheuristic: " + this.getHeuristic();
 	}
 	
 }

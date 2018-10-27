@@ -26,7 +26,7 @@ public class Histogram {
 	 * @param set
 	 * @return
 	 */
-	public static Canvas get(EvaluationDataSet set) {
+	public static Canvas get(EvaluationDataSet data) {
 		int width = 300;
 		int height = 300;
 		// test image greyscale datas
@@ -45,7 +45,7 @@ public class Histogram {
 		Canvas canvas = new Canvas(width, height);
 		drawHistogram(canvas, allHistograms.get(0));
 
-		// iterate over set entries...
+		// iterate over data entries...
 //		for (EvaluationDataSetEntry setEntry : set.getEntries()) {
 //			System.out.println(setEntry);
 //		}

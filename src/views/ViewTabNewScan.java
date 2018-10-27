@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import core.data.*;
+import core.evaluation.EvaluationDataSet;
 import events.*;
 import utils.*;
 
@@ -110,10 +111,11 @@ public class ViewTabNewScan implements ViewInterface {
 			        	URI uri = selectedFile.toURI();
 			        	image = new Image(uri.toString());
 			        	imageView.setImage(image);
+			        	imagePath = uri.toString();
 			        	
 			        	updateButtonStartScan();
 			        	
-			        	Debug.log(uri.toString());
+			        	Debug.log("-> image path: " + uri.toString());
 			        } else {
 			        	// no file selected
 			        }
@@ -139,15 +141,15 @@ public class ViewTabNewScan implements ViewInterface {
 				    	File selectedDirectory = directoryChooser.showDialog(null);
 				        
 				        if (selectedDirectory != null) {
-				        	URI imageURI = selectedDirectory.toURI();
-				        	imagePath = imageURI.toString();
-				        	textFieldSourceFolder.setText(imagePath);
+				        	URI uri = selectedDirectory.toURI();
+				        	textFieldSourceFolder.setText(uri.toString());
 				        	
 				        	updateButtonStartScan();
 				        	
-				        	Debug.log("-> iamge path: " + imagePath);
+				        	Debug.log("-> source folder: " + uri.toString());
 				        } else {
 				        	// no directory selected
+				        	Debug.log("-> ummm");
 				        }
 				    }
 				});
@@ -201,11 +203,18 @@ public class ViewTabNewScan implements ViewInterface {
 				    public void handle(final ActionEvent e) {
 						Debug.log("-> start scan");
 						
-						HashMap<String, String> data = new HashMap<String, String>();
-						data.put("image_path", imagePath);
-						data.put("source_folder", textFieldSourceFolder.getText().trim());
-						data.put("k_factor", comboBoxKFactor.getValue());
-						data.put("heuristic", comboBoxHeuristic.getValue());
+						EvaluationDataSet data = new EvaluationDataSet(
+								textFieldName.getText().trim(),
+								imagePath,
+								textFieldSourceFolder.getText().trim(),
+								comboBoxKFactor.getValue(),
+								comboBoxHeuristic.getValue());
+						
+//						HashMap<String, String> data = new HashMap<String, String>();
+//						data.put("image_path", imagePath);
+//						data.put("source_folder", textFieldSourceFolder.getText().trim());
+//						data.put("k_factor", comboBoxKFactor.getValue());
+//						data.put("heuristic", comboBoxHeuristic.getValue());
 						
 						EventManager.dispatch(new EventButtonStartScanClicked(), data);
 					}});

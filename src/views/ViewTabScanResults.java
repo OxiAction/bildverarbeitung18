@@ -68,27 +68,27 @@ public class ViewTabScanResults implements ViewInterface {
 		
 	// TODO implement -> evaluate data
 		
-		HashMap<?, ?> data;
+		EvaluationDataSet data;
 		
 		// verify data
-		if (!(extraData instanceof HashMap<?, ?>)) {
-			throw new Exception("extraData doesnt seem to be of type HashMap<?, ?>!");
+		if (!(extraData instanceof EvaluationDataSet)) {
+			throw new Exception("extraData doesnt seem to be of type EvaluationDataSet!");
 		} else {
-			data = (HashMap<?, ?>) extraData;
+			data = (EvaluationDataSet) extraData;
 		}
 		
 		// globally fire an event to let everybody know that we ENTER "loading" state
 		EventManager.dispatch(new EventLoadingStarted(), null);
 		
 		// evaluation
-		EvaluationDataSet set = Evaluation.get(data);
+		data = Evaluation.get(data);
 		
 		// histogram
-		Canvas histogram = Histogram.get(set);
+		Canvas histogram = Histogram.get(data);
 		vBox.getChildren().add(histogram);
 		
 		// store data
-		Data.save(set);
+		Data.save(data);
 		
 		Text text = new Text();
 		text.setWrappingWidth(300);
