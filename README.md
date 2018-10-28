@@ -6,7 +6,7 @@ Authors: RR, MI, MS
 * Lets you select an image and compares it against other images
 * Distinguish between different camera sensors
 * Generates histograms based on image metrics
-* Saves results in data.xml file (storage)
+* Saves results in data.xml file (storage), which offers the possibility to take a look at past results again
 
 ##### Requirements
 * Java Version 8+
