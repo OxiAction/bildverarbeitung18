@@ -35,7 +35,7 @@ public class Evaluation {
 		// entry1.setGreyScaleValue(...);
 		
 		// set entries:
-		data.addEntry(entry1);
+		//data.addEntry(entry1);
 		
 		// return the set, filled with all the entries and values:
 		return data;

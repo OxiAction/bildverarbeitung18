@@ -20,7 +20,7 @@ public class EvaluationDataSetEntry implements DataView {
 	/**
 	 * constructor for a new EvaluationDataSet
 	 * 
-	 * @deprecated use {@link #EvaluationDataSetEntry(String filePath, String fileName, String fileExtension, int[][] greyScaleValues)} instead. 
+	 * @deprecated use {@link #EvaluationDataSetEntry(String fileFolderPath, String fileName, String fileExtension, int[][] greyScaleValues)} instead. 
 	 */
 	public EvaluationDataSetEntry() {
 	}

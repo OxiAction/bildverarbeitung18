@@ -82,6 +82,11 @@ public class ViewTabNewScan implements ViewInterface {
 		vBox.getChildren().add(hBoxName);
 		
 		textFieldName.textProperty().addListener((observable, oldValue, newValue) -> {
+			// limit length
+			if (textFieldName.getText().length() > 10) {
+				textFieldName.setText(textFieldName.getText().substring(0, 10));
+			}
+			
 			updateButtonStartScan();
 		});
 		
@@ -134,6 +139,8 @@ public class ViewTabNewScan implements ViewInterface {
 		vBox.getChildren().add(hBoxSourceFolder);
 		
 		Button buttonSelectSourceFolder = new Button(Translation.fetch("button_new_scan_select_source_folder"));
+		vBox.getChildren().add(buttonSelectSourceFolder);
+		
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		buttonSelectSourceFolder.setOnAction(
 				new EventHandler<ActionEvent>() {
@@ -157,8 +164,6 @@ public class ViewTabNewScan implements ViewInterface {
 		textFieldSourceFolder.textProperty().addListener((observable, oldValue, newValue) -> {
 			updateButtonStartScan();
 		});
-		
-		vBox.getChildren().add(buttonSelectSourceFolder);
 		
 	// k-factor
 		
@@ -203,7 +208,7 @@ public class ViewTabNewScan implements ViewInterface {
 				    public void handle(final ActionEvent e) {
 						Debug.log("-> start scan");
 						
-						EvaluationDataSet data = new EvaluationDataSet(
+						EvaluationDataSet set = new EvaluationDataSet(
 								new Timestamp(System.currentTimeMillis()),
 								textFieldName.getText().trim(),
 								imagePath,
@@ -211,7 +216,7 @@ public class ViewTabNewScan implements ViewInterface {
 								comboBoxKFactor.getValue(),
 								comboBoxHeuristic.getValue());
 						
-						EventManager.dispatch(new EventButtonStartScanClicked(), data);
+						EventManager.dispatch(new EventButtonStartScanClicked(), set);
 					}});
 		vBox.getChildren().add(buttonStartScan);
 		

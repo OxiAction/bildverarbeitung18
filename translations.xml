@@ -8,14 +8,21 @@
 		<welcome><![CDATA[Willkommen]]></welcome>
 		<name><![CDATA[Name]]></name>
 		<loading><![CDATA[Geladen]]></loading>
+		<file_folder_path><![CDATA[Datei-Ordner]]></file_folder_path>
+		<file_name><![CDATA[Datei-Name]]></file_name>
+		<file_extension><![CDATA[Datei-Typ]]></file_extension>
+		<grey_scale_value><![CDATA[Graustufen Werte]]></grey_scale_value>
 		<image><![CDATA[Bild]]></image>
 		<folder><![CDATA[Ordner]]></folder>
 		<k_factor><![CDATA[K-Faktor]]></k_factor>
 		<heuristic><![CDATA[Heuristik]]></heuristic>
+		<show><![CDATA[Anzeigen]]></show>
 		<scan_results_overview><![CDATA[Scan Ergebnisse]]></scan_results_overview>
+		<scan_results><![CDATA[Scan Ergebnisse]]></scan_results>
 		<button_new_scan_select_image><![CDATA[Bild wählen...]]></button_new_scan_select_image>
 		<button_new_scan_select_source_folder><![CDATA[Ordner wählen...]]></button_new_scan_select_source_folder>
 		<button_new_scan_start_scan><![CDATA[Starten]]></button_new_scan_start_scan>
+		<button_show_scan_result><![CDATA[Scan Ergebnisse]]></button_show_scan_result>
 		<filechooser_new_scan_type><![CDATA[Bilder]]></filechooser_new_scan_type>
 		<filechooser_new_scan_title><![CDATA[Bitte wählen Sie ein Bild als Quelle]]></filechooser_new_scan_title>
 		<text_config><![CDATA[Dignissim enim sit amet venenatis urna cursus.]]></text_config>
@@ -33,14 +40,21 @@ Tristique senectus et netus et. Praesent semper feugiat nibh sed pulvinar proin.
 		<welcome><![CDATA[Welcome]]></welcome>
 		<name><![CDATA[Name]]></name>
 		<loading><![CDATA[Loading]]></loading>
+		<file_folder_path><![CDATA[File Folder]]></file_folder_path>
+		<file_name><![CDATA[File Name]]></file_name>
+		<file_extension><![CDATA[File Type]]></file_extension>
+		<grey_scale_value><![CDATA[Grey-Scale Values]]></grey_scale_value>
 		<image><![CDATA[Image]]></image>
 		<folder><![CDATA[Folder]]></folder>
 		<k_factor><![CDATA[K-Factor]]></k_factor>
 		<heuristic><![CDATA[Heuristic]]></heuristic>
+		<show><![CDATA[Show]]></show>
 		<scan_results_overview><![CDATA[Scan Results]]></scan_results_overview>
+		<scan_results><![CDATA[Scan Results]]></scan_results>
 		<button_new_scan_select_image><![CDATA[Select Image...]]></button_new_scan_select_image>
 		<button_new_scan_select_source_folder><![CDATA[Select Folder...]]></button_new_scan_select_source_folder>
 		<button_new_scan_start_scan><![CDATA[Start]]></button_new_scan_start_scan>
+		<button_show_scan_result><![CDATA[Scan Results]]></button_show_scan_result>
 		<filechooser_new_scan_type><![CDATA[Images]]></filechooser_new_scan_type>
 		<filechooser_new_scan_title><![CDATA[Please choose one image file as source]]></filechooser_new_scan_title>
 		<text_config><![CDATA[Dignissim enim sit amet venenatis urna cursus.]]></text_config>

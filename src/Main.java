@@ -29,7 +29,7 @@ public class Main extends Application {
 		// initialize main view
 		new ViewMain().init(borderPane, null);
 		
-		Scene scene = new Scene(borderPane, 600, 600);
+		Scene scene = new Scene(borderPane, 800, 800);
 		stage.setTitle("V" + Translation.fetch("version") + " " + Translation.fetch("main_window_title"));
 		stage.getIcons().add(new Image("file:icon.png"));
 		stage.setScene(scene);

@@ -16,6 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import core.evaluation.*;
+import utils.Utils;
 
 /**
  * Save / load data to / from .xml based on objects which implement DataView interface
@@ -29,22 +30,26 @@ public class Data {
 	}
 	
 	public static ArrayList<DataView> load() throws IOException {
+		// init list for sets
 		ArrayList<DataView> sets = new ArrayList<DataView>();
 		
 		try {
+			// read file
 			File file = new File("data.xml");
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			Document document = documentBuilder.parse(file);
 			document.getDocumentElement().normalize();
-	
+			
+			// get set nodes
 			NodeList setNodes = document.getElementsByTagName("set");
-	
 			for (int i = 0; i < setNodes.getLength(); ++i) {
 				Node setNode = setNodes.item(i);
 
 				if (setNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element setElement = (Element) setNode;
+					
+					// get attributes
 					String timestamp = setElement.getAttribute("timestamp");
 					String name = setElement.getAttribute("name");
 					String imagePath = setElement.getAttribute("imagePath");
@@ -57,11 +62,30 @@ public class Data {
 					Date date = (Date) dateFormat.parse(timestamp);
 				    Timestamp timestampObject = new Timestamp(date.getTime());
 					
+				    // create and add set to the list of sets
 					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, imagePath, sourceFolder, kFactor, heuristic);
-					
-					// TODO read / add entries
-					
 					sets.add(set);
+					
+					// get entry nodes
+					NodeList entryNodes = setElement.getElementsByTagName("entry");
+					for (int j = 0; j < entryNodes.getLength(); ++j) {
+						
+						Node entryNode = entryNodes.item(i);
+						
+						if (entryNode.getNodeType() == Node.ELEMENT_NODE) {
+							Element entryElement = (Element) entryNode;
+							
+							// get attributes
+							String fileFolderPath = entryElement.getAttribute("fileFolderPath");
+							String fileName = entryElement.getAttribute("fileName");
+							String fileExtension = entryElement.getAttribute("fileExtension");
+							String greyScaleValues = entryElement.getAttribute("greyScaleValues");
+							
+							// create and add entry to the set
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, Utils.stringToIntArray(greyScaleValues));
+							set.addEntry(entry);
+						}
+					}
 				}
 			}
 		} catch (Exception e) {
