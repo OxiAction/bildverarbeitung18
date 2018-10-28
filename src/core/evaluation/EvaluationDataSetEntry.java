@@ -3,15 +3,13 @@ package core.evaluation;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import core.data.DataView;
-
 /**
  * TODO description
  * 
  * @author 
  *
  */
-public class EvaluationDataSetEntry implements DataView {
+public class EvaluationDataSetEntry {
 	protected String fileFolderPath;
 	protected String fileName;
 	protected String fileExtension;
@@ -94,18 +92,6 @@ public class EvaluationDataSetEntry implements DataView {
 	 */
 	public void setGreyScaleValues(int[][] greyScaleValues) {
 		this.greyScaleValues = greyScaleValues;
-	}
-
-	@Override
-	public Node toXMLNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataView fromXMLNode() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

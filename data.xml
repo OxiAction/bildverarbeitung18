@@ -1,44 +1,44 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sets>
-	<set timestamp="2018-10-27 23:49:04.209" name="Test Set 1" imagePath="file:/C:/Users/Michi/Pictures/logo.jpg" sourceFolder="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder/" kFactor="2" heuristic="A">
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test1" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test2" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test3" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test4" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test5" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test6" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test7" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test8" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test9" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test10" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test11" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
+	<set heuristic="A" imagePath="file:/C:/Users/Michi/Pictures/logo.jpg" kFactor="2" name="Test Set 1" sourceFolder="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder/" timestamp="2018-10-27 23:49:04.209">
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test1" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test2" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test3" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test4" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test5" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test6" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test7" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test8" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test9" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test10" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder1" fileName="test11" greyScaleValues="1234|5678|1133"/>
 	</set>
 
-	<set timestamp="2018-10-28 23:49:04.209" name="Test Set 2" imagePath="file:/C:/Users/Michi/Pictures/logo.jpg" sourceFolder="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder/" kFactor="2" heuristic="A">
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test1" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test2" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test3" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test4" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test5" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test6" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test7" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test8" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test9" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test10" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test11" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
+	<set heuristic="A" imagePath="file:/C:/Users/Michi/Pictures/logo.jpg" kFactor="2" name="Test Set 2" sourceFolder="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder/" timestamp="2018-10-28 23:49:04.209">
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test1" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test2" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test3" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test4" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test5" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test6" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test7" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test8" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test9" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test10" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder2" fileName="test11" greyScaleValues="1234|5678|1133"/>
 	</set>
 
-	<set timestamp="2018-10-29 23:49:04.209" name="Test Set 3" imagePath="file:/C:/Users/Michi/Pictures/logo.jpg" sourceFolder="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder/" kFactor="2" heuristic="A">
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test1" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test2" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test3" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test4" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test5" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test6" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test7" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test8" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test9" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test10" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
-		<entry fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test11" fileExtension="jpg" greyScaleValues="1234|5678|1133"/>
+	<set heuristic="A" imagePath="file:/C:/Users/Michi/Pictures/logo.jpg" kFactor="2" name="Test Set 3" sourceFolder="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder/" timestamp="2018-10-29 23:49:04.209">
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test1" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test2" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test3" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test4" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test5" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test6" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test7" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test8" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test9" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test10" greyScaleValues="1234|5678|1133"/>
+		<entry fileExtension="jpg" fileFolderPath="file:/C:/Users/Michi/Desktop/grundlagen-bildv-bilder3" fileName="test11" greyScaleValues="1234|5678|1133"/>
 	</set>
 </sets>

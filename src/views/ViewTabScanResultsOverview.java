@@ -85,47 +85,43 @@ public class ViewTabScanResultsOverview implements ViewInterface {
 		
 		Accordion accordion = new Accordion ();
 		// get data
-		ArrayList<DataView> sets = Data.load();
-		for (DataView data : sets) {
-			if (data instanceof EvaluationDataSet) {
-				EvaluationDataSet set = (EvaluationDataSet) data;
-				
-				Debug.log("-> read sets from data:\n" + set.toString() + "\n");
-				
-			// box
-				
-				VBox  vBoxTitledPane = new VBox();
-				vBoxTitledPane.setSpacing(10);
-				vBoxTitledPane.setPadding(new Insets(10, 10, 10, 10));
-				
-			// intro text (details about the scan settings)
-				
-				Text textTitledPane = new Text();
-				textTitledPane.setWrappingWidth(300);
-				textTitledPane.setText(set.toString());
-				vBoxTitledPane.getChildren().add(textTitledPane);
-				// collect all texts
-				texts.add(textTitledPane);
-				
-			// show scan results
-				
-				Button buttonShowScanResult = new Button(Translation.fetch("button_show_scan_result"));
-				vBoxTitledPane.getChildren().add(buttonShowScanResult);
-				
-				buttonShowScanResult.setOnAction(
-						new EventHandler<ActionEvent>() {
-						    @Override
-						    public void handle(final ActionEvent e) {
-						    	EventManager.dispatch(new EventButtonStartScanClicked(), set);
-						    }
-						});
-				
-			// titled pane
-				
-				TitledPane titledPane = new TitledPane(set.getName() + " " + set.getTimestamp().toString(), vBoxTitledPane);
-				
-				accordion.getPanes().add(titledPane);
-			}
+		ArrayList<EvaluationDataSet> sets = Data.load();
+		for (EvaluationDataSet set : sets) {
+			Debug.log("-> read sets from data:\n" + set.toString() + "\n");
+			
+		// box
+			
+			VBox  vBoxTitledPane = new VBox();
+			vBoxTitledPane.setSpacing(10);
+			vBoxTitledPane.setPadding(new Insets(10, 10, 10, 10));
+			
+		// intro text (details about the scan settings)
+			
+			Text textTitledPane = new Text();
+			textTitledPane.setWrappingWidth(300);
+			textTitledPane.setText(set.toString());
+			vBoxTitledPane.getChildren().add(textTitledPane);
+			// collect all texts
+			texts.add(textTitledPane);
+			
+		// show scan results
+			
+			Button buttonShowScanResult = new Button(Translation.fetch("button_show_scan_result"));
+			vBoxTitledPane.getChildren().add(buttonShowScanResult);
+			
+			buttonShowScanResult.setOnAction(
+					new EventHandler<ActionEvent>() {
+					    @Override
+					    public void handle(final ActionEvent e) {
+					    	EventManager.dispatch(new EventButtonStartScanClicked(), set);
+					    }
+					});
+			
+		// titled pane
+			
+			TitledPane titledPane = new TitledPane(set.getName() + " " + set.getTimestamp().toString(), vBoxTitledPane);
+			
+			accordion.getPanes().add(titledPane);
 		}
 		vBox.getChildren().add(accordion);
 		

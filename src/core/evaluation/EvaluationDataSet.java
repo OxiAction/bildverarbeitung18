@@ -6,15 +6,13 @@ import java.util.List;
 
 import org.w3c.dom.Node;
 
-import core.data.DataView;
-
 /**
  * TODO description
  * 
  * @author 
  *
  */
-public class EvaluationDataSet implements DataView {
+public class EvaluationDataSet {
 	protected Timestamp timestamp;
 	protected String name;
 	protected String imagePath;
@@ -159,18 +157,6 @@ public class EvaluationDataSet implements DataView {
 	 */
 	public void setHeuristic(String heuristic) {
 		this.heuristic = heuristic;
-	}
-
-	@Override
-	public Node toXMLNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DataView fromXMLNode() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	// general stuff
