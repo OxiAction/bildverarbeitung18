@@ -20,6 +20,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -75,9 +76,18 @@ public class ViewTabScanResultsOverview implements ViewInterface {
 	// accordion
 		
 		Accordion accordion = new Accordion ();
-		TitledPane p1 = new TitledPane("Ergebnis 1", new Text("...\n....\n....."));
-		TitledPane p2 = new TitledPane("Ergebnis 2", new Text("...\n....\n....."));
-		accordion.getPanes().addAll(new TitledPane[] {p1, p2});
+		// get data
+		ArrayList<DataView> sets = Data.load();
+		for (DataView data : sets) {
+			if (data instanceof EvaluationDataSet) {
+				EvaluationDataSet set = (EvaluationDataSet) data;
+				Debug.log("-> read sets from data:\n" + set.toString() + "\n");
+				
+				TitledPane titledPane = new TitledPane(set.getName() + " " + set.getTimestamp().toString(), new Text("...\n....\n....."));
+				
+				accordion.getPanes().add(titledPane);
+			}
+		}
 		vBox.getChildren().add(accordion);
 		
 	// setup
