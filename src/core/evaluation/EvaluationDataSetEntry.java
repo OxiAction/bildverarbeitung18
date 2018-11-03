@@ -16,14 +16,6 @@ public class EvaluationDataSetEntry {
 	protected int[][] greyScaleValues;
 	
 	/**
-	 * constructor for a new EvaluationDataSet
-	 * 
-	 * @deprecated use {@link #EvaluationDataSetEntry(String fileFolderPath, String fileName, String fileExtension, int[][] greyScaleValues)} instead. 
-	 */
-	public EvaluationDataSetEntry() {
-	}
-	
-	/**
 	 * constructor for a new EvaluationDataSetEntry
 	 * 
 	 * @param fileFolderPath	the folder path of the file
