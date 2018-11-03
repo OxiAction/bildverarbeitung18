@@ -18,20 +18,20 @@ import java.nio.file.Paths;
 public class Evaluation {
 	
 	/**
-	 * Returns evaluated data based on incoming image data
-	 * TODO implement
+	 * Returns evaluated data based on incoming set
+	 * 
 	 * @throws IOException 
 	 */
-	public static EvaluationDataSet get(EvaluationDataSet data) throws IOException {
-		// get data:
-		String name = data.getName();
-		String imagePath = data.getImagePath();
-		String sourceFolder = data.getSourceFolder();
-		int kFactor = Integer.parseInt(data.getKFactor());
-		int heuristic = Integer.parseInt(data.getHeuristic());
+	public static EvaluationDataSet get(EvaluationDataSet set) throws IOException {
+		// get set:
+		String name = set.getName();
+		String imagePath = set.getImagePath();
+		String sourceFolder = set.getSourceFolder();
+		int kFactor = Integer.parseInt(set.getKFactor());
+		//String heuristic = set.getHeuristic();
 		
 		Debug.log("-> EvaluationDataSet values:");
-		Debug.log(data.toString());
+		Debug.log(set.toString());
 		
 		ImageReader ir = new ImageReader(imagePath);
 		Pathfinder pf = new Pathfinder(sourceFolder);
@@ -41,23 +41,18 @@ public class Evaluation {
 		
 		//adds the selected image to the dataset
 		entry = new EvaluationDataSetEntry(ir.getImagepath(),ir.getImagename(),ir.getImageextension(), ir.convertTo2DArray());
-		data.addEntry(entry);
+		set.addEntry(entry);
 		
 		
 		//adds k-many images from the database to the dataset
 		for(int i=0; i<kFactor;i++) {
 			ImageReader temp = new ImageReader(paths.get(i));
 			entry = new EvaluationDataSetEntry(paths.get(i), pf.getFilenames().get(i), pf.getExtensions().get(i), temp.convertTo2DArray());
-			data.addEntry(entry);
+			set.addEntry(entry);
 		}
-		// you can either use the constructor to pass the entry arguments,
-		// or use the implemented setter methods e.g.:
-		// entry1.setGreyScaleValue(...);
-		
-
 		
 		// return the set, filled with all the entries and values:
-		return data;
+		return set;
 	}
 	
 	
