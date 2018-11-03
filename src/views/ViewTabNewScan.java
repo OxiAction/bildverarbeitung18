@@ -10,6 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -21,11 +24,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import core.data.*;
 import core.evaluation.EvaluationDataSet;
+import core.evaluation.EvaluationDataSetEntry;
 import events.*;
 import utils.*;
 
@@ -42,6 +47,9 @@ public class ViewTabNewScan implements ViewInterface {
 	protected Image image;
 	protected Button buttonStartScan;
 	protected String imagePath;
+	
+	protected Label labelNameNotUnique;
+	protected ArrayList<EvaluationDataSet> sets;
 
 	/**
 	 * initialize / show components
@@ -54,6 +62,9 @@ public class ViewTabNewScan implements ViewInterface {
 		if (!(container instanceof TabPane)) {
 			throw new Exception("container doesnt seem to be of type TabPane!");
 		}
+		
+		// load sets
+		sets = Data.load();
 		
 		TabPane tabPane = (TabPane) container;	
 		
@@ -83,12 +94,18 @@ public class ViewTabNewScan implements ViewInterface {
 		
 		textFieldName.textProperty().addListener((observable, oldValue, newValue) -> {
 			// limit length
-			if (textFieldName.getText().length() > 10) {
-				textFieldName.setText(textFieldName.getText().substring(0, 10));
+			if (textFieldName.getText().length() > 15) {
+				textFieldName.setText(textFieldName.getText().substring(0, 15));
 			}
 			
 			updateButtonStartScan();
 		});
+		
+		labelNameNotUnique = new Label(Translation.fetch("name_not_unique"));
+		labelNameNotUnique.setTextFill(Color.RED);
+		labelNameNotUnique.setFont(Font.font(labelNameNotUnique.getFont().getName(), FontWeight.BOLD, labelNameNotUnique.getFont().getSize()));
+		labelNameNotUnique.setVisible(false);
+		vBox.getChildren().add(labelNameNotUnique);
 		
 	// image select
 		
@@ -248,7 +265,7 @@ public class ViewTabNewScan implements ViewInterface {
 	
 	protected void updateButtonStartScan() {
 		if (
-				textFieldName.getText().trim().length() > 0 
+				isTextFieldNameValid() 
 				&& !textFieldSourceFolder.getText().trim().isEmpty() 
 				&& image != null
 			) {
@@ -256,5 +273,22 @@ public class ViewTabNewScan implements ViewInterface {
 		} else if (!Debug.enabled) {
 			buttonStartScan.setDisable(true);
 		}
+	}
+	
+	protected boolean isTextFieldNameValid() {
+		labelNameNotUnique.setVisible(false);
+		String value = textFieldName.getText().trim();
+		if (value.length() == 0) {
+			return false;
+		} else {
+			for (EvaluationDataSet set : sets) {
+				if (set.getName().trim().equals(value)) {
+					labelNameNotUnique.setVisible(true);
+					return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 }
