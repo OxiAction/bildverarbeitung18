@@ -2,6 +2,8 @@ package views;
 
 import javafx.event.*;
 import javafx.geometry.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
@@ -44,9 +46,15 @@ public class ViewTabWelcome implements ViewInterface {
 		vBox.setSpacing(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 		
+		StringProperty statusProperty = new SimpleStringProperty();
 		Text text = new Text();
 		text.setWrappingWidth(300);
-		text.setText(Translation.fetch("text_welcome"));
+//		text.setText(Translation.fetch("text_welcome"));
+		String testStr = Translation.fetch("text_welcome");
+		testStr = testStr.toString();
+		text.textProperty().bind(statusProperty);
+		statusProperty.set(testStr);
+		
 		vBox.getChildren().add(text);
 		
 		scrollPane.setContent(vBox);
