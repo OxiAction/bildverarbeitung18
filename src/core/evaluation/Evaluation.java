@@ -54,8 +54,4 @@ public class Evaluation {
 		// return the set, filled with all the entries and values:
 		return set;
 	}
-	
-	
-	
-	
 }
