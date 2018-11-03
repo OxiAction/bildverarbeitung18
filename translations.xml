@@ -19,14 +19,15 @@
 		<show><![CDATA[Anzeigen]]></show>
 		<scan_results_overview><![CDATA[Scan Ergebnisse]]></scan_results_overview>
 		<scan_results><![CDATA[Scan Ergebnisse]]></scan_results>
+		<button_data_reset><![CDATA[Gespeicherte Daten zurücksetzen (!)]]></button_data_reset>
 		<button_new_scan_select_image><![CDATA[Bild wählen...]]></button_new_scan_select_image>
 		<button_new_scan_select_source_folder><![CDATA[Ordner wählen...]]></button_new_scan_select_source_folder>
 		<button_new_scan_start_scan><![CDATA[Starten]]></button_new_scan_start_scan>
 		<button_show_scan_result><![CDATA[Scan Ergebnisse]]></button_show_scan_result>
 		<filechooser_new_scan_type><![CDATA[Bilder]]></filechooser_new_scan_type>
 		<filechooser_new_scan_title><![CDATA[Bitte wählen Sie ein Bild als Quelle]]></filechooser_new_scan_title>
-		<text_config><![CDATA[Dignissim enim sit amet venenatis urna cursus.]]></text_config>
-		<text_scan_results_overview><![CDATA[Pretium fusce id velit ut tortor pretium viverra suspendisse potenti.]]></text_scan_results_overview>
+		<text_config><![CDATA[Allgemeine Konfigurations Optionen:]]></text_config>
+		<text_scan_results_overview><![CDATA[Gespeicherte Test-Ergebnisse:]]></text_scan_results_overview>
 		<text_new_scan><![CDATA[Lorem ipsum dolor sit amet.]]></text_new_scan>
 		<text_welcome><![CDATA[Grundlagen Bildverarbeitung 2018 WS\n\nProgramm zur Verarbeitung von Bildern]]></text_welcome>
 	</language>
@@ -49,14 +50,15 @@
 		<show><![CDATA[Show]]></show>
 		<scan_results_overview><![CDATA[Scan Results]]></scan_results_overview>
 		<scan_results><![CDATA[Scan Results]]></scan_results>
+		<button_data_reset><![CDATA[Reset saved data (!)]]></button_data_reset>
 		<button_new_scan_select_image><![CDATA[Select Image...]]></button_new_scan_select_image>
 		<button_new_scan_select_source_folder><![CDATA[Select Folder...]]></button_new_scan_select_source_folder>
 		<button_new_scan_start_scan><![CDATA[Start]]></button_new_scan_start_scan>
 		<button_show_scan_result><![CDATA[Scan Results]]></button_show_scan_result>
 		<filechooser_new_scan_type><![CDATA[Images]]></filechooser_new_scan_type>
 		<filechooser_new_scan_title><![CDATA[Please choose one image file as source]]></filechooser_new_scan_title>
-		<text_config><![CDATA[Dignissim enim sit amet venenatis urna cursus.]]></text_config>
-		<text_scan_results_overview><![CDATA[Pretium fusce id velit ut tortor pretium viverra suspendisse potenti.]]></text_scan_results_overview>
+		<text_config><![CDATA[General configuration options:]]></text_config>
+		<text_scan_results_overview><![CDATA[Previously saved results:]]></text_scan_results_overview>
 		<text_new_scan><![CDATA[Lorem ipsum dolor sit amet.]]></text_new_scan>
 		<text_welcome><![CDATA[Grundlagen Bildverarbeitung 2018 WS\n\nProgram for image procressing]]></text_welcome>
 	</language>
