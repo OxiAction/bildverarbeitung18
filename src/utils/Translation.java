@@ -73,24 +73,7 @@ public class Translation {
 							String languageNodeID = languageTranslationNode.getNodeName();
 							String languageNodeContent = languageTranslationNode.getTextContent();
 							
-							// fix for \n
-							String fixedNewlineString = "";
-							for (int f = 0; f < languageNodeContent.length(); ++f) {
-								if (languageNodeContent.charAt(f) == '\\') {
-									if (f + 1 < languageNodeContent.length()) {
-										if (languageNodeContent.charAt(f + 1) == 'n') {
-											fixedNewlineString += "\n";
-											++f;
-										}
-									} else {
-										fixedNewlineString += languageNodeContent.charAt(f);
-									}
-								} else {
-									fixedNewlineString += languageNodeContent.charAt(f);
-								}
-							}
-							
-							languageTranslations.put(languageNodeID, fixedNewlineString);
+							languageTranslations.put(languageNodeID, languageNodeContent);
 						}
 					}
 					
