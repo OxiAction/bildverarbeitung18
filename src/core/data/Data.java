@@ -74,14 +74,40 @@ public class Data {
 	}
 	
 	/**
+	 * create .xml file
+	 * @return document							the document object
+	 * 
+	 * @throws ParserConfigurationException 
+	 * @throws TransformerException 
+	 */
+	protected static Document create() throws ParserConfigurationException, TransformerException {
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.newDocument();
+		Element rootElement = document.createElement("sets");
+		document.appendChild(rootElement);
+		saveDocument(document);
+		
+		return document;
+	}
+	
+	/**
 	 * resets the .xml file (deleting all data)
 	 * 
 	 * @throws IOException
 	 */
 	public static void reset() throws IOException {
 		try {
+			Document document = null;
+			
 			// load doc
-			Document document = loadDocument();
+			try {
+				document = loadDocument();
+			}
+			// create
+			catch (IOException ignore) {
+				document = create();
+			}
 			
 			NodeList setEntries = document.getElementsByTagName("set");
 			
@@ -108,8 +134,16 @@ public class Data {
 	 */
 	public static void save(EvaluationDataSet set) throws IOException {
 		try {
+			Document document = null;
+			
 			// load doc
-			Document document = loadDocument();
+			try {
+				document = loadDocument();
+			}
+			// create
+			catch (IOException ignore) {
+				document = create();
+			}
 			
 			// get entry point
 			Element root = document.getDocumentElement();
@@ -159,8 +193,16 @@ public class Data {
 		ArrayList<EvaluationDataSet> sets = new ArrayList<EvaluationDataSet>();
 		
 		try {
+			Document document = null;
+			
 			// load doc
-			Document document = loadDocument();
+			try {
+				document = loadDocument();
+			}
+			// create
+			catch (IOException ignore) {
+				document = create();
+			};
 			
 			// get set nodes
 			NodeList setNodes = document.getElementsByTagName("set");

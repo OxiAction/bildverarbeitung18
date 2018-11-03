@@ -24,14 +24,6 @@ public class EvaluationDataSet {
 	/**
 	 * constructor for a new EvaluationDataSet
 	 * 
-	 * @deprecated use {@link #EvaluationDataSet(String name, String imagePath, String sourceFolder, String kFactor, String heuristic)} instead. 
-	 */
-	public EvaluationDataSet() {
-	}
-	
-	/**
-	 * constructor for a new EvaluationDataSet
-	 * 
 	 * @param timestamp		the timestamp (creation date of this set)
 	 * @param name			the name of the set
 	 * @param imagePath		the full image path of the selected image

@@ -72,7 +72,25 @@ public class Translation {
 						if (languageTranslationNode.getNodeType() == Node.ELEMENT_NODE) {
 							String languageNodeID = languageTranslationNode.getNodeName();
 							String languageNodeContent = languageTranslationNode.getTextContent();
-							languageTranslations.put(languageNodeID, languageNodeContent);
+							
+							// fix for \n
+							String fixedNewlineString = "";
+							for (int f = 0; f < languageNodeContent.length(); ++f) {
+								if (languageNodeContent.charAt(f) == '\\') {
+									if (f + 1 < languageNodeContent.length()) {
+										if (languageNodeContent.charAt(f + 1) == 'n') {
+											fixedNewlineString += "\n";
+											++f;
+										}
+									} else {
+										fixedNewlineString += languageNodeContent.charAt(f);
+									}
+								} else {
+									fixedNewlineString += languageNodeContent.charAt(f);
+								}
+							}
+							
+							languageTranslations.put(languageNodeID, fixedNewlineString);
 						}
 					}
 					

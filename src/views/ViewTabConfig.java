@@ -7,8 +7,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+
 import core.data.*;
 import events.*;
 import utils.*;
@@ -47,6 +55,22 @@ public class ViewTabConfig implements ViewInterface {
 		text.setWrappingWidth(300);
 		text.setText(Translation.fetch("text_config"));
 		vBox.getChildren().add(text);
+		
+		Button buttonDataReset = new Button(Translation.fetch("button_data_reset"));
+		buttonDataReset.setOnAction(
+				new EventHandler<ActionEvent>() {
+
+					@Override
+				    public void handle(final ActionEvent e) {
+				        try {
+							Data.reset();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				    }
+				});
+		vBox.getChildren().add(buttonDataReset);
 		
 		scrollPane.setContent(vBox);
 		
