@@ -23,7 +23,7 @@ public class Histogram {
 	 * @param args	no args required
 	 */
 	public static void main(String[] args) {
-		get(new EvaluationDataSet());
+		get(new EvaluationDataSet(null,null,null,null,null,null));
 	}
 
 	/**
