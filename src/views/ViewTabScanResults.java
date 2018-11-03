@@ -50,7 +50,7 @@ public class ViewTabScanResults implements ViewInterface {
 	/**
 	 * initialize / show components
 	 * 
-	 * @param borderPane
+	 * @param container
 	 * @param extraData
 	 * @throws Exception 
 	 */
@@ -88,7 +88,7 @@ public class ViewTabScanResults implements ViewInterface {
 		set = Evaluation.get(set);
 		
 	// histogram
-		
+
 		Canvas histogram = Histogram.get(set);
 		vBox.getChildren().add(histogram);
 		

@@ -9,29 +9,47 @@ public class HistogramData {
                                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-    /*
-     * Constructors
+    /**
+     * Empty Constructor
      */
     public HistogramData(){ }
+
+    /**
+     * Constructor that initializes image greyscale data
+     * @param image
+     */
     public HistogramData(int[][] image){
         this.image = image;
     }
 
-    /*
+    /**
      * Getter for HistogramData
      * @return  histogramData   int array of 100 grey values
      */
     public int[] getHistogramData() {
-        return histogramData;
+        return this.histogramData;
     }
 
-    /*
+    /**
      * Generates the histogram data out of the image and stores it to histogramData
      */
     public void generate(){
         for(int i = 0; i < image.length; i++){
             for(int j = 0; j < image[i].length; j++){
                 this.histogramData[image[i][j]] += 1;
+            }
+        }
+    }
+
+    /**
+     * Prints the histogram data to console in three lines
+     */
+    public void printHistogramData(){
+        System.out.println("HistogramData: ");
+        for(int i = 0; i < this.histogramData.length; i++){
+            System.out.print(this.histogramData[i] + " ");
+            if(i == 40 || i == 80){
+                System.out.println();
             }
         }
     }
