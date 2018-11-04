@@ -78,8 +78,6 @@ public class ViewTabScanResults implements ViewInterface {
 		vBox.setSpacing(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 		
-	// TODO implement -> evaluate data
-		
 		// verify data
 		if (!(extraData instanceof EvaluationDataSet)) {
 			throw new Exception("extraData doesnt seem to be of type EvaluationDataSet!");
@@ -91,11 +89,6 @@ public class ViewTabScanResults implements ViewInterface {
 		EventManager.dispatch(new EventLoadingStarted(), null);
 		
 		// evaluation
-		
-		for (EvaluationDataSetEntry entry : set.getEntries()) {
-			System.out.println(entry.getFileName());
-			
-		}
 		
 		if (set.save) {
 			set = Evaluation.get(set);

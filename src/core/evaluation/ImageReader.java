@@ -37,16 +37,9 @@ public class ImageReader {
 		
 		try{
 			this.image = new BufferedImage(1, 1, BufferedImage.TYPE_BYTE_GRAY);
-			Debug.log("image path: " + imagesource);
-			Debug.log("image name: " + imagename);
-			Debug.log("image extension: " + imageextension);
-			this.image = ImageIO.read(new File(imagesource));
-			
-			
-			System.out.println("Reading complete.");	
-			
+			this.image = ImageIO.read(new File(imagesource));	
 		}catch(IOException e){
-			System.out.println("Error: "+e);
+			System.out.println("Error: " + e);
 		}
 		
 	}
