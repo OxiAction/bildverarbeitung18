@@ -41,6 +41,8 @@ public class ImageReader {
 			Debug.log("image name: " + imagename);
 			Debug.log("image extension: " + imageextension);
 			this.image = ImageIO.read(new File(imagesource));
+			
+			
 			System.out.println("Reading complete.");	
 			
 		}catch(IOException e){

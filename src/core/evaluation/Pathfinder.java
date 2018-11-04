@@ -28,17 +28,17 @@ public class Pathfinder {
         	String pathString = path.toString();
         	
         	if(pathString.contains(".jpg")) {
-        		paths.add(pathString.substring(0, pathString.length()-path.getFileName().toString().length()));
+        		paths.add(pathString);
         		filenames.add(path.getFileName().toString());
         		extensions.add("jpg");
         			
         	}else if(pathString.contains(".png")) {
-        		paths.add(pathString.substring(0, pathString.length()-path.getFileName().toString().length()));
+        		paths.add(pathString);
         		filenames.add(path.getFileName().toString());
         		extensions.add("png");
         		
         	}else if(pathString.contains(".bmp")) {
-        		paths.add(pathString.substring(0, pathString.length()-path.getFileName().toString().length())); 
+        		paths.add(pathString); 
         		filenames.add(path.getFileName().toString());
         		extensions.add("bmp");
         	}  	
