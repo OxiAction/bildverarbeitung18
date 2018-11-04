@@ -166,8 +166,11 @@ public class Data {
 				entryElement.setAttribute("fileName", entry.getFileName());
 				entryElement.setAttribute("fileExtension", entry.getFileExtension());
 				entryElement.setAttribute("fileFolderPath", entry.getFileFolderPath());
-				entryElement.setAttribute("greyScaleValues", Utils.intArrayToString(entry.getGreyScaleValues()));
-				
+				Element heuristics = document.createElement("heuristics");
+				Element greyScale = document.createElement("greyscale");
+				greyScale.setTextContent(Utils.intArrayToString(entry.getGreyScaleValues()));
+				heuristics.appendChild(greyScale);
+				entryElement.appendChild(heuristics);
 				setElement.appendChild(entryElement);
 			}
 			
@@ -242,7 +245,18 @@ public class Data {
 							String fileFolderPath = entryElement.getAttribute("fileFolderPath");
 							String fileName = entryElement.getAttribute("fileName");
 							String fileExtension = entryElement.getAttribute("fileExtension");
-							String greyScaleValues = entryElement.getAttribute("greyScaleValues");
+							
+							String greyScaleValues = "";
+							
+							NodeList heuristics = entryElement.getElementsByTagName("heuristics");
+							if (heuristics.getLength() > 0) {
+								Element heuristicsElement = (Element) heuristics.item(0);
+								NodeList greyScale = heuristicsElement.getElementsByTagName("greyscale");
+								if (greyScale.getLength() > 0) {
+									Element greyScaleElement = (Element) greyScale.item(0);
+									greyScaleValues = greyScaleElement.getTextContent();
+								}
+							}
 							
 							// create and add entry to the set
 							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, Utils.stringToIntArray(greyScaleValues));

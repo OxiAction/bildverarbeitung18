@@ -131,14 +131,15 @@ public class ViewTabNewScan implements ViewInterface {
 			        File selectedFile = fileChooser.showOpenDialog(null);
 			        
 			        if (selectedFile != null) {
-			        	URI uri = selectedFile.toURI();
-			        	image = new Image(uri.toString());
+			        	// we need URI here
+			        	image = new Image(selectedFile.toURI().toString());
 			        	imageView.setImage(image);
-			        	imagePath = uri.toString();
+			        	// absolute path
+			        	imagePath = selectedFile.getAbsolutePath();
 			        	
 			        	updateButtonStartScan();
 			        	
-			        	Debug.log("-> image path: " + uri.toString());
+			        	Debug.log("-> image path: " + imagePath);
 			        } else {
 			        	// no file selected
 			        }
@@ -166,12 +167,12 @@ public class ViewTabNewScan implements ViewInterface {
 				    	File selectedDirectory = directoryChooser.showDialog(null);
 				        
 				        if (selectedDirectory != null) {
-				        	URI uri = selectedDirectory.toURI();
-				        	textFieldSourceFolder.setText(uri.toString());
+				        	// absolute path
+				        	textFieldSourceFolder.setText(selectedDirectory.getAbsolutePath());
 				        	
 				        	updateButtonStartScan();
 				        	
-				        	Debug.log("-> source folder: " + uri.toString());
+				        	Debug.log("-> source folder: " + textFieldSourceFolder.getText());
 				        } else {
 				        	// no directory selected
 				        }
@@ -201,10 +202,7 @@ public class ViewTabNewScan implements ViewInterface {
 		
 		Label labelHeuristic = new Label(Translation.fetch("heuristic") + ":");
 		ComboBox<String> comboBoxHeuristic = new ComboBox<String>(FXCollections.observableArrayList(
-		        "A",
-		        "B",
-		        "C",
-		        "D"
+		        "greyscale"
 		    ));
 		comboBoxHeuristic.getSelectionModel().select(0);
 		HBox hBoxHeuristic = new HBox();

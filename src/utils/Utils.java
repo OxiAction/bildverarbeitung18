@@ -24,7 +24,8 @@ public class Utils {
 			}
 			
 			for (int j = 0; j < data[i].length; ++j) {
-				result += data[i][j];
+				// converts for example 12 to 012 - or 1 to 001
+				result += String.format("%03d", data[i][j]);
 			}
 		}
 		
@@ -41,31 +42,24 @@ public class Utils {
 	public static int[][] stringToIntArray(String data) {
 		int i = 0;
 		int j = 0;
-		int width = 0;
+		int x = 0;
+		int y = 0;
 		
-		// determine req. array size first
-		for (i = 0; i < data.length(); ++i) {
-			if (data.charAt(i) == '|') {
-				width = 0;
-				++j;
-			} else {
-				++width;
-			}
+		String[] parts1 = data.split("\\|");
+		String[] parts2 = null;
+		x = parts1.length;
+		for (i = 0; i < parts1.length; ++i) {
+			parts2 = parts1[i].split("(?<=\\G...)");
+			y = parts2.length;
+			break;
 		}
 		
-		// init array
-		int[][] result = new int[j + 1][width];
+		int[][] result = new int[x][y];
 		
-		// reset vars and loop again - filling the array
-		j = 0;
-		width = 0;
-		for (i = 0; i < data.length(); ++i) {
-			if (data.charAt(i) == '|') {
-				++j;
-				width = 0;
-			} else {
-				result[j][width] = Character.getNumericValue(data.charAt(i));
-				++width;
+		for (i = 0; i < parts1.length; ++i) {
+			parts2 = parts1[i].split("(?<=\\G...)");
+			for (j = 0; j < parts2.length; ++j) {
+				result[i][j] = Integer.parseInt(parts2[j]);
 			}
 		}
 		

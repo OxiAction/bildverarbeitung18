@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import javax.imageio.ImageIO;
 
+import utils.Debug;
+
 
 public class ImageReader {
 	private BufferedImage image;
@@ -35,6 +37,9 @@ public class ImageReader {
 		
 		try{
 			this.image = new BufferedImage(1, 1, BufferedImage.TYPE_BYTE_GRAY);
+			Debug.log("image path: " + imagesource);
+			Debug.log("image name: " + imagename);
+			Debug.log("image extension: " + imageextension);
 			this.image = ImageIO.read(new File(imagesource));
 			System.out.println("Reading complete.");	
 			

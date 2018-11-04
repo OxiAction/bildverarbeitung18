@@ -46,6 +46,9 @@ public class Evaluation {
 		
 		//adds k-many images from the database to the dataset
 		for(int i=0; i<kFactor;i++) {
+			if (i >= paths.size()) {
+				break;
+			}
 			ImageReader temp = new ImageReader(paths.get(i));
 			entry = new EvaluationDataSetEntry(paths.get(i), pf.getFilenames().get(i), pf.getExtensions().get(i), temp.convertTo2DArray());
 			set.addEntry(entry);

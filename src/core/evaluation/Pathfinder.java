@@ -4,6 +4,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import utils.Debug;
+
 
 public class Pathfinder {
 	private ArrayList<String> paths, filenames, extensions ;
@@ -59,9 +61,14 @@ public class Pathfinder {
     //returns k imagepaths
     ArrayList<String> getk_paths(int k) {
     	ArrayList<String> subpaths = new ArrayList<String>();
-    	
-    	for(int i=0; i<k; i++)
-    		subpaths.add(paths.get(i));	
+    	Debug.log("paths.size(): " + paths.size());
+    	Debug.log("kFactor: " + k);
+    	for(int i=0; i<k; i++) {
+    		if (i >= paths.size()) {
+				break;
+			}
+    		subpaths.add(paths.get(i));
+    	}
     	return subpaths;
     }
     
