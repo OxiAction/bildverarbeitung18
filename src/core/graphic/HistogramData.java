@@ -48,7 +48,7 @@ public class HistogramData {
         System.out.println("HistogramData: ");
         for(int i = 0; i < this.histogramData.length; i++){
             System.out.print(this.histogramData[i] + " ");
-            if(i == 40 || i == 80){
+            if((i%40 == 0) && (i > 0)){
                 System.out.println();
             }
         }

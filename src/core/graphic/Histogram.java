@@ -67,11 +67,11 @@ public class Histogram {
 	private static int[][] normalize(ArrayList<int[][]> greyScaleValues){
 		int[][] greyScaleValuesNORMALIZED = createNewArrayOfSize(greyScaleValues.get(0));
 
-		System.out.println("Addition of all greyScaleValues:");
 		int i;
 		for(i = 0; i < greyScaleValues.size(); i++){
 			greyScaleValuesNORMALIZED = add2DArrays(greyScaleValuesNORMALIZED, greyScaleValues.get(i));
 		}
+		System.out.println("Addition of all greyScaleValues:");
 		print2dArray(greyScaleValuesNORMALIZED);
 
 		System.out.println("Average greyScaleValues:");
@@ -132,7 +132,7 @@ public class Histogram {
 		int[][] sum = new int[arr1.length][arr1[0].length];
 		for(int i = 0; i < arr1.length; i++){
 			for(int j = 0; j < arr1[i].length; j++){
-				arr1[i][j] += arr2[i][j];
+				sum[i][j] = arr1[i][j] + arr2[i][j];
 			}
 		}
 		return sum;
