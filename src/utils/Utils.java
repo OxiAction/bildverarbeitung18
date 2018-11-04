@@ -1,5 +1,9 @@
 package utils;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+
 /**
  * Collection of utilities
  *
@@ -64,5 +68,27 @@ public class Utils {
 		}
 		
 		return result;
+	}
+	
+	public static HashMap<String, String> getAbsoluteFilePathInfos(String absoluteFilePath) {
+		HashMap<String, String> infos = new HashMap<String, String>();
+		
+		if (absoluteFilePath.indexOf('.') != -1) {
+			infos.put("fileExtension", absoluteFilePath.substring(absoluteFilePath.lastIndexOf('.'), absoluteFilePath.length()));
+		}
+		
+		if (absoluteFilePath.lastIndexOf('/') > 0) {
+			infos.put("fileFolderPath", absoluteFilePath.substring(0, absoluteFilePath.lastIndexOf('/')));
+		}
+		
+		if (absoluteFilePath.indexOf('.') != -1) {
+			if (absoluteFilePath.indexOf('/') != -1) {
+				infos.put("fileName", absoluteFilePath.substring(absoluteFilePath.lastIndexOf('/') + 1, absoluteFilePath.lastIndexOf('.')));
+			} else {
+				infos.put("fileName", absoluteFilePath.substring(0, absoluteFilePath.lastIndexOf('.')));
+			}
+		}
+		
+		return infos;
 	}
 }

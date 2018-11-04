@@ -2,9 +2,12 @@ package core.evaluation;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.w3c.dom.Node;
+
+import utils.Utils;
 
 /**
  * TODO description
@@ -18,8 +21,11 @@ public class EvaluationDataSet {
 	protected String imagePath;
 	protected String sourceFolder;
 	protected String kFactor;
-	protected String heuristic;
+	protected String metric;
+	protected EvaluationDataSetEntry sourceEntry;
 	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
+	// indicates if this set needs to be updated or is just read
+	public boolean save = true;
 	
 	/**
 	 * constructor for a new EvaluationDataSet
@@ -29,15 +35,33 @@ public class EvaluationDataSet {
 	 * @param imagePath		the full image path of the selected image
 	 * @param sourceFolder	the full path of the selected scan folder
 	 * @param kFactor		maximum number of files to be scanned
-	 * @param heuristic		the heuristic which was used for the scan
+	 * @param metric		the metric which was used for the scan
 	 */
-	public EvaluationDataSet(Timestamp timestamp, String name, String imagePath, String sourceFolder, String kFactor, String heuristic) {
+	public EvaluationDataSet(Timestamp timestamp, String name, String imagePath, String sourceFolder, String kFactor, String metric) {
 		this.timestamp = timestamp;
 		this.name = name;
 		this.imagePath = imagePath;
 		this.sourceFolder = sourceFolder;
 		this.kFactor = kFactor;
-		this.heuristic = heuristic;
+		this.metric = metric;
+	}
+	
+	/**
+	 * set a EvaluationDataSetEntry as source
+	 * 
+	 * @param entry	the EvaluationDataSetEntry to be set as source
+	 */
+	public void setSourceEntry(EvaluationDataSetEntry entry) {
+		this.sourceEntry = entry;
+	}
+	
+	/**
+	 * get the source EvaluationDataSetEntry
+	 * 
+	 * @return	the source EvaluationDataSetEntry
+	 */
+	public EvaluationDataSetEntry getSourceEntry() {
+		return this.sourceEntry;
 	}
 	
 	/**
@@ -138,17 +162,17 @@ public class EvaluationDataSet {
 	}
 
 	/**
-	 * @return the heuristic
+	 * @return the metric
 	 */
-	public String getHeuristic() {
-		return heuristic;
+	public String getMetric() {
+		return metric;
 	}
 
 	/**
-	 * @param heuristic the heuristic to set
+	 * @param metric the metric to set
 	 */
-	public void setHeuristic(String heuristic) {
-		this.heuristic = heuristic;
+	public void setMetric(String metric) {
+		this.metric = metric;
 	}
 	
 	// general stuff
@@ -160,7 +184,7 @@ public class EvaluationDataSet {
 				"\nimagePath: " + this.getImagePath() + 
 				"\nsourceFolder: " + this.getSourceFolder() + 
 				"\nkFactor: " + this.getKFactor() + 
-				"\nheuristic: " + this.getHeuristic();
+				"\nmetric: " + this.getMetric();
 	}
 	
 }

@@ -115,7 +115,7 @@ public class ImageReader {
 	}
 
 	public String getImagename() {
-		return imagename;
+		return imagename.substring(0, imagename.lastIndexOf('.'));
 	}
 
 	public void setImagename(String imagename) {

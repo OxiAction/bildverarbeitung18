@@ -15,7 +15,7 @@
 		<image><![CDATA[Bild]]></image>
 		<folder><![CDATA[Ordner]]></folder>
 		<k_factor><![CDATA[K-Faktor]]></k_factor>
-		<heuristic><![CDATA[Heuristik]]></heuristic>
+		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Anzeigen]]></show>
 		<name_not_unique><![CDATA[Name bereits vorhanden]]></name_not_unique>
 		<scan_results_overview><![CDATA[Scan Ergebnisse]]></scan_results_overview>
@@ -29,7 +29,7 @@
 		<filechooser_new_scan_title><![CDATA[Bitte wählen Sie ein Bild als Quelle]]></filechooser_new_scan_title>
 		<text_config><![CDATA[Allgemeine Konfigurations Optionen:]]></text_config>
 		<text_scan_results_overview><![CDATA[Gespeicherte Test-Ergebnisse:]]></text_scan_results_overview>
-		<text_new_scan><![CDATA[Lorem ipsum dolor sit amet.]]></text_new_scan>
+		<text_new_scan><![CDATA[Sie können den Scan erst dann starten, wenn alle Felder ausgefüllt wurden.\nDer Name muss eindeutig (unique) sein.]]></text_new_scan>
 		<text_welcome><![CDATA[Grundlagen Bildverarbeitung 2018 WS\n\nProgramm zur Verarbeitung von Bildern]]></text_welcome>
 	</language>
 	<language id="en">
@@ -47,7 +47,7 @@
 		<image><![CDATA[Image]]></image>
 		<folder><![CDATA[Folder]]></folder>
 		<k_factor><![CDATA[K-Factor]]></k_factor>
-		<heuristic><![CDATA[Heuristic]]></heuristic>
+		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Show]]></show>
 		<name_not_unique><![CDATA[Name is not available]]></name_not_unique>
 		<scan_results_overview><![CDATA[Scan Results]]></scan_results_overview>
@@ -61,7 +61,7 @@
 		<filechooser_new_scan_title><![CDATA[Please choose one image file as source]]></filechooser_new_scan_title>
 		<text_config><![CDATA[General configuration options:]]></text_config>
 		<text_scan_results_overview><![CDATA[Previously saved results:]]></text_scan_results_overview>
-		<text_new_scan><![CDATA[Lorem ipsum dolor sit amet.]]></text_new_scan>
+		<text_new_scan><![CDATA[Please fill out all the fields to start the scan.\nThe name must be unique.]]></text_new_scan>
 		<text_welcome><![CDATA[Grundlagen Bildverarbeitung 2018 WS\n\nProgram for image procressing]]></text_welcome>
 	</language>
 </translations>

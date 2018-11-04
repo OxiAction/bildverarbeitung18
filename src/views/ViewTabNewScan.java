@@ -198,17 +198,21 @@ public class ViewTabNewScan implements ViewInterface {
 		hBoxKFactor.setSpacing(10);
 		vBox.getChildren().add(hBoxKFactor);
 		
-	// heuristic
+	// metric
+		// see: https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/histogram_comparison/histogram_comparison.html
 		
-		Label labelHeuristic = new Label(Translation.fetch("heuristic") + ":");
-		ComboBox<String> comboBoxHeuristic = new ComboBox<String>(FXCollections.observableArrayList(
-		        "greyscale"
+		Label labelMetric = new Label(Translation.fetch("metric") + ":");
+		ComboBox<String> comboBoxMetric = new ComboBox<String>(FXCollections.observableArrayList(
+				"Correlation",
+				"Chi-Square",
+				"Intersection",
+		        "Bhattacharyya distance"
 		    ));
-		comboBoxHeuristic.getSelectionModel().select(0);
-		HBox hBoxHeuristic = new HBox();
-		hBoxHeuristic.getChildren().addAll(labelHeuristic, comboBoxHeuristic);
-		hBoxHeuristic.setSpacing(10);
-		vBox.getChildren().add(hBoxHeuristic);
+		comboBoxMetric.getSelectionModel().select(0);
+		HBox hBoxMetric = new HBox();
+		hBoxMetric.getChildren().addAll(labelMetric, comboBoxMetric);
+		hBoxMetric.setSpacing(10);
+		vBox.getChildren().add(hBoxMetric);
 		
 	// button start scan
 		
@@ -229,7 +233,10 @@ public class ViewTabNewScan implements ViewInterface {
 								imagePath,
 								textFieldSourceFolder.getText().trim(),
 								comboBoxKFactor.getValue(),
-								comboBoxHeuristic.getValue());
+								comboBoxMetric.getValue());
+						
+						HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(imagePath);
+						set.setSourceEntry(new EvaluationDataSetEntry(infos.get("fileFolderPath"), infos.get("fileName"), infos.get("fileExtension"), null));
 						
 						EventManager.dispatch(new EventButtonStartScanClicked(), set);
 					}});

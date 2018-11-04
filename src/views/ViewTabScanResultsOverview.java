@@ -113,6 +113,7 @@ public class ViewTabScanResultsOverview implements ViewInterface {
 					new EventHandler<ActionEvent>() {
 					    @Override
 					    public void handle(final ActionEvent e) {
+					    	set.save = false;
 					    	EventManager.dispatch(new EventButtonStartScanClicked(), set);
 					    }
 					});

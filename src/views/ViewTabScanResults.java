@@ -85,7 +85,15 @@ public class ViewTabScanResults implements ViewInterface {
 		EventManager.dispatch(new EventLoadingStarted(), null);
 		
 		// evaluation
-		set = Evaluation.get(set);
+		
+		for (EvaluationDataSetEntry entry : set.getEntries()) {
+			System.out.println(entry.getFileName());
+			
+		}
+		
+		if (set.save) {
+			set = Evaluation.get(set);
+		}
 		
 	// histogram
 
@@ -94,7 +102,9 @@ public class ViewTabScanResults implements ViewInterface {
 		
 	// store set
 		
-		Data.save(set);
+		if (set.save) {
+			Data.save(set);
+		}
 		
 	// text
 		

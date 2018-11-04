@@ -23,34 +23,35 @@ public class Evaluation {
 	 * @throws IOException 
 	 */
 	public static EvaluationDataSet get(EvaluationDataSet set) throws IOException {
-		// get set:
-		String name = set.getName();
+		// get config values:
 		String imagePath = set.getImagePath();
 		String sourceFolder = set.getSourceFolder();
 		int kFactor = Integer.parseInt(set.getKFactor());
-		//String heuristic = set.getHeuristic();
 		
 		Debug.log("-> EvaluationDataSet values:");
 		Debug.log(set.toString());
 		
+		EvaluationDataSetEntry entry;
+		
 		ImageReader ir = new ImageReader(imagePath);
 		Pathfinder pf = new Pathfinder(sourceFolder);
 		
-		ArrayList<String> paths = pf.getk_paths(kFactor);
-		EvaluationDataSetEntry entry;
-		
-		//adds the selected image to the dataset
-		entry = new EvaluationDataSetEntry(ir.getImagepath(),ir.getImagename(),ir.getImageextension(), ir.convertTo2DArray());
-		set.addEntry(entry);
+		// update source entry
+		EvaluationDataSetEntry sourceEntry = set.getSourceEntry();
+		sourceEntry.setFileFolderPath(ir.getImagepath());
+		sourceEntry.setFileName(ir.getImagename());
+		sourceEntry.setFileExtension(ir.getImageextension());
+		sourceEntry.setGreyScaleValues(ir.convertTo2DArray());
 		
 		
 		//adds k-many images from the database to the dataset
+		ArrayList<String> paths = pf.getk_paths(kFactor);
 		for(int i=0; i<kFactor;i++) {
 			if (i >= paths.size()) {
 				break;
 			}
 			ImageReader temp = new ImageReader(paths.get(i));
-			entry = new EvaluationDataSetEntry(paths.get(i), pf.getFilenames().get(i), pf.getExtensions().get(i), temp.convertTo2DArray());
+			entry = new EvaluationDataSetEntry(temp.getImagepath(), temp.getImagename(), temp.getImageextension(), temp.convertTo2DArray());
 			set.addEntry(entry);
 		}
 		

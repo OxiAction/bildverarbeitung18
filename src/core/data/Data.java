@@ -156,7 +156,23 @@ public class Data {
 			setElement.setAttribute("imagePath", set.getImagePath());
 			setElement.setAttribute("sourceFolder", set.getSourceFolder());
 			setElement.setAttribute("kFactor", set.getKFactor());
-			setElement.setAttribute("heuristic", set.getHeuristic());
+			setElement.setAttribute("metric", set.getMetric());
+			
+			EvaluationDataSetEntry sourceEntry = set.getSourceEntry();
+			
+			Element sourceEntryElement = document.createElement("sourceEntry");
+			sourceEntryElement.setAttribute("fileFolderPath", sourceEntry.getFileFolderPath());
+			sourceEntryElement.setAttribute("fileName", sourceEntry.getFileName());
+			sourceEntryElement.setAttribute("fileExtension", sourceEntry.getFileExtension());
+			sourceEntryElement.setAttribute("fileFolderPath", sourceEntry.getFileFolderPath());
+			
+			Element greyScale = document.createElement("greyScale");
+			greyScale.setTextContent(Utils.intArrayToString(sourceEntry.getGreyScaleValues()));
+			sourceEntryElement.appendChild(greyScale);
+			
+			setElement.appendChild(sourceEntryElement);
+			
+			Element entries = document.createElement("entries");
 			
 			for (EvaluationDataSetEntry entry : set.getEntries()) {
 				// create a new <entry> element
@@ -166,13 +182,15 @@ public class Data {
 				entryElement.setAttribute("fileName", entry.getFileName());
 				entryElement.setAttribute("fileExtension", entry.getFileExtension());
 				entryElement.setAttribute("fileFolderPath", entry.getFileFolderPath());
-				Element heuristics = document.createElement("heuristics");
-				Element greyScale = document.createElement("greyscale");
+				
+				greyScale = document.createElement("greyScale");
 				greyScale.setTextContent(Utils.intArrayToString(entry.getGreyScaleValues()));
-				heuristics.appendChild(greyScale);
-				entryElement.appendChild(heuristics);
-				setElement.appendChild(entryElement);
+				entryElement.appendChild(greyScale);
+				
+				entries.appendChild(entryElement);
 			}
+			
+			setElement.appendChild(entries);
 			
 			// make sure to append!
 			root.appendChild(setElement);
@@ -221,7 +239,7 @@ public class Data {
 					String imagePath = setElement.getAttribute("imagePath");
 					String sourceFolder = setElement.getAttribute("sourceFolder");
 					String kFactor = setElement.getAttribute("kFactor");
-					String heuristic = setElement.getAttribute("heuristic");
+					String metric = setElement.getAttribute("metric");
 					
 					// convert string to timestamp object
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -229,44 +247,51 @@ public class Data {
 				    Timestamp timestampObject = new Timestamp(date.getTime());
 					
 				    // create and add set to the list of sets
-					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, imagePath, sourceFolder, kFactor, heuristic);
-					sets.add(set);
+					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, imagePath, sourceFolder, kFactor, metric);
+					
+					Element sourceEntryElement = (Element) setElement.getElementsByTagName("sourceEntry").item(0);
+					
+					// get attributes
+					String fileFolderPath = sourceEntryElement.getAttribute("fileFolderPath");
+					String fileName = sourceEntryElement.getAttribute("fileName");
+					String fileExtension = sourceEntryElement.getAttribute("fileExtension");
+
+					Element greyScaleElement = (Element) sourceEntryElement.getElementsByTagName("greyScale").item(0);
+					String greyScaleValues = greyScaleElement.getTextContent();
+					
+					EvaluationDataSetEntry sourceEntry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, Utils.stringToIntArray(greyScaleValues));
+					set.setSourceEntry(sourceEntry);
+					
+					Element entriesElement = (Element) setElement.getElementsByTagName("entries").item(0);
 					
 					// get entry nodes
-					NodeList entryNodes = setElement.getElementsByTagName("entry");
+					NodeList entryNodes = entriesElement.getElementsByTagName("entry");
 					for (int j = 0; j < entryNodes.getLength(); ++j) {
 						
-						Node entryNode = entryNodes.item(i);
+						Node entryNode = entryNodes.item(j);
 						
 						if (entryNode.getNodeType() == Node.ELEMENT_NODE) {
 							Element entryElement = (Element) entryNode;
 							
 							// get attributes
-							String fileFolderPath = entryElement.getAttribute("fileFolderPath");
-							String fileName = entryElement.getAttribute("fileName");
-							String fileExtension = entryElement.getAttribute("fileExtension");
+							fileFolderPath = entryElement.getAttribute("fileFolderPath");
+							fileName = entryElement.getAttribute("fileName");
+							fileExtension = entryElement.getAttribute("fileExtension");
 							
-							String greyScaleValues = "";
-							
-							NodeList heuristics = entryElement.getElementsByTagName("heuristics");
-							if (heuristics.getLength() > 0) {
-								Element heuristicsElement = (Element) heuristics.item(0);
-								NodeList greyScale = heuristicsElement.getElementsByTagName("greyscale");
-								if (greyScale.getLength() > 0) {
-									Element greyScaleElement = (Element) greyScale.item(0);
-									greyScaleValues = greyScaleElement.getTextContent();
-								}
-							}
+							greyScaleElement = (Element) entryElement.getElementsByTagName("greyScale").item(0);
+							greyScaleValues = greyScaleElement.getTextContent();
 							
 							// create and add entry to the set
 							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, Utils.stringToIntArray(greyScaleValues));
 							set.addEntry(entry);
 						}
 					}
+					
+					sets.add(set);
 				}
 			}
 		} catch (Exception e) {
-			throw new IOException("An error occurred while trying to read the data.xml file. Check if the data XML file exists in the root folder of the app.");
+			throw new IOException("Errior " + e);
 		}
 		
 		return sets;
