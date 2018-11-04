@@ -234,7 +234,6 @@ public class ViewTabScanResults implements ViewInterface {
 		columnGreyScaleValue.setCellFactory(cellFactory);
         
 		TableView<EvaluationDataSetEntry> table = new TableView();
-		table.minHeight(300); // TODO does not work as expected
         table.setItems(dataEntry);
         table.getColumns().addAll(columnFileFolderPath, columnFileName, columnFileExtension, columnSensorType, columnGreyScaleValue);
         
@@ -246,6 +245,8 @@ public class ViewTabScanResults implements ViewInterface {
 	// setup
 		
 		scrollPane.setContent(vBox);
+		// needs to be disabled in this case
+		scrollPane.setFitToHeight(false);
 		
 		Tab tab = new Tab(set.getName() + ": " + Translation.fetch("scan_results"));
 		tab.setContent(scrollPane);
