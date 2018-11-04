@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.w3c.dom.Node;
 
+import utils.Translation;
 import utils.Utils;
 
 /**
@@ -179,12 +180,12 @@ public class EvaluationDataSet {
 	
 	@Override
 	public String toString() {
-		return "timestamp: " + this.getTimestamp() + 
-				"\nname: " + this.getName() + 
-				"\nimagePath: " + this.getImagePath() + 
-				"\nsourceFolder: " + this.getSourceFolder() + 
-				"\nkFactor: " + this.getKFactor() + 
-				"\nmetric: " + this.getMetric();
+		return Translation.fetch("timestamp") + ": " + this.getTimestamp() + 
+				"\n" + Translation.fetch("name") + ": " + this.getName() + 
+				"\n" + Translation.fetch("image_path") + ": " + this.getImagePath() + 
+				"\n" + Translation.fetch("source_folder") + ": " + this.getSourceFolder() + 
+				"\n" + Translation.fetch("k_factor") + ": " + this.getKFactor() + 
+				"\n" + Translation.fetch("metric") + ": " + this.getMetric();
 	}
 	
 }

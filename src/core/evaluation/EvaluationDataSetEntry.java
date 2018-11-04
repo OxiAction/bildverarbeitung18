@@ -3,6 +3,8 @@ package core.evaluation;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import utils.Translation;
+
 /**
  * TODO description
  * 
@@ -13,6 +15,7 @@ public class EvaluationDataSetEntry {
 	protected String fileFolderPath;
 	protected String fileName;
 	protected String fileExtension;
+	protected String sensorType;
 	protected int[][] greyScaleValues;
 	
 	/**
@@ -71,6 +74,20 @@ public class EvaluationDataSetEntry {
 	public void setFileExtension(String fileExtension) {
 		this.fileExtension = fileExtension;
 	}
+	
+	/**
+	 * @return the sensorType
+	 */
+	public String getSensorType() {
+		return "XYZ";
+	}
+
+	/**
+	 * @param sensorType the sensorType to set
+	 */
+	public void setSensorType(String sensorType) {
+		this.sensorType = sensorType;
+	}
 
 	/**
 	 * @return the greyScaleValues
@@ -85,5 +102,15 @@ public class EvaluationDataSetEntry {
 	public void setGreyScaleValues(int[][] greyScaleValues) {
 		this.greyScaleValues = greyScaleValues;
 	}
+	
+	// general stuff
+	
+		@Override
+		public String toString() {
+			return Translation.fetch("file_folder_path") + ": " + this.getFileFolderPath() + 
+					"\n" + Translation.fetch("file_name") + ": " + this.getFileName() + 
+					"\n" + Translation.fetch("file_extension") + ": " + this.getFileExtension() + 
+					"\n" + Translation.fetch("sensor_type") + ": " + this.getSensorType();
+		}
 	
 }

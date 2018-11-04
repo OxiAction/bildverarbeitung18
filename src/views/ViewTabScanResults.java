@@ -12,6 +12,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -24,8 +26,10 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import events.*;
@@ -46,6 +50,8 @@ public class ViewTabScanResults implements ViewInterface {
 	protected Image image;
 	protected Button buttonStartScan;
 	protected String imagePath;
+	
+	protected EvaluationDataSet set;
 
 	/**
 	 * initialize / show components
@@ -60,6 +66,8 @@ public class ViewTabScanResults implements ViewInterface {
 			throw new Exception("container doesnt seem to be of type TabPane!");
 		}
 		
+		List<Text> texts = new ArrayList<Text>();
+		
 		TabPane tabPane = (TabPane) container;	
 		
 		ScrollPane scrollPane = new ScrollPane();
@@ -71,8 +79,6 @@ public class ViewTabScanResults implements ViewInterface {
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 		
 	// TODO implement -> evaluate data
-		
-		EvaluationDataSet set;
 		
 		// verify data
 		if (!(extraData instanceof EvaluationDataSet)) {
@@ -96,9 +102,53 @@ public class ViewTabScanResults implements ViewInterface {
 		}
 		
 	// histogram
-
+		
+		Text textHistogram = new Text();
+		textHistogram.setWrappingWidth(300);
+		textHistogram.setFont(Font.font(textHistogram.getFont().getName(), FontWeight.BOLD, textHistogram.getFont().getSize()));
+		textHistogram.setText(Translation.fetch("text_scan_results_histogram"));
+		vBox.getChildren().add(textHistogram);
+		// collect all texts
+		texts.add(textHistogram);
+		
 		Canvas histogram = Histogram.get(set);
 		vBox.getChildren().add(histogram);
+		
+	// source entry information
+		
+		EvaluationDataSetEntry sourceEntry = set.getSourceEntry();
+		
+		Text textSourceEntry = new Text();
+		textSourceEntry.setWrappingWidth(300);
+		textSourceEntry.setFont(Font.font(textSourceEntry.getFont().getName(), FontWeight.BOLD, textSourceEntry.getFont().getSize()));
+		textSourceEntry.setText(Translation.fetch("text_scan_results_source_entry"));
+		vBox.getChildren().add(textSourceEntry);
+		// collect all texts
+		texts.add(textSourceEntry);
+		
+		Text textSourceEntryInformations = new Text();
+		textSourceEntryInformations.setWrappingWidth(300);
+		textSourceEntryInformations.setText(sourceEntry.toString());
+		vBox.getChildren().add(textSourceEntryInformations);
+		// collect all texts
+		texts.add(textSourceEntryInformations);
+		
+	// set information
+		
+		Text textSet = new Text();
+		textSet.setWrappingWidth(300);
+		textSet.setFont(Font.font(textSourceEntry.getFont().getName(), FontWeight.BOLD, textSourceEntry.getFont().getSize()));
+		textSet.setText(Translation.fetch("text_scan_results_set"));
+		vBox.getChildren().add(textSet);
+		// collect all texts
+		texts.add(textSet);
+		
+		Text textSetInformations = new Text();
+		textSetInformations.setWrappingWidth(300);
+		textSetInformations.setText(set.toString());
+		vBox.getChildren().add(textSetInformations);
+		// collect all texts
+		texts.add(textSetInformations);
 		
 	// store set
 		
@@ -106,14 +156,15 @@ public class ViewTabScanResults implements ViewInterface {
 			Data.save(set);
 		}
 		
-	// text
-		
-		Text text = new Text();
-		text.setWrappingWidth(300);
-		text.setText("Test");
-		vBox.getChildren().add(text);
-		
 	// table
+		
+		Text textTable = new Text();
+		textTable.setWrappingWidth(300);
+		textTable.setFont(Font.font(textTable.getFont().getName(), FontWeight.BOLD, textTable.getFont().getSize()));
+		textTable.setText(Translation.fetch("text_scan_results_table"));
+		vBox.getChildren().add(textTable);
+		// collect all texts
+		texts.add(textTable);
 		
 		ObservableList<EvaluationDataSetEntry> dataEntry = FXCollections.observableArrayList(set.getEntries());
 		
@@ -126,14 +177,18 @@ public class ViewTabScanResults implements ViewInterface {
 		columnFileName.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("fileName"));
 		
 		TableColumn columnFileExtension = new TableColumn(Translation.fetch("file_extension"));
-		columnFileExtension.setMinWidth(150);
+		columnFileExtension.setMinWidth(50);
 		columnFileExtension.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("fileExtension"));
+		
+		TableColumn columnSensorType = new TableColumn(Translation.fetch("sensor_type"));
+		columnSensorType.setMinWidth(50);
+		columnSensorType.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("sensorType"));
 		
 		// for grey scale we need a button
 		// this button will open a new window and show the histogram
 		// see: https://stackoverflow.com/questions/29489366/how-to-add-button-in-javafx-table-view
 		TableColumn columnGreyScaleValue = new TableColumn(Translation.fetch("grey_scale_value"));
-		columnGreyScaleValue.setMinWidth(150);
+		columnGreyScaleValue.setMinWidth(50);
 		columnGreyScaleValue.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 		Callback<TableColumn<EvaluationDataSetEntry, String>, TableCell<EvaluationDataSetEntry, String>> cellFactory = new Callback<TableColumn<EvaluationDataSetEntry, String>, TableCell<EvaluationDataSetEntry, String>>() {
 		    @Override
@@ -156,10 +211,15 @@ public class ViewTabScanResults implements ViewInterface {
 		                    	// TODO implement histogram graphic into new window
 		                    	
 		                        BorderPane borderPane = new BorderPane();
+		                        
+		                        Canvas histogram = Histogram.get(set);
+		                        
+		                        borderPane.setCenter(histogram);
+		                        
 		                        Scene scene = new Scene(borderPane, 600, 600);
 		                        Stage stage = new Stage();
 		                        stage.setScene(scene);
-		                        stage.setTitle(entry.getFileFolderPath() + "/" + entry.getFileName() + "." + entry.getFileExtension());
+		                        stage.setTitle(Translation.fetch("grey_scale_value") + ": " + entry.getFileFolderPath() + "/" + entry.getFileName() + "." + entry.getFileExtension());
 		                        stage.show();
 		                    });
 		                	
@@ -176,7 +236,7 @@ public class ViewTabScanResults implements ViewInterface {
 		TableView<EvaluationDataSetEntry> table = new TableView();
 		table.minHeight(300); // TODO does not work as expected
         table.setItems(dataEntry);
-        table.getColumns().addAll(columnFileFolderPath, columnFileName, columnFileExtension, columnGreyScaleValue);
+        table.getColumns().addAll(columnFileFolderPath, columnFileName, columnFileExtension, columnSensorType, columnGreyScaleValue);
         
         vBox.getChildren().add(table);
 		
@@ -196,7 +256,9 @@ public class ViewTabScanResults implements ViewInterface {
 		
 		scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
 			@Override public void changed(ObservableValue<? extends Bounds> bounds, Bounds oldBounds, Bounds newBounds) {
-				text.setWrappingWidth(newBounds.getWidth() - 25);
+				for (Text text : texts) {
+					text.setWrappingWidth(newBounds.getWidth() - 25);
+				}
 			}  
 		});
 	}

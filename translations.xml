@@ -12,9 +12,13 @@
 		<file_name><![CDATA[Datei-Name]]></file_name>
 		<file_extension><![CDATA[Datei-Typ]]></file_extension>
 		<grey_scale_value><![CDATA[Graustufen Werte]]></grey_scale_value>
+		<image_path><![CDATA[Quelldatei]]></image_path>
+		<timestamp><![CDATA[Zeitstempel]]></timestamp>
+		<source_folder><![CDATA[Quell Ordner]]></source_folder>
 		<image><![CDATA[Bild]]></image>
 		<folder><![CDATA[Ordner]]></folder>
 		<k_factor><![CDATA[K-Faktor]]></k_factor>
+		<sensor_type><![CDATA[Sensor-Typ]]></sensor_type>
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Anzeigen]]></show>
 		<name_not_unique><![CDATA[Name bereits vorhanden]]></name_not_unique>
@@ -31,6 +35,10 @@
 		<text_scan_results_overview><![CDATA[Gespeicherte Test-Ergebnisse:]]></text_scan_results_overview>
 		<text_new_scan><![CDATA[Sie können den Scan erst dann starten, wenn alle Felder ausgefüllt wurden.\nDer Name muss eindeutig (unique) sein.]]></text_new_scan>
 		<text_welcome><![CDATA[Grundlagen Bildverarbeitung 2018 WS\n\nProgramm zur Verarbeitung von Bildern]]></text_welcome>
+		<text_scan_results_histogram><![CDATA[Durchschnitt der Graustufen Werte, aller gescannten Bilder:]]></text_scan_results_histogram>
+		<text_scan_results_table><![CDATA[Übersicht der gescannten Bilder:]]></text_scan_results_table>
+		<text_scan_results_source_entry><![CDATA[Informationen über die Quelldatei:]]></text_scan_results_source_entry>
+		<text_scan_results_set><![CDATA[Informationen über generellen Einstellungen:]]></text_scan_results_set>
 	</language>
 	<language id="en">
 		<version><![CDATA[0.1]]></version>
@@ -44,9 +52,13 @@
 		<file_name><![CDATA[File Name]]></file_name>
 		<file_extension><![CDATA[File Type]]></file_extension>
 		<grey_scale_value><![CDATA[Grey-Scale Values]]></grey_scale_value>
+		<image_path><![CDATA[Source File]]></image_path>
+		<timestamp><![CDATA[Timestamp]]></timestamp>
+		<source_folder><![CDATA[Source Folder]]></source_folder>
 		<image><![CDATA[Image]]></image>
 		<folder><![CDATA[Folder]]></folder>
 		<k_factor><![CDATA[K-Factor]]></k_factor>
+		<sensor_type><![CDATA[Sensor-Type]]></sensor_type>
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Show]]></show>
 		<name_not_unique><![CDATA[Name is not available]]></name_not_unique>
@@ -63,5 +75,9 @@
 		<text_scan_results_overview><![CDATA[Previously saved results:]]></text_scan_results_overview>
 		<text_new_scan><![CDATA[Please fill out all the fields to start the scan.\nThe name must be unique.]]></text_new_scan>
 		<text_welcome><![CDATA[Grundlagen Bildverarbeitung 2018 WS\n\nProgram for image procressing]]></text_welcome>
+		<text_scan_results_histogram><![CDATA[Average grey-scale histogram, based on all scanned images:]]></text_scan_results_histogram>
+		<text_scan_results_table><![CDATA[Scanned images:]]></text_scan_results_table>
+		<text_scan_results_source_entry><![CDATA[Informations about the source:]]></text_scan_results_source_entry>
+		<text_scan_results_set><![CDATA[Informations about the used options:]]></text_scan_results_set>
 	</language>
 </translations>
