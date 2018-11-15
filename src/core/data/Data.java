@@ -122,7 +122,7 @@ public class Data {
 			saveDocument(document);
 			
 		} catch (Exception e) {
-			throw new IOException("An error occurred while trying to read the data.xml file. Check if the data XML file exists in the root folder of the app.");
+			throw new IOException("IOException: " + e);
 		}
 	}
 	
@@ -153,24 +153,9 @@ public class Data {
 			// add attributes
 			setElement.setAttribute("timestamp", set.getTimestamp().toString());
 			setElement.setAttribute("name", set.getName());
-			setElement.setAttribute("imagePath", set.getImagePath());
 			setElement.setAttribute("sourceFolder", set.getSourceFolder());
 			setElement.setAttribute("kFactor", set.getKFactor());
 			setElement.setAttribute("metric", set.getMetric());
-			
-			EvaluationDataSetEntry sourceEntry = set.getSourceEntry();
-			
-			Element sourceEntryElement = document.createElement("sourceEntry");
-			sourceEntryElement.setAttribute("fileFolderPath", sourceEntry.getFileFolderPath());
-			sourceEntryElement.setAttribute("fileName", sourceEntry.getFileName());
-			sourceEntryElement.setAttribute("fileExtension", sourceEntry.getFileExtension());
-			sourceEntryElement.setAttribute("fileFolderPath", sourceEntry.getFileFolderPath());
-			
-			Element greyScale = document.createElement("greyScale");
-			greyScale.setTextContent(Utils.intArrayToString(sourceEntry.getGreyScaleValues()));
-			sourceEntryElement.appendChild(greyScale);
-			
-			setElement.appendChild(sourceEntryElement);
 			
 			Element entries = document.createElement("entries");
 			
@@ -181,9 +166,9 @@ public class Data {
 				entryElement.setAttribute("fileFolderPath", entry.getFileFolderPath());
 				entryElement.setAttribute("fileName", entry.getFileName());
 				entryElement.setAttribute("fileExtension", entry.getFileExtension());
-				entryElement.setAttribute("fileFolderPath", entry.getFileFolderPath());
+				entryElement.setAttribute("sensorType", entry.getSensorType());
 				
-				greyScale = document.createElement("greyScale");
+				Element greyScale = document.createElement("greyScale");
 				greyScale.setTextContent(Utils.intArrayToString(entry.getGreyScaleValues()));
 				entryElement.appendChild(greyScale);
 				
@@ -199,7 +184,7 @@ public class Data {
 			saveDocument(document);
 			
 		} catch (Exception e) {
-			throw new IOException("An error occurred while trying to read the data.xml file. Check if the data XML file exists in the root folder of the app.");
+			throw new IOException("IOException: " + e);
 		}
 	}
 	
@@ -236,7 +221,6 @@ public class Data {
 					// get attributes
 					String timestamp = setElement.getAttribute("timestamp");
 					String name = setElement.getAttribute("name");
-					String imagePath = setElement.getAttribute("imagePath");
 					String sourceFolder = setElement.getAttribute("sourceFolder");
 					String kFactor = setElement.getAttribute("kFactor");
 					String metric = setElement.getAttribute("metric");
@@ -247,20 +231,7 @@ public class Data {
 				    Timestamp timestampObject = new Timestamp(date.getTime());
 					
 				    // create and add set to the list of sets
-					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, imagePath, sourceFolder, kFactor, metric);
-					
-					Element sourceEntryElement = (Element) setElement.getElementsByTagName("sourceEntry").item(0);
-					
-					// get attributes
-					String fileFolderPath = sourceEntryElement.getAttribute("fileFolderPath");
-					String fileName = sourceEntryElement.getAttribute("fileName");
-					String fileExtension = sourceEntryElement.getAttribute("fileExtension");
-
-					Element greyScaleElement = (Element) sourceEntryElement.getElementsByTagName("greyScale").item(0);
-					String greyScaleValues = greyScaleElement.getTextContent();
-					
-					EvaluationDataSetEntry sourceEntry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, Utils.stringToIntArray(greyScaleValues));
-					set.setSourceEntry(sourceEntry);
+					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, kFactor, metric);
 					
 					Element entriesElement = (Element) setElement.getElementsByTagName("entries").item(0);
 					
@@ -274,15 +245,16 @@ public class Data {
 							Element entryElement = (Element) entryNode;
 							
 							// get attributes
-							fileFolderPath = entryElement.getAttribute("fileFolderPath");
-							fileName = entryElement.getAttribute("fileName");
-							fileExtension = entryElement.getAttribute("fileExtension");
+							String fileFolderPath = entryElement.getAttribute("fileFolderPath");
+							String fileName = entryElement.getAttribute("fileName");
+							String fileExtension = entryElement.getAttribute("fileExtension");
+							String sensorType = entryElement.getAttribute("sensorType");
 							
-							greyScaleElement = (Element) entryElement.getElementsByTagName("greyScale").item(0);
-							greyScaleValues = greyScaleElement.getTextContent();
+							Element greyScaleElement = (Element) entryElement.getElementsByTagName("greyScale").item(0);
+							String greyScaleValues = greyScaleElement.getTextContent();
 							
 							// create and add entry to the set
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, Utils.stringToIntArray(greyScaleValues));
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, sensorType, Utils.stringToIntArray(greyScaleValues));
 							set.addEntry(entry);
 						}
 					}
@@ -291,7 +263,7 @@ public class Data {
 				}
 			}
 		} catch (Exception e) {
-			throw new IOException("Errior " + e);
+			throw new IOException("IOException: " + e);
 		}
 		
 		return sets;

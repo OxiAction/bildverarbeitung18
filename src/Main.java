@@ -20,7 +20,7 @@ public class Main extends Application {
 	@Override
 	public void start(final Stage stage) throws Exception {
 		// enable / disable Debug mode
-		Debug.enabled = false;
+		Debug.enabled = true;
 		
 		// initialize translation singleton
 		Translation.getInstance();

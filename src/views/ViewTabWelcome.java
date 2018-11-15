@@ -1,17 +1,11 @@
 package views;
 
-import javafx.event.*;
 import javafx.geometry.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.*;
-import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import core.data.*;
-import events.*;
 import utils.*;
 
 /**

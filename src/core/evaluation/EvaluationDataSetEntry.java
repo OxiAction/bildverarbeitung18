@@ -1,8 +1,5 @@
 package core.evaluation;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
 import utils.Translation;
 
 /**
@@ -26,10 +23,11 @@ public class EvaluationDataSetEntry {
 	 * @param fileExtension		the file extension (without .) - e.g. "jpg"
 	 * @param greyScaleValues	the grey scale values as 2d int array
 	 */
-	public EvaluationDataSetEntry(String fileFolderPath, String fileName, String fileExtension, int[][] greyScaleValues) {
+	public EvaluationDataSetEntry(String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleValues) {
 		this.fileFolderPath = fileFolderPath;
 		this.fileName = fileName;
 		this.fileExtension = fileExtension;
+		this.sensorType = sensorType;
 		this.greyScaleValues = greyScaleValues;
 	}
 	
@@ -79,7 +77,7 @@ public class EvaluationDataSetEntry {
 	 * @return the sensorType
 	 */
 	public String getSensorType() {
-		return "XYZ";
+		return this.sensorType;
 	}
 
 	/**

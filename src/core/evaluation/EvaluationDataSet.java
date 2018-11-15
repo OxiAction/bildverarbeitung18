@@ -2,13 +2,9 @@ package core.evaluation;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import org.w3c.dom.Node;
-
 import utils.Translation;
-import utils.Utils;
 
 /**
  * TODO description
@@ -19,7 +15,6 @@ import utils.Utils;
 public class EvaluationDataSet {
 	protected Timestamp timestamp;
 	protected String name;
-	protected String imagePath;
 	protected String sourceFolder;
 	protected String kFactor;
 	protected String metric;
@@ -33,36 +28,16 @@ public class EvaluationDataSet {
 	 * 
 	 * @param timestamp		the timestamp (creation date of this set)
 	 * @param name			the name of the set
-	 * @param imagePath		the full image path of the selected image
 	 * @param sourceFolder	the full path of the selected scan folder
 	 * @param kFactor		maximum number of files to be scanned
 	 * @param metric		the metric which was used for the scan
 	 */
-	public EvaluationDataSet(Timestamp timestamp, String name, String imagePath, String sourceFolder, String kFactor, String metric) {
+	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metric) {
 		this.timestamp = timestamp;
 		this.name = name;
-		this.imagePath = imagePath;
 		this.sourceFolder = sourceFolder;
 		this.kFactor = kFactor;
 		this.metric = metric;
-	}
-	
-	/**
-	 * set a EvaluationDataSetEntry as source
-	 * 
-	 * @param entry	the EvaluationDataSetEntry to be set as source
-	 */
-	public void setSourceEntry(EvaluationDataSetEntry entry) {
-		this.sourceEntry = entry;
-	}
-	
-	/**
-	 * get the source EvaluationDataSetEntry
-	 * 
-	 * @return	the source EvaluationDataSetEntry
-	 */
-	public EvaluationDataSetEntry getSourceEntry() {
-		return this.sourceEntry;
 	}
 	
 	/**
@@ -121,20 +96,6 @@ public class EvaluationDataSet {
 	}
 
 	/**
-	 * @return the imagePath
-	 */
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	/**
-	 * @param imagePath the imagePath to set
-	 */
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
-
-	/**
 	 * @return the sourceFolder
 	 */
 	public String getSourceFolder() {
@@ -182,7 +143,6 @@ public class EvaluationDataSet {
 	public String toString() {
 		return Translation.fetch("timestamp") + ": " + this.getTimestamp() + 
 				"\n" + Translation.fetch("name") + ": " + this.getName() + 
-				"\n" + Translation.fetch("image_path") + ": " + this.getImagePath() + 
 				"\n" + Translation.fetch("source_folder") + ": " + this.getSourceFolder() + 
 				"\n" + Translation.fetch("k_factor") + ": " + this.getKFactor() + 
 				"\n" + Translation.fetch("metric") + ": " + this.getMetric();

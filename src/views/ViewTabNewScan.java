@@ -5,32 +5,21 @@ import javafx.geometry.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
-import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.geometry.Insets;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import core.data.*;
 import core.evaluation.EvaluationDataSet;
-import core.evaluation.EvaluationDataSetEntry;
 import events.*;
 import utils.*;
 
@@ -109,6 +98,7 @@ public class ViewTabNewScan implements ViewInterface {
 		
 	// image select
 		
+		/*
 		Label labelImage = new Label(Translation.fetch("image") + ":");
 		ImageView imageView = new ImageView();
 		imageView.setFitWidth(100);
@@ -146,6 +136,7 @@ public class ViewTabNewScan implements ViewInterface {
 			    }
 			});
 		vBox.getChildren().add(buttonSelectImage);
+		*/
 		
 	// source folder select
 		
@@ -230,13 +221,14 @@ public class ViewTabNewScan implements ViewInterface {
 						EvaluationDataSet set = new EvaluationDataSet(
 								new Timestamp(System.currentTimeMillis()),
 								textFieldName.getText().trim(),
-								imagePath,
-								textFieldSourceFolder.getText().trim(),
+								textFieldSourceFolder.getText().trim().replace('\\', '/'),
 								comboBoxKFactor.getValue(),
 								comboBoxMetric.getValue());
 						
+						/*
 						HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(imagePath);
 						set.setSourceEntry(new EvaluationDataSetEntry(infos.get("fileFolderPath"), infos.get("fileName"), infos.get("fileExtension"), null));
+						*/
 						
 						EventManager.dispatch(new EventButtonStartScanClicked(), set);
 					}});
@@ -272,7 +264,7 @@ public class ViewTabNewScan implements ViewInterface {
 		if (
 				isTextFieldNameValid() 
 				&& !textFieldSourceFolder.getText().trim().isEmpty() 
-				&& image != null
+//				&& image != null
 			) {
 			buttonStartScan.setDisable(false);
 		} else if (!Debug.enabled) {

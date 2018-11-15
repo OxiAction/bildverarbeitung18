@@ -3,11 +3,9 @@ package core.evaluation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import utils.Debug;
+import utils.Utils;
 
 import java.io.IOException;
-import java.nio.file.FileVisitOption;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  * TODO description
@@ -23,36 +21,43 @@ public class Evaluation {
 	 * @throws IOException 
 	 */
 	public static EvaluationDataSet get(EvaluationDataSet set) throws IOException {
-		// get config values:
-		String imagePath = set.getImagePath();
-		String sourceFolder = set.getSourceFolder();
-		int kFactor = Integer.parseInt(set.getKFactor());
-		
 		Debug.log("-> EvaluationDataSet values:");
 		Debug.log(set.toString());
 		
-		EvaluationDataSetEntry entry;
+		String sourceFolder = set.getSourceFolder();
+		Debug.log("Set -> sourceFolder: " + sourceFolder);
 		
-		ImageReader ir = new ImageReader(imagePath);
-		Pathfinder pf = new Pathfinder(sourceFolder);
+		ArrayList<String> paths = PathFinder.getPaths(sourceFolder);
 		
-		// update source entry
-		EvaluationDataSetEntry sourceEntry = set.getSourceEntry();
-		sourceEntry.setFileFolderPath(ir.getImagepath());
-		sourceEntry.setFileName(ir.getImagename());
-		sourceEntry.setFileExtension(ir.getImageextension());
-		sourceEntry.setGreyScaleValues(ir.convertTo2DArray());
-		
-		
-		//adds k-many images from the database to the dataset
-		ArrayList<String> paths = pf.getk_paths(kFactor);
-		for(int i=0; i<kFactor;i++) {
-			if (i >= paths.size()) {
-				break;
+		for(int i = 0; i < paths.size(); i++) {
+			String absoluteFilePath = paths.get(i);
+			if (absoluteFilePath != null && absoluteFilePath != "") {
+				HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(absoluteFilePath);
+				String fileName = infos.get("fileName");
+				String fileFolderPath = infos.get("fileFolderPath");
+				String fileExtension = infos.get("fileExtension");
+				String sensorType = null;
+				
+				Debug.log("Entry -> fileName: " + fileName);
+				Debug.log("Entry -> fileFolderPath: " + fileFolderPath);
+				Debug.log("Entry -> fileExtension: " + fileExtension);
+				
+				// get sensor type by folder structure...
+				String[] partAfterSourceFolder = fileFolderPath.split(sourceFolder);
+				if (partAfterSourceFolder.length > 0) {
+					partAfterSourceFolder = partAfterSourceFolder[1].split("/");
+					if (partAfterSourceFolder.length > 0) {
+						sensorType = partAfterSourceFolder[1];
+					}
+				}
+				
+				if (sensorType == null) {
+					throw new IOException("IOException: Could not determine the sensorType by folder structure!");
+				}
+				
+				EvaluationDataSetEntry entry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, sensorType, ImageReader.read(absoluteFilePath));
+				set.addEntry(entry);
 			}
-			ImageReader temp = new ImageReader(paths.get(i));
-			entry = new EvaluationDataSetEntry(temp.getImagepath(), temp.getImagename(), temp.getImageextension(), temp.convertTo2DArray());
-			set.addEntry(entry);
 		}
 		
 		// return the set, filled with all the entries and values:

@@ -4,19 +4,10 @@ import javafx.event.*;
 import javafx.geometry.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.*;
-import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-
 import core.data.*;
 import events.*;
 import utils.*;

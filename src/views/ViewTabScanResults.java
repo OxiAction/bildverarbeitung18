@@ -1,6 +1,5 @@
 package views;
 
-import javafx.event.*;
 import javafx.geometry.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,27 +9,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import javafx.geometry.Insets;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import events.*;
 import utils.*;
@@ -109,6 +97,7 @@ public class ViewTabScanResults implements ViewInterface {
 		
 	// source entry information
 		
+		/*
 		EvaluationDataSetEntry sourceEntry = set.getSourceEntry();
 		
 		Text textSourceEntry = new Text();
@@ -125,12 +114,13 @@ public class ViewTabScanResults implements ViewInterface {
 		vBox.getChildren().add(textSourceEntryInformations);
 		// collect all texts
 		texts.add(textSourceEntryInformations);
+		*/
 		
 	// set information
 		
 		Text textSet = new Text();
 		textSet.setWrappingWidth(300);
-		textSet.setFont(Font.font(textSourceEntry.getFont().getName(), FontWeight.BOLD, textSourceEntry.getFont().getSize()));
+		textSet.setFont(Font.font(textSet.getFont().getName(), FontWeight.BOLD, textSet.getFont().getSize()));
 		textSet.setText(Translation.fetch("text_scan_results_set"));
 		vBox.getChildren().add(textSet);
 		// collect all texts
