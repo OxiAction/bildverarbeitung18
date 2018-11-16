@@ -64,7 +64,7 @@ public class Evaluation {
 			int[] histogramData = entry.getHistogramData();
 			int kFactor = Integer.parseInt(set.getKFactor());
 			Hashtable<EvaluationDataSetEntry, Double> kNearest = new Hashtable<EvaluationDataSetEntry, Double>();
-			
+			int count = 0;
 			// INNER FOR LOOP (compare all others with current entry):			
 			for (EvaluationDataSetEntry innerEntry : setEntries) {
 				if(entry == innerEntry)
@@ -81,7 +81,6 @@ public class Evaluation {
 				//adds a distance to the k-nearest hashtable:
 				//first we check if we already have k-elements
 				//when there are already k-elements in the hashtable, we replace the largest with the new one (if it is smaller)
-				int count = 0;
 				if(count < kFactor) {
 					kNearest.put(innerEntry, distance);
 					count++;
