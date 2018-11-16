@@ -1,10 +1,7 @@
 package core.evaluation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import utils.Debug;
-import utils.Utils;
-
 import java.io.IOException;
 
 /**
@@ -29,36 +26,30 @@ public class Evaluation {
 		
 		ArrayList<String> paths = PathFinder.getPaths(sourceFolder);
 		
-		for(int i = 0; i < paths.size(); i++) {
-			String absoluteFilePath = paths.get(i);
+		ArrayList<EvaluationThread> evaluationThreads = new ArrayList<EvaluationThread>();
+		
+		for (int j = 0; j < paths.size(); j++) {
+			String absoluteFilePath = paths.get(j);
 			if (absoluteFilePath != null && absoluteFilePath != "") {
-				HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(absoluteFilePath);
-				String fileName = infos.get("fileName");
-				String fileFolderPath = infos.get("fileFolderPath");
-				String fileExtension = infos.get("fileExtension");
-				String sensorType = null;
-				
-				Debug.log("Entry -> fileName: " + fileName);
-				Debug.log("Entry -> fileFolderPath: " + fileFolderPath);
-				Debug.log("Entry -> fileExtension: " + fileExtension);
-				
-				// get sensor type by folder structure...
-				String[] partAfterSourceFolder = fileFolderPath.split(sourceFolder);
-				if (partAfterSourceFolder.length > 0) {
-					partAfterSourceFolder = partAfterSourceFolder[1].split("/");
-					if (partAfterSourceFolder.length > 0) {
-						sensorType = partAfterSourceFolder[1];
-					}
-				}
-				
-				if (sensorType == null) {
-					throw new IOException("IOException: Could not determine the sensorType by folder structure!");
-				}
-				
-				EvaluationDataSetEntry entry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, sensorType, ImageReader.read(absoluteFilePath));
-				set.addEntry(entry);
+				EvaluationThread evaluationThread = new EvaluationThread(j, sourceFolder, absoluteFilePath);
+				evaluationThreads.add(evaluationThread);
+				evaluationThread.start();
 			}
 		}
+		
+		for (EvaluationThread evaluationThread : evaluationThreads) {
+			try {
+				evaluationThread.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		for (EvaluationThread evaluationThread : evaluationThreads) {
+			set.addEntry(evaluationThread.getEntry());
+		}
+		
 		
 		// return the set, filled with all the entries and values:
 		return set;

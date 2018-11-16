@@ -20,7 +20,10 @@ public class EvaluationDataSet {
 	protected String metric;
 	protected EvaluationDataSetEntry sourceEntry;
 	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
-	// indicates if this set needs to be updated or is just read
+	
+	/**
+	 * indicates if this set needs to be updated or is just read
+	 */
 	public boolean save = true;
 	
 	/**

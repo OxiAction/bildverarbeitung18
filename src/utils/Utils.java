@@ -40,8 +40,9 @@ public class Utils {
 	 * 
 	 * @param data		the string
 	 * @return int[][]	the array
+	 * @throws Exception 
 	 */
-	public static int[][] stringToIntArray(String data) {
+	public static int[][] stringToIntArray(String data) throws Exception {
 		int i = 0;
 		int j = 0;
 		int x = 0;
@@ -50,11 +51,13 @@ public class Utils {
 		String[] parts1 = data.split("\\|");
 		String[] parts2 = null;
 		x = parts1.length;
-		for (i = 0; i < parts1.length; ++i) {
-			parts2 = parts1[i].split("(?<=\\G...)");
-			y = parts2.length;
-			break;
+		
+		if (parts1.length == 0) {
+			throw new Exception("The data String is invalid.");
 		}
+		
+		parts2 = parts1[0].split("(?<=\\G...)");
+		y = parts2.length;
 		
 		int[][] result = new int[x][y];
 		
