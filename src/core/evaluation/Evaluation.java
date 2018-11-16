@@ -1,7 +1,9 @@
 package core.evaluation;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import utils.Debug;
 import java.io.IOException;
@@ -60,19 +62,56 @@ public class Evaluation {
 		List<EvaluationDataSetEntry> setEntries = set.getEntries();
 		for (EvaluationDataSetEntry entry : setEntries) {
 			int[] histogramData = entry.getHistogramData();
-			int id = entry.getID();
+			int kFactor = Integer.parseInt(set.getKFactor());
+			Hashtable<EvaluationDataSetEntry, Double> kNearest = new Hashtable<EvaluationDataSetEntry, Double>();
 			
-			// INNER FOR LOOP (compare all others with current entry):
-			
-				// ...
+			// INNER FOR LOOP (compare all others with current entry):			
+			for (EvaluationDataSetEntry innerEntry : setEntries) {
+				if(entry == innerEntry)
+					continue;
 				
+				int[] innerHistogramData = innerEntry.getHistogramData();
+				
+			
 				// compare histogramData of two entries (set.getMetricName() is the name which was choosen in the new scan metric name dropdown):
 				//Metric.getDataByName(set.getMetricName(), histogramData, histogramData_OF_ENTRY_IN_INNER_FOR_LOOP);
+				double distance = Metric.getDataByName(set.getMetricName(), histogramData, innerHistogramData);
+				
+				
+				//adds a distance to the k-nearest hashtable:
+				//first we check if we already have k-elements
+				//when there are already k-elements in the hashtable, we replace the largest with the new one (if it is smaller)
+				int count = 0;
+				if(count < kFactor) {
+					kNearest.put(innerEntry, distance);
+					count++;
+				}else {
+					//finding the largest element in the hashtable
+					Object maxKey=null;
+					Double maxValue = Double.MIN_VALUE; 
+					for(Map.Entry<EvaluationDataSetEntry,Double> mapEntry : kNearest.entrySet()) {
+					     if(mapEntry.getValue() > maxValue) {
+					         maxValue = mapEntry.getValue();
+					         maxKey = mapEntry.getKey();
+					     }  
+					}
+					//replacing the largest element with the actual one (if it is smaller)
+					if(distance < maxValue) {
+						kNearest.remove(maxKey);
+						kNearest.put(innerEntry, distance);
+					}
+				}
+				
 				
 				// add id as a kNearest to (OUTER FOR LOOP) entry (in case it is actually k-nearest):
 				//entry.addKNearestByID(id_OF_ENTRY_IN_INNER_FOR_LOOP);
-			
+				for(Map.Entry<EvaluationDataSetEntry,Double> mapEntry : kNearest.entrySet())
+					entry.addKNearestByID(mapEntry.getKey().getID());
+				
 			// END INNER FOR LOOP
+
+			}
+			
 		}
 		
 		// return the set, filled with all the entries and values:
