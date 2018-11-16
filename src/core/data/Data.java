@@ -33,13 +33,13 @@ import utils.Utils;
  *
  */
 public class Data {
-	
+
 	public static String xmlName = "data.xml";
-	
+
 	/**
 	 * loads a .xml file and returns its document object
 	 * 
-	 * @return document							the document object
+	 * @return document the document object
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws ParserConfigurationException
@@ -50,34 +50,35 @@ public class Data {
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 		Document document = documentBuilder.parse(file);
 		document.getDocumentElement().normalize();
-		
+
 		return document;
 	}
-	
+
 	/**
 	 * saves a document object to .xml file
 	 * 
-	 * @param document				the document object
+	 * @param document the document object
 	 * @throws TransformerException
 	 */
 	protected static void saveDocument(Document document) throws TransformerException {
 		DOMSource source = new DOMSource(document);
-		
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        
-        StreamResult result = new StreamResult(xmlName);
-        transformer.transform(source, result);
+
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+		StreamResult result = new StreamResult(xmlName);
+		transformer.transform(source, result);
 	}
-	
+
 	/**
 	 * create .xml file
-	 * @return document							the document object
 	 * 
-	 * @throws ParserConfigurationException 
-	 * @throws TransformerException 
+	 * @return document the document object
+	 * 
+	 * @throws ParserConfigurationException
+	 * @throws TransformerException
 	 */
 	protected static Document create() throws ParserConfigurationException, TransformerException {
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -86,10 +87,10 @@ public class Data {
 		Element rootElement = document.createElement("sets");
 		document.appendChild(rootElement);
 		saveDocument(document);
-		
+
 		return document;
 	}
-	
+
 	/**
 	 * resets the .xml file (deleting all data)
 	 * 
@@ -98,7 +99,7 @@ public class Data {
 	public static void reset() throws IOException {
 		try {
 			Document document = null;
-			
+
 			// load doc
 			try {
 				document = loadDocument();
@@ -107,34 +108,34 @@ public class Data {
 			catch (IOException ignore) {
 				document = create();
 			}
-			
+
 			NodeList setEntries = document.getElementsByTagName("set");
-			
+
 			// its important to do it reverse order
 			for (int i = setEntries.getLength() - 1; i >= 0; --i) {
 				Node setEntry = setEntries.item(i);
 				// remove this <set...> from parent <sets...>
 				setEntry.getParentNode().removeChild(setEntry);
 			}
-			
+
 			// save doc
 			saveDocument(document);
-			
+
 		} catch (Exception e) {
 			throw new IOException("IOException: " + e);
 		}
 	}
-	
+
 	/**
 	 * saves the EvaluationDataSet in the .xml file
 	 * 
-	 * @param set			the EvaluationDataSet to be saved
+	 * @param set the EvaluationDataSet to be saved
 	 * @throws IOException
 	 */
 	public static void save(EvaluationDataSet set) throws IOException {
 		try {
 			Document document = null;
-			
+
 			// load doc
 			try {
 				document = loadDocument();
@@ -143,10 +144,10 @@ public class Data {
 			catch (IOException ignore) {
 				document = create();
 			}
-			
+
 			// get entry point
 			Element root = document.getDocumentElement();
-			
+
 			// create a new <set> element
 			Element setElement = document.createElement("set");
 			// add attributes
@@ -155,9 +156,9 @@ public class Data {
 			setElement.setAttribute("sourceFolder", set.getSourceFolder());
 			setElement.setAttribute("kFactor", set.getKFactor());
 			setElement.setAttribute("metricName", set.getMetricName());
-			
+
 			Element entries = document.createElement("entries");
-			
+
 			for (EvaluationDataSetEntry entry : set.getEntries()) {
 				// create a new <entry> element
 				Element entryElement = document.createElement("entry");
@@ -167,45 +168,50 @@ public class Data {
 				entryElement.setAttribute("fileName", entry.getFileName());
 				entryElement.setAttribute("fileExtension", entry.getFileExtension());
 				entryElement.setAttribute("sensorType", entry.getSensorType());
-				
+
 				Element greyScaleData = document.createElement("greyScaleData");
 				greyScaleData.setTextContent(Utils.intArrayToString(entry.getGreyScaleData()));
 				entryElement.appendChild(greyScaleData);
+
+				// TODO properly implement histogramData
+				Element histogramData = document.createElement("histogramData");
+				histogramData.setTextContent("TODO");
+				entryElement.appendChild(histogramData);
 				
-				// TODO change to metric data! For now we use the grey scale data as metric data:
-				Element metricData = document.createElement("metricData");
-				metricData.setTextContent(Utils.intArrayToString(entry.getGreyScaleData()));
-				entryElement.appendChild(metricData);
-				
+				// TODO properly implement kNearestIDs
+				Element kNearestIDsData = document.createElement("kNearestIDs");
+				kNearestIDsData.setTextContent("TODO");
+				entryElement.appendChild(kNearestIDsData);
+
 				entries.appendChild(entryElement);
 			}
-			
+
 			setElement.appendChild(entries);
-			
+
 			// make sure to append!
 			root.appendChild(setElement);
-			
+
 			// save doc
 			saveDocument(document);
-			
+
 		} catch (Exception e) {
 			throw new IOException("IOException: " + e);
 		}
 	}
-	
+
 	/**
 	 * loads the .xml file and returns its EvaluationDataSet(s)
 	 * 
-	 * @return sets			the EvaluationDataSet(s) as a list
+	 * @return sets the EvaluationDataSet(s) as a list
 	 * @throws IOException
 	 */
 	public static ArrayList<EvaluationDataSet> load() throws IOException {
 		// init list for sets
 		ArrayList<EvaluationDataSet> sets = new ArrayList<EvaluationDataSet>();
-		
+
 		try {
 			Document document = null;
-			
+
 			// load doc
 			try {
 				document = loadDocument();
@@ -213,8 +219,9 @@ public class Data {
 			// create
 			catch (IOException ignore) {
 				document = create();
-			};
-			
+			}
+			;
+
 			// get set nodes
 			NodeList setNodes = document.getElementsByTagName("set");
 			for (int i = 0; i < setNodes.getLength(); ++i) {
@@ -222,59 +229,65 @@ public class Data {
 
 				if (setNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element setElement = (Element) setNode;
-					
+
 					// get attributes
 					String timestamp = setElement.getAttribute("timestamp");
 					String name = setElement.getAttribute("name");
 					String sourceFolder = setElement.getAttribute("sourceFolder");
 					String kFactor = setElement.getAttribute("kFactor");
 					String metricName = setElement.getAttribute("metricName");
-					
+
 					// convert string to timestamp object
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 					Date date = (Date) dateFormat.parse(timestamp);
-				    Timestamp timestampObject = new Timestamp(date.getTime());
-					
-				    // create and add set to the list of sets
+					Timestamp timestampObject = new Timestamp(date.getTime());
+
+					// create and add set to the list of sets
 					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, kFactor, metricName);
-					
+
 					Element entriesElement = (Element) setElement.getElementsByTagName("entries").item(0);
-					
+
 					// get entry nodes
 					NodeList entryNodes = entriesElement.getElementsByTagName("entry");
 					for (int j = 0; j < entryNodes.getLength(); ++j) {
-						
+
 						Node entryNode = entryNodes.item(j);
-						
+
 						if (entryNode.getNodeType() == Node.ELEMENT_NODE) {
 							Element entryElement = (Element) entryNode;
-							
+
 							// get attributes
 							int id = Integer.parseInt(entryElement.getAttribute("id"));
 							String fileFolderPath = entryElement.getAttribute("fileFolderPath");
 							String fileName = entryElement.getAttribute("fileName");
 							String fileExtension = entryElement.getAttribute("fileExtension");
 							String sensorType = entryElement.getAttribute("sensorType");
-							
+
 							Element greyScaleDataElement = (Element) entryElement.getElementsByTagName("greyScaleData").item(0);
 							String greyScaleData = greyScaleDataElement.getTextContent();
 							
-							Element metricDataElement = (Element) entryElement.getElementsByTagName("metricData").item(0);
-							String metricData = metricDataElement.getTextContent();
+							// TODO implement proper histogramData
+							Element histogramDataElement = (Element) entryElement.getElementsByTagName("histogramData").item(0);
+							int[] histogramData = null;
 							
+							// TODO implement proper kNearestIDs
+							Element kNearestIDsElement = (Element) entryElement.getElementsByTagName("kNearestIDs").item(0);
+							ArrayList<Integer> kNearestIDs = null;
+
 							// create and add entry to the set
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, Utils.stringToIntArray(greyScaleData), Utils.stringToIntArray(metricData));
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, Utils.stringToIntArray(greyScaleData), histogramData,
+									kNearestIDs);
 							set.addEntry(entry);
 						}
 					}
-					
+
 					sets.add(set);
 				}
 			}
 		} catch (Exception e) {
 			throw new IOException("IOException: " + e);
 		}
-		
+
 		return sets;
 	}
 }

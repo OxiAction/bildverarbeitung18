@@ -1,5 +1,7 @@
 package core.evaluation;
 
+import java.util.ArrayList;
+
 import utils.Translation;
 
 /**
@@ -15,7 +17,8 @@ public class EvaluationDataSetEntry {
 	protected String fileExtension;
 	protected String sensorType;
 	protected int[][] greyScaleData;
-	protected int[][] metricData;
+	protected int[] histogramData;
+	protected ArrayList<Integer> kNearestIDs;
 	
 	/**
 	 * constructor for a new EvaluationDataSetEntry
@@ -26,16 +29,18 @@ public class EvaluationDataSetEntry {
 	 * @param fileExtension		the file extension (without .) - e.g. "jpg"
 	 * @param sensorType		the sensor type
 	 * @param greyScaleData		the grey scale data as 2d int array
-	 * @param metricData		the metric data as 2d int array
+	 * @param histogramData		the histogramData data 1d int array
+	 * @param kNearestIDs		the list with the k-nearest entries (ids)
 	 */
-	public EvaluationDataSetEntry(int id, String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleData, int[][] metricData) {
+	public EvaluationDataSetEntry(int id, String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleData, int[] histogramData, ArrayList<Integer> kNearestIDs) {
 		this.id = id;
 		this.fileFolderPath = fileFolderPath;
 		this.fileName = fileName;
 		this.fileExtension = fileExtension;
 		this.sensorType = sensorType;
 		this.greyScaleData = greyScaleData;
-		this.metricData = metricData;
+		this.histogramData = histogramData;
+		this.kNearestIDs = kNearestIDs;
 	}
 	
 	/**
@@ -123,17 +128,40 @@ public class EvaluationDataSetEntry {
 	}
 	
 	/**
-	 * @return the metricData
+	 * @return the histogramData
 	 */
-	public int[][] getMetricData() {
-		return this.metricData;
+	public int[] getHistogramData() {
+		return this.histogramData;
 	}
 
 	/**
-	 * @param metricData the metricData to set
+	 * @param histogramData the metricData to set
 	 */
-	public void setMetricData(int[][] metricData) {
-		this.metricData = metricData;
+	public void setHistogramData(int[] histogramData) {
+		this.histogramData = histogramData;
+	}
+	
+	/**
+	 * @return the kNearestIDs
+	 */
+	public ArrayList<Integer> getKNearestIDs() {
+		return this.kNearestIDs;
+	}
+
+	/**
+	 * @param kNearestIDs the kNearestIDs to set
+	 */
+	public void setKNearestIDs(ArrayList<Integer> kNearestIDs) {
+		this.kNearestIDs = kNearestIDs;
+	}
+	
+	/**
+	 * add a k-nearest entry by its id
+	 * 
+	 * @param id
+	 */
+	public void addKNearestByID(int id) {
+		this.kNearestIDs.add(id);
 	}
 	
 	// general stuff

@@ -59,7 +59,10 @@ public class EvaluationThread extends Thread {
 			}
 
 			// create entry
-			this.entry = new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, ImageReader.getGreyScaleData(absoluteFilePath), Metric.getDataByName(set.getMetricName(), 1));
+			// Note: kNearest argument will be null by default
+			int[][] greyScaleData = ImageReader.getGreyScaleData(absoluteFilePath);
+			int[] histogramData = ImageReader.getHistogramData(greyScaleData);
+			this.entry = new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, histogramData, null);
 		} catch (IOException e) {
 			Debug.log("IOException: : " + e);
 		}

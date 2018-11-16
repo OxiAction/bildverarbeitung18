@@ -3,7 +3,7 @@ package core.graphic;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
+import utils.Debug;
 import core.evaluation.EvaluationDataSet;
 import core.evaluation.EvaluationDataSetEntry;
 
@@ -51,7 +51,7 @@ public class Histogram {
 		int i;
 		for (i = 0; i < greyScaleValues.size(); i++) {
 			greyScaleValues1D.add(generateHistogram(greyScaleValues.get(i)));
-			System.out.println("Generated Histogram: " + i);
+			Debug.log("Generated Histogram: " + i);
 			print1dArray(greyScaleValues1D.get(i));
 		}
 
@@ -60,15 +60,15 @@ public class Histogram {
 			additionOfAll1DArrays = add1DArrays(additionOfAll1DArrays, greyScaleValues1D.get(j));
 		}
 
-		System.out.println("Addition of all 1D arrays: ");
+		Debug.log("Addition of all 1D arrays: ");
 		for (int k = 0; k < additionOfAll1DArrays.length; k++) {
-			System.out.print(additionOfAll1DArrays[k] + " ");
+			Debug.log(additionOfAll1DArrays[k] + " ");
 		}
 
-		System.out.println("\nAverage of all 1D arrays: ");
+		Debug.log("\nAverage of all 1D arrays: ");
 		for (int k = 0; k < additionOfAll1DArrays.length; k++) {
 			additionOfAll1DArrays[k] = additionOfAll1DArrays[k] / i;
-			System.out.print(additionOfAll1DArrays[k] + " ");
+			Debug.log(additionOfAll1DArrays[k] + " ");
 		}
 
 		return generateNewCanvas(additionOfAll1DArrays);
@@ -98,10 +98,10 @@ public class Histogram {
 		for (i = 0; i < greyScaleValues.size(); i++) {
 			greyScaleValuesNORMALIZED = add2DArrays(greyScaleValuesNORMALIZED, greyScaleValues.get(i));
 		}
-		System.out.println("Addition of all greyScaleValues:");
+		Debug.log("Addition of all greyScaleValues:");
 		print2dArray(greyScaleValuesNORMALIZED);
 
-		System.out.println("Average greyScaleValues:");
+		Debug.log("Average greyScaleValues:");
 		greyScaleValuesNORMALIZED = calculateAverage2dArray(greyScaleValuesNORMALIZED, i);
 
 		return greyScaleValuesNORMALIZED;
@@ -127,9 +127,9 @@ public class Histogram {
 	 */
 	private static void print1dArray(int[] arr) {
 		for (int j = 0; j < arr.length; j++) {
-			System.out.print(arr[j] + " ");
+			Debug.log(arr[j] + " ");
 		}
-		System.out.println();
+		Debug.log("");
 	}
 
 	/**
@@ -140,9 +140,9 @@ public class Histogram {
 	private static void print2dArray(int[][] arr) {
 		for (int j = 0; j < arr.length; j++) {
 			for (int k = 0; k < arr[j].length; k++) {
-				System.out.print(" " + arr[j][k]);
+				Debug.log(" " + arr[j][k]);
 			}
-			System.out.println();
+			Debug.log("");
 		}
 	}
 
@@ -157,9 +157,9 @@ public class Histogram {
 		for (int j = 0; j < arr1.length; j++) {
 			for (int k = 0; k < arr1[j].length; k++) {
 				arr1[j][k] = arr1[j][k] / i;
-				System.out.print(" " + arr1[j][k]);
+				Debug.log(" " + arr1[j][k]);
 			}
-			System.out.println();
+			Debug.log("");
 		}
 		return arr1;
 	}

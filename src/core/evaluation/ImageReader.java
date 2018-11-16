@@ -32,4 +32,10 @@ public class ImageReader {
 			throw new IOException("IOException: " + e);
 		}
 	}
+	
+	public static int[] getHistogramData(int[][] greyScaleData) {
+		// TODO [Richard] calculate histogram data
+		
+		return null;
+	}
 }

@@ -9,43 +9,43 @@ public class Metric {
 	protected static final String[] NAMES = { NAME_CORRELATION, NAME_CHI_SQUARE, NAME_INTERSECTION, NAME_BHATTACHARYY_DISTANCE };
 	
 	/**
-	 * TODO implement
+	 * TODO [Markus] implement
 	 * 
 	 * @param args
 	 * @return
 	 */
-	public static int[][] getCorrelationData(int... args) {
-		return null;
+	public static double getCorrelationData(int h1, int h2) {
+		return 0.0;
 	}
 	
 	/**
-	 * TODO implement
+	 * TODO [Markus] implement
 	 * 
 	 * @param args
 	 * @return
 	 */
-	public static int[][] getChiSquareData(int... args) {
-		return null;
+	public static double getChiSquareData(int h1, int h2) {
+		return 0.0;
 	}
 	
 	/**
-	 * TODO implement
+	 * TODO [Markus] implement
 	 * 
 	 * @param args
 	 * @return
 	 */
-	public static int[][] getIntersectionData(int... args) {
-		return null;
+	public static double getIntersectionData(int h1, int h2) {
+		return 0.0;
 	}
 	
 	/**
-	 * TODO implement
+	 * TODO [Markus] implement
 	 * 
 	 * @param args
 	 * @return
 	 */
-	public static int[][] getBhattacharyyaDistanceData(int... args) {
-		return null;
+	public static double getBhattacharyyaDistanceData(int h1, int h2) {
+		return 0.0;
 	}
 	
 	/**
@@ -54,16 +54,16 @@ public class Metric {
 	 * @param args
 	 * @return
 	 */
-	public static int[][] getDataByName(String name, int... args) {
+	public static double getDataByName(String name, int h1, int h2) {
 		switch (name) {
 		case NAME_CORRELATION:
-			return getCorrelationData(args);
+			return getCorrelationData(h1, h2);
 		case NAME_CHI_SQUARE:
-			return getChiSquareData(args);
+			return getChiSquareData(h1, h2);
 		case NAME_INTERSECTION:
-			return getIntersectionData(args);
+			return getIntersectionData(h1, h2);
 		case NAME_BHATTACHARYY_DISTANCE:
-			return getBhattacharyyaDistanceData(args);
+			return getBhattacharyyaDistanceData(h1, h2);
 		default:
 			throw new Error("Unknwon metric Name: " + name);
 		}
