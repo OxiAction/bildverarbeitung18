@@ -20,6 +20,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import core.data.*;
 import core.evaluation.EvaluationDataSet;
+import core.evaluation.Metric;
 import events.*;
 import utils.*;
 
@@ -193,12 +194,8 @@ public class ViewTabNewScan implements ViewInterface {
 		// see: https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/histogram_comparison/histogram_comparison.html
 		
 		Label labelMetric = new Label(Translation.fetch("metric") + ":");
-		ComboBox<String> comboBoxMetric = new ComboBox<String>(FXCollections.observableArrayList(
-				"Correlation",
-				"Chi-Square",
-				"Intersection",
-		        "Bhattacharyya distance"
-		    ));
+		ObservableList<String> comboBoxMetricValues = FXCollections.observableArrayList(Metric.getNames());
+		ComboBox<String> comboBoxMetric = new ComboBox<String>(comboBoxMetricValues);
 		comboBoxMetric.getSelectionModel().select(0);
 		HBox hBoxMetric = new HBox();
 		hBoxMetric.getChildren().addAll(labelMetric, comboBoxMetric);

@@ -28,7 +28,6 @@ import utils.Utils;
 
 /**
  * Save / load data to / from .xml based on EvaluationDataSet objects
- * TODO could be improved by adding more layers of abstraction. Atm. everything is pretty much hard-coded.
  * 
  * @author Michael Schreiber
  *
@@ -155,7 +154,7 @@ public class Data {
 			setElement.setAttribute("name", set.getName());
 			setElement.setAttribute("sourceFolder", set.getSourceFolder());
 			setElement.setAttribute("kFactor", set.getKFactor());
-			setElement.setAttribute("metric", set.getMetric());
+			setElement.setAttribute("metricName", set.getMetricName());
 			
 			Element entries = document.createElement("entries");
 			
@@ -163,14 +162,20 @@ public class Data {
 				// create a new <entry> element
 				Element entryElement = document.createElement("entry");
 				// add attributes
+				entryElement.setAttribute("id", String.valueOf(entry.getID()));
 				entryElement.setAttribute("fileFolderPath", entry.getFileFolderPath());
 				entryElement.setAttribute("fileName", entry.getFileName());
 				entryElement.setAttribute("fileExtension", entry.getFileExtension());
 				entryElement.setAttribute("sensorType", entry.getSensorType());
 				
-				Element greyScale = document.createElement("greyScale");
-				greyScale.setTextContent(Utils.intArrayToString(entry.getGreyScaleValues()));
-				entryElement.appendChild(greyScale);
+				Element greyScaleData = document.createElement("greyScaleData");
+				greyScaleData.setTextContent(Utils.intArrayToString(entry.getGreyScaleData()));
+				entryElement.appendChild(greyScaleData);
+				
+				// TODO change to metric data! For now we use the grey scale data as metric data:
+				Element metricData = document.createElement("metricData");
+				metricData.setTextContent(Utils.intArrayToString(entry.getGreyScaleData()));
+				entryElement.appendChild(metricData);
 				
 				entries.appendChild(entryElement);
 			}
@@ -223,7 +228,7 @@ public class Data {
 					String name = setElement.getAttribute("name");
 					String sourceFolder = setElement.getAttribute("sourceFolder");
 					String kFactor = setElement.getAttribute("kFactor");
-					String metric = setElement.getAttribute("metric");
+					String metricName = setElement.getAttribute("metricName");
 					
 					// convert string to timestamp object
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -231,7 +236,7 @@ public class Data {
 				    Timestamp timestampObject = new Timestamp(date.getTime());
 					
 				    // create and add set to the list of sets
-					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, kFactor, metric);
+					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, kFactor, metricName);
 					
 					Element entriesElement = (Element) setElement.getElementsByTagName("entries").item(0);
 					
@@ -245,16 +250,20 @@ public class Data {
 							Element entryElement = (Element) entryNode;
 							
 							// get attributes
+							int id = Integer.parseInt(entryElement.getAttribute("id"));
 							String fileFolderPath = entryElement.getAttribute("fileFolderPath");
 							String fileName = entryElement.getAttribute("fileName");
 							String fileExtension = entryElement.getAttribute("fileExtension");
 							String sensorType = entryElement.getAttribute("sensorType");
 							
-							Element greyScaleElement = (Element) entryElement.getElementsByTagName("greyScale").item(0);
-							String greyScaleValues = greyScaleElement.getTextContent();
+							Element greyScaleDataElement = (Element) entryElement.getElementsByTagName("greyScaleData").item(0);
+							String greyScaleData = greyScaleDataElement.getTextContent();
+							
+							Element metricDataElement = (Element) entryElement.getElementsByTagName("metricData").item(0);
+							String metricData = metricDataElement.getTextContent();
 							
 							// create and add entry to the set
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(fileFolderPath, fileName, fileExtension, sensorType, Utils.stringToIntArray(greyScaleValues));
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, Utils.stringToIntArray(greyScaleData), Utils.stringToIntArray(metricData));
 							set.addEntry(entry);
 						}
 					}

@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 public class ImageReader {
 	
-	public static int [][] getGreyScaleValues(String absoluteFilePath) throws IOException {
+	public static int [][] getGreyScaleData(String absoluteFilePath) throws IOException {
 		BufferedImage image;
 		
 		try{

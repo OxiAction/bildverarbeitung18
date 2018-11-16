@@ -17,7 +17,7 @@ public class EvaluationDataSet {
 	protected String name;
 	protected String sourceFolder;
 	protected String kFactor;
-	protected String metric;
+	protected String metricName;
 	protected EvaluationDataSetEntry sourceEntry;
 	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
 	
@@ -33,14 +33,14 @@ public class EvaluationDataSet {
 	 * @param name			the name of the set
 	 * @param sourceFolder	the full path of the selected scan folder
 	 * @param kFactor		maximum number of files to be scanned
-	 * @param metric		the metric which was used for the scan
+	 * @param metricName	the metric name which was used for the scan
 	 */
-	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metric) {
+	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metricName) {
 		this.timestamp = timestamp;
 		this.name = name;
 		this.sourceFolder = sourceFolder;
 		this.kFactor = kFactor;
-		this.metric = metric;
+		this.metricName = metricName;
 	}
 	
 	/**
@@ -127,17 +127,17 @@ public class EvaluationDataSet {
 	}
 
 	/**
-	 * @return the metric
+	 * @return the metric name
 	 */
-	public String getMetric() {
-		return metric;
+	public String getMetricName() {
+		return metricName;
 	}
 
 	/**
-	 * @param metric the metric to set
+	 * @param metric the metric name to set
 	 */
-	public void setMetric(String metric) {
-		this.metric = metric;
+	public void setMetricName(String metricName) {
+		this.metricName = metricName;
 	}
 	
 	// general stuff
@@ -148,7 +148,7 @@ public class EvaluationDataSet {
 				"\n" + Translation.fetch("name") + ": " + this.getName() + 
 				"\n" + Translation.fetch("source_folder") + ": " + this.getSourceFolder() + 
 				"\n" + Translation.fetch("k_factor") + ": " + this.getKFactor() + 
-				"\n" + Translation.fetch("metric") + ": " + this.getMetric();
+				"\n" + Translation.fetch("metric") + ": " + this.getMetricName();
 	}
 	
 }

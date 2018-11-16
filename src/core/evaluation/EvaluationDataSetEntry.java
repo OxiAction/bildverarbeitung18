@@ -9,33 +9,54 @@ import utils.Translation;
  *
  */
 public class EvaluationDataSetEntry {
+	protected int id;
 	protected String fileFolderPath;
 	protected String fileName;
 	protected String fileExtension;
 	protected String sensorType;
-	protected int[][] greyScaleValues;
+	protected int[][] greyScaleData;
+	protected int[][] metricData;
 	
 	/**
 	 * constructor for a new EvaluationDataSetEntry
 	 * 
+	 * @param id				the unique id for this entry (in the set)
 	 * @param fileFolderPath	the folder path of the file
 	 * @param fileName			the file name (without extension!)
 	 * @param fileExtension		the file extension (without .) - e.g. "jpg"
-	 * @param greyScaleValues	the grey scale values as 2d int array
+	 * @param sensorType		the sensor type
+	 * @param greyScaleData		the grey scale data as 2d int array
+	 * @param metricData		the metric data as 2d int array
 	 */
-	public EvaluationDataSetEntry(String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleValues) {
+	public EvaluationDataSetEntry(int id, String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleData, int[][] metricData) {
+		this.id = id;
 		this.fileFolderPath = fileFolderPath;
 		this.fileName = fileName;
 		this.fileExtension = fileExtension;
 		this.sensorType = sensorType;
-		this.greyScaleValues = greyScaleValues;
+		this.greyScaleData = greyScaleData;
+		this.metricData = metricData;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public int getID() {
+		return this.id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setID(int id) {
+		this.id = id;
 	}
 	
 	/**
 	 * @return the fileFolderPath
 	 */
 	public String getFileFolderPath() {
-		return fileFolderPath;
+		return this.fileFolderPath;
 	}
 
 	/**
@@ -49,7 +70,7 @@ public class EvaluationDataSetEntry {
 	 * @return the fileName
 	 */
 	public String getFileName() {
-		return fileName;
+		return this.fileName;
 	}
 
 	/**
@@ -63,7 +84,7 @@ public class EvaluationDataSetEntry {
 	 * @return the fileExtension
 	 */
 	public String getFileExtension() {
-		return fileExtension;
+		return this.fileExtension;
 	}
 
 	/**
@@ -88,17 +109,31 @@ public class EvaluationDataSetEntry {
 	}
 
 	/**
-	 * @return the greyScaleValues
+	 * @return the greyScaleData
 	 */
-	public int[][] getGreyScaleValues() {
-		return greyScaleValues;
+	public int[][] getGreyScaleData() {
+		return this.greyScaleData;
 	}
 
 	/**
 	 * @param greyScaleValues the greyScaleValues to set
 	 */
-	public void setGreyScaleValues(int[][] greyScaleValues) {
-		this.greyScaleValues = greyScaleValues;
+	public void setGreyScaleData(int[][] greyScaleData) {
+		this.greyScaleData = greyScaleData;
+	}
+	
+	/**
+	 * @return the metricData
+	 */
+	public int[][] getMetricData() {
+		return this.metricData;
+	}
+
+	/**
+	 * @param metricData the metricData to set
+	 */
+	public void setMetricData(int[][] metricData) {
+		this.metricData = metricData;
 	}
 	
 	// general stuff

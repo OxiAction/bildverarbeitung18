@@ -37,7 +37,7 @@ public class Histogram {
 		ArrayList<int[][]> greyScaleValues = new ArrayList<int[][]>();
 
 		for (EvaluationDataSetEntry entry : set.getEntries()) {
-			greyScaleValues.add(entry.getGreyScaleValues());
+			greyScaleValues.add(entry.getGreyScaleData());
 		}
 		// test data
 		//		int[][] data1 = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 1, 1, 3, 3 } };
@@ -81,7 +81,7 @@ public class Histogram {
 	 * @return canvas
 	 */
 	public static Canvas get(EvaluationDataSetEntry entry) {
-		return generateCanvas(entry.getGreyScaleValues());
+		return generateCanvas(entry.getGreyScaleData());
 	}
 
 	/**

@@ -24,16 +24,20 @@ public class Evaluation {
 		String sourceFolder = set.getSourceFolder();
 		Debug.log("Set -> sourceFolder: " + sourceFolder);
 		
+		
 		ArrayList<String> paths = PathFinder.getPaths(sourceFolder);
 		
 		ArrayList<EvaluationThread> evaluationThreads = new ArrayList<EvaluationThread>();
 		
+		int idCounter = 1;
 		for (int j = 0; j < paths.size(); j++) {
 			String absoluteFilePath = paths.get(j);
 			if (absoluteFilePath != null && absoluteFilePath != "") {
-				EvaluationThread evaluationThread = new EvaluationThread(j, sourceFolder, absoluteFilePath);
+				EvaluationThread evaluationThread = new EvaluationThread(idCounter, absoluteFilePath, set);
 				evaluationThreads.add(evaluationThread);
 				evaluationThread.start();
+				
+				idCounter++;
 			}
 		}
 		
@@ -50,6 +54,9 @@ public class Evaluation {
 			set.addEntry(evaluationThread.getEntry());
 		}
 		
+		// TODO leave one out cross validation: compare each entry with all other entries and set k-nearest entries ids in entry
+		
+		// ...
 		
 		// return the set, filled with all the entries and values:
 		return set;
