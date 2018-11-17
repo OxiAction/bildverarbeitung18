@@ -49,6 +49,7 @@ public class ImageReader {
 	 * TODO [Richard] test if this works
 	 * Takes a two dimensional greyScale value array and generates a histogram out of it
 	 * Also outputs the histogram data with Debug.log
+	 * 
 	 * @param 	greyScaleData	the greyScale values of an image, an 2D int array
 	 * @return	the histogram, an 1D int array
 	 */
@@ -68,5 +69,17 @@ public class ImageReader {
 		}
 
 		return histogramData;
+	}
+	
+	/**
+	 * TODO [Richard]
+	 * 
+	 * @param greyScaleData
+	 * @param histogramData
+	 * @return
+	 */
+	public static double getEntropyData(int[][] greyScaleData, int[] histogramData) {
+		
+		return 0.0;
 	}
 }

@@ -194,4 +194,9 @@ public class EvaluationDataSetEntry {
 				"\n" + Translation.fetch("k_nearest_ids") + ": " + this.getKNearestIDsAsString();
 	}
 
+	public void setEntropyData(double entropyData) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
