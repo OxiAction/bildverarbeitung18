@@ -3,9 +3,9 @@ Authors: RR, MI, MS
 
 ##### Description
 * GUI based APP, developed in Java
-* Lets you select an image and compares it against other images
-* Distinguish between different camera sensors
-* Generates histograms based on image metrics
+* Lets you select a folder with subfolders (sensor types) which contain images
+* Images are collected and compared against each other - depending on the k-factor
+* For comparison, different metrics are used
 * Saves results in data.xml file (storage), which offers the possibility to take a look at past results again
 
 ##### Requirements

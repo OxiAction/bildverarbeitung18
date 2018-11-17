@@ -151,6 +151,23 @@ public class ViewTabScanResults implements ViewInterface {
 		
 		ObservableList<EvaluationDataSetEntry> dataEntry = FXCollections.observableArrayList(set.getEntries());
 		
+		TableColumn columnID = new TableColumn(Translation.fetch("id"));
+		columnID.setMinWidth(50);
+		columnID.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("ID"));
+		
+		TableColumn columnFileNameAndFileExtension = new TableColumn(Translation.fetch("file_name_and_file_extension"));
+		columnFileNameAndFileExtension.setMinWidth(150);
+		columnFileNameAndFileExtension.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("fileNameAndFileExtension"));
+		
+		TableColumn columnSensorType = new TableColumn(Translation.fetch("sensor_type"));
+		columnSensorType.setMinWidth(50);
+		columnSensorType.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("sensorType"));
+		
+		TableColumn columnKNearestIDsAsString = new TableColumn(Translation.fetch("k_nearest_ids"));
+		columnKNearestIDsAsString.setMinWidth(50);
+		columnKNearestIDsAsString.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("KNearestIDsAsString"));
+		
+		/*
 		TableColumn columnFileFolderPath = new TableColumn(Translation.fetch("file_folder_path"));
 		columnFileFolderPath.setMinWidth(150);
 		columnFileFolderPath.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("fileFolderPath"));
@@ -215,10 +232,12 @@ public class ViewTabScanResults implements ViewInterface {
 		    }
 		};
 		columnGreyScaleValue.setCellFactory(cellFactory);
-        
+        */
+		
 		TableView<EvaluationDataSetEntry> table = new TableView();
         table.setItems(dataEntry);
-        table.getColumns().addAll(columnFileFolderPath, columnFileName, columnFileExtension, columnSensorType, columnGreyScaleValue);
+//        table.getColumns().addAll(columnID, columnFileFolderPath, columnFileName, columnFileExtension, columnSensorType, columnGreyScaleValue);
+        table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnKNearestIDsAsString);
         
         vBox.getChildren().add(table);
 		

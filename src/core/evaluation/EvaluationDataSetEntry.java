@@ -1,7 +1,9 @@
 package core.evaluation;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
+import javafx.beans.property.StringProperty;
 import utils.Translation;
 
 /**
@@ -147,7 +149,17 @@ public class EvaluationDataSetEntry {
 	public ArrayList<Integer> getKNearestIDs() {
 		return this.kNearestIDs;
 	}
-
+	
+	/**
+	 * @return the kNearestIDs as String, divided by ", " - returns empty String if not IDs found
+	 */
+	public String getKNearestIDsAsString() {
+		if (this.getKNearestIDs() == null || this.getKNearestIDs().size() == 0) {
+			return "";
+		}
+		return this.getKNearestIDs().stream().map(Object::toString).collect(Collectors.joining(", "));
+	}
+	
 	/**
 	 * @param kNearestIDs the kNearestIDs to set
 	 */
@@ -162,6 +174,10 @@ public class EvaluationDataSetEntry {
 	 */
 	public void addKNearestByID(int id) {
 		this.kNearestIDs.add(id);
+	}
+	
+	public String getFileNameAndFileExtension() {
+		return this.getFileName() + this.getFileExtension();
 	}
 	
 	// general stuff

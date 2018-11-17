@@ -11,6 +11,7 @@
 		<file_folder_path><![CDATA[Datei-Ordner]]></file_folder_path>
 		<file_name><![CDATA[Datei-Name]]></file_name>
 		<file_extension><![CDATA[Datei-Typ]]></file_extension>
+		<file_name_and_file_extension><![CDATA[Datei]]></file_name_and_file_extension>
 		<grey_scale_value><![CDATA[Graustufen Werte]]></grey_scale_value>
 		<image_path><![CDATA[Quelldatei]]></image_path>
 		<timestamp><![CDATA[Zeitstempel]]></timestamp>
@@ -18,9 +19,11 @@
 		<image><![CDATA[Bild]]></image>
 		<folder><![CDATA[Ordner]]></folder>
 		<k_factor><![CDATA[K-Faktor]]></k_factor>
+		<k_nearest_ids><![CDATA[K-näheste IDs]]></k_nearest_ids>
 		<sensor_type><![CDATA[Sensor-Typ]]></sensor_type>
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Anzeigen]]></show>
+		<id><![CDATA[ID]]></id>
 		<name_not_unique><![CDATA[Name bereits vorhanden]]></name_not_unique>
 		<scan_results_overview><![CDATA[Scan Ergebnisse]]></scan_results_overview>
 		<scan_results><![CDATA[Scan Ergebnisse]]></scan_results>
@@ -51,6 +54,7 @@
 		<file_folder_path><![CDATA[File Folder]]></file_folder_path>
 		<file_name><![CDATA[File Name]]></file_name>
 		<file_extension><![CDATA[File Type]]></file_extension>
+		<file_name_and_file_extension><![CDATA[File]]></file_name_and_file_extension>
 		<grey_scale_value><![CDATA[Grey-Scale Values]]></grey_scale_value>
 		<image_path><![CDATA[Source File]]></image_path>
 		<timestamp><![CDATA[Timestamp]]></timestamp>
@@ -58,9 +62,11 @@
 		<image><![CDATA[Image]]></image>
 		<folder><![CDATA[Folder]]></folder>
 		<k_factor><![CDATA[K-Factor]]></k_factor>
+		<k_nearest_ids><![CDATA[K-nearest IDs]]></k_nearest_ids>
 		<sensor_type><![CDATA[Sensor-Type]]></sensor_type>
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Show]]></show>
+		<id><![CDATA[ID]]></id>
 		<name_not_unique><![CDATA[Name is not available]]></name_not_unique>
 		<scan_results_overview><![CDATA[Scan Results]]></scan_results_overview>
 		<scan_results><![CDATA[Scan Results]]></scan_results>
