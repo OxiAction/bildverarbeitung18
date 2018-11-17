@@ -248,6 +248,7 @@ public class Histogram {
 
 	/**
 	 * Draws one histogram to canvas using V as a modifier to increase the size
+	 * TODO: ! BUG - (at least) x-range is too low for 256 values!
 	 * TODO: Improve code
 	 * TODO: Implement automatic scaling of the diagram with modifier V
 	 * @param canvas the canvas to draw the histogram on
