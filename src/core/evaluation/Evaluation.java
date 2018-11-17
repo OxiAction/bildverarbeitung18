@@ -106,7 +106,8 @@ public class Evaluation {
 					entry.addKNearestByID(mapEntry.getKey().getID());
 				}
 			}
-
+			
+			entry.setEntropyData(ImageReader.getEntropyData(entry.getGreyScaleData(), entry.getHistogramData()));	
 		}
 
 		// return the set, filled with all the entries and values:
