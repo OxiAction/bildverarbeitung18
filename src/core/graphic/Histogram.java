@@ -16,11 +16,13 @@ import java.util.ArrayList;
  * @author Richard Riediger
  */
 public class Histogram {
-	private static int V = 2; // multiplier for histogram
+	private static int V = 2; 	// multiplier for histogram
+	private static int H = 256;	// number of histogram values
+	private static int LINEWIDTH = 1;
 
 	/**
 	 * Main, only for testing!
-	 * 
+	 *
 	 * @param args no args required
 	 */
 	public static void main(String[] args) {
@@ -28,8 +30,8 @@ public class Histogram {
 	}
 
 	/**
-	 * Returns Canvas based on average set data TODO: Split this to multiple methods
-	 * 
+	 * Returns Canvas based on average set data
+	 * TODO: Split this to multiple methods
 	 * @param set
 	 * @return canvas
 	 */
@@ -203,8 +205,8 @@ public class Histogram {
 	 * @return
 	 */
 	private static Canvas generateCanvas(int[][] data) {
-		int width = 562;
-		int height = 562;
+		int width = H*V;
+		int height = H*V;
 		Canvas canvas = new Canvas(width, height);
 
 		int[] histogramData = generateHistogram(data);
@@ -221,8 +223,8 @@ public class Histogram {
 	 * @return
 	 */
 	private static Canvas generateNewCanvas(int[] data) {
-		int width = 562;
-		int height = 562;
+		int width = H*V;
+		int height = H*V;
 		Canvas canvas = new Canvas(width, height);
 
 		drawHistogram(canvas, data);
@@ -245,9 +247,9 @@ public class Histogram {
 	}
 
 	/**
-	 * Draws one histogram to canvas using V as a modifier to increase the size TODO: Implement automatic scaling of the diagram with modifier V TODO:
-	 * Improve code
-	 * 
+	 * Draws one histogram to canvas using V as a modifier to increase the size
+	 * TODO: Improve code
+	 * TODO: Implement automatic scaling of the diagram with modifier V
 	 * @param canvas the canvas to draw the histogram on
 	 * @param histogram the histogram (int array)
 	 */
@@ -255,31 +257,31 @@ public class Histogram {
 		int c1 = 0, c2 = 0;
 		GraphicsContext graphicsContext2D = canvas.getGraphicsContext2D();
 		graphicsContext2D.setFill(Color.GREY);
-		graphicsContext2D.fillRect(0, 0, 562, 562);
+		graphicsContext2D.fillRect(0, 0, H*V, H*V);
 
-		graphicsContext2D.setLineWidth(1);
+		graphicsContext2D.setLineWidth(LINEWIDTH);
 		graphicsContext2D.setStroke(Color.BLACK);
-		graphicsContext2D.strokeLine(0 + 15, 537, 562 - 15, 537); // X axis
-		graphicsContext2D.strokeLine(25, 0 + 15, 25, 562 - 15); // Y axis
+		graphicsContext2D.strokeLine(0 + 15, H*V-25, H*V - 15, H*V-25); // X axis
+		graphicsContext2D.strokeLine(25, 0 + 15, 25, H*V - 15); // Y axis
 
-		graphicsContext2D.strokeLine(562 - 15, 537, 562 - 15 - 5, 537 + 5); // X axis arrow 1
-		graphicsContext2D.strokeLine(562 - 15, 537, 562 - 15 - 5, 537 - 5); // X axis arrow 2
+		graphicsContext2D.strokeLine(H*V - 15, H*V-25, H*V - 15 - 5, H*V - 25 + 5); // X axis arrow 1
+		graphicsContext2D.strokeLine(H*V - 15, H*V-25, H*V - 15 - 5, H*V - 25 - 5); // X axis arrow 2
 		graphicsContext2D.strokeLine(25, 0 + 15, 25 + 5, 25 - 5); // Y axis arrow 1
 		graphicsContext2D.strokeLine(25, 0 + 15, 25 - 5, 25 - 5); // Y axis arrow 2
 
-		graphicsContext2D.setLineWidth(0.5);
+		graphicsContext2D.setLineWidth(LINEWIDTH/2);
 		graphicsContext2D.setStroke(Color.BLACK);
-		for (int i = 25; i < 527; i += 10) {
-			graphicsContext2D.strokeLine(i, 537 - 3, i, 537 + 3); // X axis divide lines
+		for (int i = 25; i < H*V - 35; i += 5*V) {
+			graphicsContext2D.strokeLine(i, H*V - 25 - 3, i, H*V - 25 + 3); // X axis divide lines
 			if (c1 == 0) {
-				graphicsContext2D.strokeText("" + c1, i, 557, 15);
+				graphicsContext2D.strokeText("" + c1, i, H*V - 5, 15);
 			}
 			c1 = c1 + 10;
 			if (c1 % 50 == 0) {
-				graphicsContext2D.strokeText("" + c1, i, 557, 15); // X axis numbers
+				graphicsContext2D.strokeText("" + c1, i, H*V - 5, 15); // X axis numbers
 			}
 		}
-		for (int i = 527; i > 25; i -= 10) {
+		for (int i = H*V - 35; i > 25; i -= 5*V) {
 			graphicsContext2D.strokeLine(25 - 3, i, 25 + 3, i); // Y axis divide lines
 			c2 = c2 + 10;
 			if (c2 % 50 == 0) {
@@ -289,9 +291,9 @@ public class Histogram {
 
 		// histogram lines
 		for (int h = 0; h < histogram.length; h++) {
-			graphicsContext2D.setLineWidth(0.5);
+			graphicsContext2D.setLineWidth(LINEWIDTH/2);
 			graphicsContext2D.setStroke(Color.DARKBLUE);
-			graphicsContext2D.strokeLine(25 + h * V, 537, 25 + h * V, 537 - histogram[h] * V);
+			graphicsContext2D.strokeLine(25 + h * V, H*V - 25, 25 + h * V, H*V - 25 - histogram[h]*V);
 		}
 	}
 }
