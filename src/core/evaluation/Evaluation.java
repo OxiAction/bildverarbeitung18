@@ -14,11 +14,12 @@ import java.io.IOException;
 public class Evaluation {
 
 	/**
-	 * Returns evaluated set based on incoming set.
-	 * Threads (EvaluationThread) are used to speed up the calculation process (e.g. for grey scale / histogram data gathering).
-	 * After all threads have finished their work, we get the distance of the metric (based histogram datas) for each entry.
-	 * The k-factor determines how many "nearest" (which means "similar distance") entries are stored within an entry.
+	 * Returns evaluated set based on incoming set. Threads (EvaluationThread) are used to speed up the calculation process (e.g. for grey scale /
+	 * histogram data gathering). After all threads have finished their work, we get the distance of the metric (based on histogram datas) for each
+	 * entry. The k-factor determines how many "nearest" (which means "similar distance") entries are stored within an entry.
 	 * 
+	 * @param set the set to be processed
+	 * @return the processed set
 	 * @throws IOException
 	 */
 	public static EvaluationDataSet get(EvaluationDataSet set) throws IOException {
@@ -51,14 +52,17 @@ public class Evaluation {
 			}
 		}
 
-		for (EvaluationThread evaluationThread : evaluationThreads) {
-			set.addEntry(evaluationThread.getEntry());
-		}
-
-		// leave one out cross validation: compare each entry with all other entries (by metric) and set k-nearest entries ids in entry
+		// leave one out cross validation:
+		// - compare each entry with all other entries (by metric) and set k-nearest entries ids in entry
 		List<EvaluationDataSetEntry> setEntries = set.getEntries();
 		for (EvaluationDataSetEntry entry : setEntries) {
 			int[] histogramData = entry.getHistogramData();
+
+			// sanity check
+			if (histogramData == null) {
+				continue;
+			}
+
 			int kFactor = Integer.parseInt(set.getKFactor());
 			Hashtable<EvaluationDataSetEntry, Double> kNearest = new Hashtable<EvaluationDataSetEntry, Double>();
 			int count = 0;
@@ -71,12 +75,12 @@ public class Evaluation {
 
 				int[] innerHistogramData = innerEntry.getHistogramData();
 
-				// compare histogramData of two entries (set.getMetricName() is the name which was choosen in the new scan metric name dropdown):
+				// compare histogramData of two entries by metric (which is choosen by metric name)
 				double distance = Metric.getDataByName(set.getMetricName(), histogramData, innerHistogramData);
 
 				// adds a distance to the k-nearest hashtable:
-				// first we check if we already have k-elements
-				// when there are already k-elements in the hashtable, we replace the largest with the new one (if it is smaller)
+				// - first we check if we already have k-elements
+				// - when there are already k-elements in the hashtable, we replace the largest with the new one (if it is smaller)
 				if (count < kFactor) {
 					kNearest.put(innerEntry, distance);
 					count++;
@@ -97,7 +101,7 @@ public class Evaluation {
 					}
 				}
 
-				// add id as a kNearest to entry (in case it is actually k-nearest):
+				// add id as a kNearest to entry
 				for (Map.Entry<EvaluationDataSetEntry, Double> mapEntry : kNearest.entrySet()) {
 					entry.addKNearestByID(mapEntry.getKey().getID());
 				}
