@@ -2,6 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 /**
  * Collection of utilities.
@@ -19,17 +20,7 @@ public class Utils {
 	 * @return
 	 */
 	public static String intArrayListToString(ArrayList<Integer> data) {
-		String result = "";
-		
-		for (Integer integer : data) {
-			if (result != "") {
-				result += "|";
-			}
-			
-			result += String.valueOf(integer);
-		}
-		
-		return result;
+		return data.stream().map(Object::toString).collect(Collectors.joining("|"));
 	}
 	
 	/**
