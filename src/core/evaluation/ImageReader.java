@@ -8,7 +8,17 @@ import javax.imageio.ImageIO;
 
 
 public class ImageReader {
-	
+	// 256 shades of grey
+	private static int[] histogramData = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
 	public static int [][] getGreyScaleData(String absoluteFilePath) throws IOException {
 		BufferedImage image;
 		
@@ -32,10 +42,15 @@ public class ImageReader {
 			throw new IOException("IOException: " + e);
 		}
 	}
-	
+
+	// TODO [Richard] test if this works
 	public static int[] getHistogramData(int[][] greyScaleData) {
-		// TODO [Richard] calculate histogram data
-		
-		return null;
+		for (int i = 0; i < greyScaleData.length; i++) {
+			for (int j = 0; j < greyScaleData[i].length; j++) {
+				histogramData[greyScaleData[i][j]] += 1;
+			}
+		}
+
+		return histogramData;
 	}
 }
