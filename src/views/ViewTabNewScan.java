@@ -178,6 +178,7 @@ public class ViewTabNewScan implements ViewInterface {
 	// k-factor
 		
 		Label labelKFactor = new Label(Translation.fetch("k_factor") + ":");
+		// 10 - 50 - 100
 		ComboBox<String> comboBoxKFactor = new ComboBox<String>(FXCollections.observableArrayList(
 		        "2",
 		        "4",

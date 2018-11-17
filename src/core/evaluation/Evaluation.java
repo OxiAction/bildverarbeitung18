@@ -64,7 +64,6 @@ public class Evaluation {
 			}
 
 			int kFactor = Integer.parseInt(set.getKFactor());
-			Hashtable<EvaluationDataSetEntry, Double> kNearest = new Hashtable<EvaluationDataSetEntry, Double>();
 			int count = 0;
 
 			// compare all others with current entry	
@@ -72,6 +71,8 @@ public class Evaluation {
 				if (entry == innerEntry) {
 					continue;
 				}
+				
+				Hashtable<EvaluationDataSetEntry, Double> kNearest = new Hashtable<EvaluationDataSetEntry, Double>();
 
 				int[] innerHistogramData = innerEntry.getHistogramData();
 
