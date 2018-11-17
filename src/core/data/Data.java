@@ -27,7 +27,7 @@ import core.evaluation.*;
 import utils.Utils;
 
 /**
- * Save / load data to / from .xml based on EvaluationDataSet objects
+ * Save / load data to / from .xml based on EvaluationDataSet objects.
  * 
  * @author Michael Schreiber
  *
@@ -168,19 +168,17 @@ public class Data {
 				entryElement.setAttribute("fileName", entry.getFileName());
 				entryElement.setAttribute("fileExtension", entry.getFileExtension());
 				entryElement.setAttribute("sensorType", entry.getSensorType());
-
+				
 				Element greyScaleData = document.createElement("greyScaleData");
-				greyScaleData.setTextContent(Utils.intArrayToString(entry.getGreyScaleData()));
+				greyScaleData.setTextContent(Utils.intArray2DToString(entry.getGreyScaleData()));
 				entryElement.appendChild(greyScaleData);
-
-				// TODO properly implement histogramData
+				
 				Element histogramData = document.createElement("histogramData");
-				histogramData.setTextContent("TODO");
+				histogramData.setTextContent(Utils.intArray1DToString(entry.getHistogramData()));
 				entryElement.appendChild(histogramData);
 				
-				// TODO properly implement kNearestIDs
 				Element kNearestIDsData = document.createElement("kNearestIDs");
-				kNearestIDsData.setTextContent("TODO");
+				kNearestIDsData.setTextContent(Utils.intArrayListToString(entry.getKNearestIDs()));
 				entryElement.appendChild(kNearestIDsData);
 
 				entries.appendChild(entryElement);
@@ -255,28 +253,25 @@ public class Data {
 
 						if (entryNode.getNodeType() == Node.ELEMENT_NODE) {
 							Element entryElement = (Element) entryNode;
-
+							
 							// get attributes
 							int id = Integer.parseInt(entryElement.getAttribute("id"));
 							String fileFolderPath = entryElement.getAttribute("fileFolderPath");
 							String fileName = entryElement.getAttribute("fileName");
 							String fileExtension = entryElement.getAttribute("fileExtension");
 							String sensorType = entryElement.getAttribute("sensorType");
-
+							
 							Element greyScaleDataElement = (Element) entryElement.getElementsByTagName("greyScaleData").item(0);
-							String greyScaleData = greyScaleDataElement.getTextContent();
+							int[][] greyScaleData = Utils.stringToIntArray2D(greyScaleDataElement.getTextContent());
 							
-							// TODO implement proper histogramData
 							Element histogramDataElement = (Element) entryElement.getElementsByTagName("histogramData").item(0);
-							int[] histogramData = null;
+							int[] histogramData = Utils.stringToIntArray1D(histogramDataElement.getTextContent());
 							
-							// TODO implement proper kNearestIDs
 							Element kNearestIDsElement = (Element) entryElement.getElementsByTagName("kNearestIDs").item(0);
-							ArrayList<Integer> kNearestIDs = null;
-
+							ArrayList<Integer> kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
+							
 							// create and add entry to the set
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, Utils.stringToIntArray(greyScaleData), histogramData,
-									kNearestIDs);
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, histogramData, kNearestIDs);
 							set.addEntry(entry);
 						}
 					}

@@ -3,13 +3,12 @@ package core.evaluation;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import javafx.beans.property.StringProperty;
 import utils.Translation;
 
 /**
  * TODO description
  * 
- * @author 
+ * @author
  *
  */
 public class EvaluationDataSetEntry {
@@ -21,18 +20,18 @@ public class EvaluationDataSetEntry {
 	protected int[][] greyScaleData;
 	protected int[] histogramData;
 	protected ArrayList<Integer> kNearestIDs;
-	
+
 	/**
 	 * constructor for a new EvaluationDataSetEntry
 	 * 
-	 * @param id				the unique id for this entry (in the set)
-	 * @param fileFolderPath	the folder path of the file
-	 * @param fileName			the file name (without extension!)
-	 * @param fileExtension		the file extension (without .) - e.g. "jpg"
-	 * @param sensorType		the sensor type
-	 * @param greyScaleData		the grey scale data as 2d int array
-	 * @param histogramData		the histogramData data 1d int array
-	 * @param kNearestIDs		the list with the k-nearest entries (ids)
+	 * @param id the unique id for this entry (in the set)
+	 * @param fileFolderPath the folder path of the file
+	 * @param fileName the file name (without extension!)
+	 * @param fileExtension the file extension (without .) - e.g. "jpg"
+	 * @param sensorType the sensor type
+	 * @param greyScaleData the grey scale data as 2d int array
+	 * @param histogramData the histogramData data 1d int array
+	 * @param kNearestIDs the list with the k-nearest entries (ids)
 	 */
 	public EvaluationDataSetEntry(int id, String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleData, int[] histogramData, ArrayList<Integer> kNearestIDs) {
 		this.id = id;
@@ -44,7 +43,7 @@ public class EvaluationDataSetEntry {
 		this.histogramData = histogramData;
 		this.kNearestIDs = kNearestIDs;
 	}
-	
+
 	/**
 	 * @return the id
 	 */
@@ -58,7 +57,7 @@ public class EvaluationDataSetEntry {
 	public void setID(int id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * @return the fileFolderPath
 	 */
@@ -100,7 +99,7 @@ public class EvaluationDataSetEntry {
 	public void setFileExtension(String fileExtension) {
 		this.fileExtension = fileExtension;
 	}
-	
+
 	/**
 	 * @return the sensorType
 	 */
@@ -128,7 +127,7 @@ public class EvaluationDataSetEntry {
 	public void setGreyScaleData(int[][] greyScaleData) {
 		this.greyScaleData = greyScaleData;
 	}
-	
+
 	/**
 	 * @return the histogramData
 	 */
@@ -142,14 +141,14 @@ public class EvaluationDataSetEntry {
 	public void setHistogramData(int[] histogramData) {
 		this.histogramData = histogramData;
 	}
-	
+
 	/**
 	 * @return the kNearestIDs
 	 */
 	public ArrayList<Integer> getKNearestIDs() {
 		return this.kNearestIDs;
 	}
-	
+
 	/**
 	 * @return the kNearestIDs as String, divided by ", " - returns empty String if not IDs found
 	 */
@@ -159,35 +158,40 @@ public class EvaluationDataSetEntry {
 		}
 		return this.getKNearestIDs().stream().map(Object::toString).collect(Collectors.joining(", "));
 	}
-	
+
 	/**
 	 * @param kNearestIDs the kNearestIDs to set
 	 */
 	public void setKNearestIDs(ArrayList<Integer> kNearestIDs) {
 		this.kNearestIDs = kNearestIDs;
 	}
-	
+
 	/**
 	 * add a k-nearest entry by its id
 	 * 
 	 * @param id
 	 */
 	public void addKNearestByID(int id) {
+		if (this.kNearestIDs == null) {
+			this.kNearestIDs = new ArrayList<Integer>();
+		}
+
 		this.kNearestIDs.add(id);
 	}
-	
+
 	public String getFileNameAndFileExtension() {
 		return this.getFileName() + this.getFileExtension();
 	}
-	
+
 	// general stuff
-	
-		@Override
-		public String toString() {
-			return Translation.fetch("file_folder_path") + ": " + this.getFileFolderPath() + 
-					"\n" + Translation.fetch("file_name") + ": " + this.getFileName() + 
-					"\n" + Translation.fetch("file_extension") + ": " + this.getFileExtension() + 
-					"\n" + Translation.fetch("sensor_type") + ": " + this.getSensorType();
-		}
-	
+
+	@Override
+	public String toString() {
+		return Translation.fetch("file_folder_path") + ": " + this.getFileFolderPath() + 
+				"\n" + Translation.fetch("file_name") + ": " + this.getFileName() + 
+				"\n" + Translation.fetch("file_extension") + ": " + this.getFileExtension() + 
+				"\n" + Translation.fetch("sensor_type") + ": " + this.getSensorType() + 
+				"\n" + Translation.fetch("k_nearest_ids") + ": " + this.getKNearestIDsAsString();
+	}
+
 }
