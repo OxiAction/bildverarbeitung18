@@ -33,7 +33,7 @@ public class EvaluationThread extends Thread {
 
 	@Override
 	public void run() {
-		Debug.log("EvaluationThread @ running with ID: " + this.id);
+//		Debug.log("EvaluationThread @ running with ID: " + this.id);
 
 		try {
 			HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(this.absoluteFilePath);
@@ -65,7 +65,7 @@ public class EvaluationThread extends Thread {
 			Debug.log("IOException: : " + e);
 		}
 
-		Debug.log("EvaluationThread @ exiting with ID: " + this.id);
+//		Debug.log("EvaluationThread @ exiting with ID: " + this.id);
 	}
 
 	public EvaluationDataSetEntry getEntry() {

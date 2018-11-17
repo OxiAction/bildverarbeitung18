@@ -21,15 +21,6 @@ public class Histogram {
 	private static int LINEWIDTH = 1;
 
 	/**
-	 * Main, only for testing!
-	 *
-	 * @param args no args required
-	 */
-	public static void main(String[] args) {
-		get(new EvaluationDataSet(null, null, null, null, null));
-	}
-
-	/**
 	 * Returns Canvas based on average set data
 	 * TODO: Split this to multiple methods
 	 * @param set
@@ -53,8 +44,8 @@ public class Histogram {
 		int i;
 		for (i = 0; i < greyScaleValues.size(); i++) {
 			greyScaleValues1D.add(generateHistogram(greyScaleValues.get(i)));
-			Debug.log("Generated Histogram: " + i);
-			print1dArray(greyScaleValues1D.get(i));
+//			Debug.log("Generated Histogram: " + i);
+//			print1dArray(greyScaleValues1D.get(i));
 		}
 
 		int[] additionOfAll1DArrays = new int[greyScaleValues1D.get(0).length];
@@ -62,15 +53,15 @@ public class Histogram {
 			additionOfAll1DArrays = add1DArrays(additionOfAll1DArrays, greyScaleValues1D.get(j));
 		}
 
-		Debug.log("Addition of all 1D arrays: ");
-		for (int k = 0; k < additionOfAll1DArrays.length; k++) {
-			Debug.log(additionOfAll1DArrays[k] + " ");
-		}
+//		Debug.log("Addition of all 1D arrays: ");
+//		for (int k = 0; k < additionOfAll1DArrays.length; k++) {
+//			Debug.log(additionOfAll1DArrays[k] + " ");
+//		}
 
-		Debug.log("\nAverage of all 1D arrays: ");
+//		Debug.log("\nAverage of all 1D arrays: ");
 		for (int k = 0; k < additionOfAll1DArrays.length; k++) {
 			additionOfAll1DArrays[k] = additionOfAll1DArrays[k] / i;
-			Debug.log(additionOfAll1DArrays[k] + " ");
+//			Debug.log(additionOfAll1DArrays[k] + " ");
 		}
 
 		return generateNewCanvas(additionOfAll1DArrays);
@@ -100,10 +91,10 @@ public class Histogram {
 		for (i = 0; i < greyScaleValues.size(); i++) {
 			greyScaleValuesNORMALIZED = add2DArrays(greyScaleValuesNORMALIZED, greyScaleValues.get(i));
 		}
-		Debug.log("Addition of all greyScaleValues:");
+//		Debug.log("Addition of all greyScaleValues:");
 		print2dArray(greyScaleValuesNORMALIZED);
 
-		Debug.log("Average greyScaleValues:");
+//		Debug.log("Average greyScaleValues:");
 		greyScaleValuesNORMALIZED = calculateAverage2dArray(greyScaleValuesNORMALIZED, i);
 
 		return greyScaleValuesNORMALIZED;

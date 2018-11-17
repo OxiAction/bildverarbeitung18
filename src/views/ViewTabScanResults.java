@@ -4,6 +4,7 @@ import javafx.geometry.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
+import javafx.concurrent.Task;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,6 +15,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,7 +135,23 @@ public class ViewTabScanResults implements ViewInterface {
 	// store set
 		
 		if (set.save) {
-			Data.save(set);
+
+			Task task = new Task<Void>() {
+			    @Override public Void call() {
+//			    	try {
+//						Data.save(set);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+			    	
+			        return null;
+			    }
+			};
+			
+			new Thread(task).start();
+			
+//			Data.save(set);
 		}
 		
 	// table

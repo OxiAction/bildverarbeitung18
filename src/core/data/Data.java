@@ -24,6 +24,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import core.evaluation.*;
+import utils.Debug;
 import utils.Utils;
 
 /**
@@ -160,6 +161,8 @@ public class Data {
 			Element entries = document.createElement("entries");
 
 			for (EvaluationDataSetEntry entry : set.getEntries()) {
+				Debug.log("Data @ save: processing entry with id: " + entry.getID());
+				
 				// create a new <entry> element
 				Element entryElement = document.createElement("entry");
 				// add attributes

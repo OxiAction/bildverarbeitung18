@@ -60,13 +60,13 @@ public class ImageReader {
 			}
 		}
 
-		Debug.log("HistogramData: ");
-		for (int i = 0; i < histogramData.length; i++) {
-			Debug.log(histogramData[i] + " ");
-			if ((i % 40 == 0) && (i > 0)) {
-				Debug.log("");
-			}
-		}
+//		Debug.log("HistogramData: ");
+//		for (int i = 0; i < histogramData.length; i++) {
+//			Debug.log(histogramData[i] + " ");
+//			if ((i % 40 == 0) && (i > 0)) {
+//				Debug.log("");
+//			}
+//		}
 
 		return histogramData;
 	}

@@ -108,7 +108,9 @@ public class Evaluation {
 				}
 			}
 			
-			entry.setEntropyData(ImageReader.getEntropyData(entry.getGreyScaleData(), entry.getHistogramData()));	
+			entry.setEntropyData(ImageReader.getEntropyData(entry.getGreyScaleData(), entry.getHistogramData()));
+			
+			Debug.log("Evaluation: finished entry with ID " + entry.getID());
 		}
 
 		// return the set, filled with all the entries and values:
