@@ -1,5 +1,7 @@
 package core.evaluation;
 
+import utils.Debug;
+
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
@@ -43,11 +45,25 @@ public class ImageReader {
 		}
 	}
 
-	// TODO [Richard] test if this works
+	/**
+	 * TODO [Richard] test if this works
+	 * Takes a two dimensional greyScale value array and generates a histogram out of it
+	 * Also outputs the histogram data with Debug.log
+	 * @param 	greyScaleData	the greyScale values of an image, an 2D int array
+	 * @return	the histogram, an 1D int array
+	 */
 	public static int[] getHistogramData(int[][] greyScaleData) {
 		for (int i = 0; i < greyScaleData.length; i++) {
 			for (int j = 0; j < greyScaleData[i].length; j++) {
 				histogramData[greyScaleData[i][j]] += 1;
+			}
+		}
+
+		Debug.log("HistogramData: ");
+		for (int i = 0; i < histogramData.length; i++) {
+			Debug.log(histogramData[i] + " ");
+			if ((i % 40 == 0) && (i > 0)) {
+				Debug.log("");
 			}
 		}
 
