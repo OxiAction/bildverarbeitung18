@@ -1,9 +1,7 @@
 package events;
 
 /**
- * 
- * @author Michael Schreiber
- *
+ * TODO description
  */
 public class EventLoadingStarted extends EventAbstract {
 	public EventLoadingStarted() {

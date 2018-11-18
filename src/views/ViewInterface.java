@@ -1,14 +1,11 @@
 package views;
 
 /**
- * Every view must implement this
- * 
- * @author Michael Schreiber
- *
+ * Every view must implement this.
  */
 public interface ViewInterface {
 	/**
-	 * initialize the view -> show its ui
+	 * Initialize the view -> show its ui.
 	 * 
 	 * @param borderPane
 	 * @param extraData		stores extra configuration data (if required)

@@ -11,7 +11,7 @@ import utils.Translation;
 import views.ViewMain;
 
 /**
- * Main app entry point.
+ * Class for main app.
  */
 public class Main extends Application {
 	
@@ -19,6 +19,9 @@ public class Main extends Application {
 		launch(args);
 	}
 	
+	/**
+	 * JavaFX entry point.
+	 */
 	@Override
 	public void start(final Stage stage) throws Exception {
 		// enable / disable Debug mode

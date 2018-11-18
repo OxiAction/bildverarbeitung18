@@ -6,9 +6,6 @@ import java.util.Map;
 
 /**
  * Debug related stuff
- *
- * @author Michael Schreiber
- *
  */
 public class Debug {
 	

@@ -9,15 +9,12 @@ import javafx.scene.text.Text;
 import utils.*;
 
 /**
- * Tab content for the "welcome" (start screen) section of the App
- * 
- * @author Michael Schreiber
- *
+ * Tab content for the "welcome" (start screen) section of the App.
  */
 public class ViewTabWelcome implements ViewInterface {
 
 	/**
-	 * initialize / show components
+	 * Initialize / show components.
 	 * 
 	 * @param borderPane
 	 * @param extraData

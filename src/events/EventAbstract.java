@@ -1,17 +1,14 @@
 package events;
 
 /**
- * Abstract event object
- * 
- * @author Michael Schreiber
- *
+ * Abstract event object.
  */
 public class EventAbstract {
 	private String name = "DEFAULT";
 	
 	/**
-	 * dispatch with extraData object
-	 * override this method to implement your dispatch logic!
+	 * Dispatch with extraData object.
+	 * Override this method to implement your dispatch logic!
 	 * 
 	 * @param extraData
 	 */
@@ -20,7 +17,7 @@ public class EventAbstract {
 	}
 	
 	/**
-	 * set name
+	 * Set name.
 	 * 
 	 * @param name
 	 */
@@ -29,7 +26,7 @@ public class EventAbstract {
 	}
 	
 	/**
-	 * get name
+	 * Get name.
 	 * 
 	 * @return
 	 */

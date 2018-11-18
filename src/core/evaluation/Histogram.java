@@ -1,5 +1,8 @@
 package core.evaluation;
 
+/**
+ * TODO description
+ */
 public class Histogram {
 	/**
 	 * Takes a two dimensional greyScale value array and generates a histogram out of it.

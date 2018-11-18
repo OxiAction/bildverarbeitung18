@@ -1,9 +1,7 @@
 package events;
 
 /**
- * 
- * @author Michael Schreiber
- *
+ * TODO description
  */
 public class EventTabConfigClosed extends EventAbstract {
 	public EventTabConfigClosed() {

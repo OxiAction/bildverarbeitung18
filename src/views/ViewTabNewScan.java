@@ -25,10 +25,7 @@ import events.*;
 import utils.*;
 
 /**
- * Tab content for the "new scan" section of the App  
- * 
- * @author Michael Schreiber
- *
+ * Tab content for the "new scan" section of the App.
  */
 public class ViewTabNewScan implements ViewInterface {
 
@@ -42,7 +39,7 @@ public class ViewTabNewScan implements ViewInterface {
 	protected ArrayList<EvaluationDataSet> sets;
 
 	/**
-	 * initialize / show components
+	 * Initialize / show components.
 	 * 
 	 * @param borderPane
 	 * @param extraData

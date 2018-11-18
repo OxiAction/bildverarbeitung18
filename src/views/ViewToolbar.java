@@ -7,15 +7,12 @@ import events.*;
 import utils.*;
 
 /**
- * Toolbar with different buttons
- * 
- * @author Michael Schreiber
- *
+ * Toolbar with different button.
  */
 public class ViewToolbar implements ViewInterface {
 
 	/**
-	 * initialize / show components
+	 * Initialize / show components.
 	 * 
 	 * @param borderPane
 	 * @param extraData

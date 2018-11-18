@@ -14,8 +14,6 @@ import java.util.ArrayList;
  * This class generates a Canvas based on GreyScaleValues from EvaluationDataSet and EvaluationDataSetEntry's.
  * TODO: Make average data double?
  * TODO: Make different sizes possible!
- * 
- * @author Richard Riediger
  */
 public class Histogram {
 	private static int V = 2; // multiplier for histogram
@@ -113,7 +111,7 @@ public class Histogram {
 	}
 
 	/**
-	 * Generates a histogram of a greyScaleValues 2d array
+	 * Generates a histogram of a greyScaleValues 2d array.
 	 * 
 	 * @param data
 	 * @return

@@ -13,15 +13,12 @@ import events.*;
 import utils.*;
 
 /**
- * Tab content for the "config" section of the App 
- * 
- * @author Michael Schreiber
- *
+ * Tab content for the "config" section of the App.
  */
 public class ViewTabConfig implements ViewInterface {
 
 	/**
-	 * initialize / show components
+	 * Initialize / show components.
 	 * 
 	 * @param borderPane
 	 * @param extraData

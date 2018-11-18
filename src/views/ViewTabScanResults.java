@@ -25,10 +25,7 @@ import core.evaluation.*;
 import core.graphic.Histogram;
 
 /**
- * Tab content for the "scan results" section of the App
- * 
- * @author 
- *
+ * Tab content for the "scan results" section of the App.
  */
 public class ViewTabScanResults implements ViewInterface {
 
@@ -41,7 +38,7 @@ public class ViewTabScanResults implements ViewInterface {
 	protected EvaluationDataSet set;
 	
 	/**
-	 * initialize / show components
+	 * Initialize / show components.
 	 * 
 	 * @param container
 	 * @param extraData

@@ -5,9 +5,6 @@ import java.util.HashMap;
 
 /**
  * Collection of utilities.
- *
- * @author Michael Schreiber
- *
  */
 public class Utils {
 	

@@ -7,9 +7,6 @@ import javafx.scene.layout.StackPane;
 
 /**
  * Loader for JavaFX.
- *
- * @author Michael Schreiber
- *
  */
 public class Loader {
 	protected static Pane pane = null;

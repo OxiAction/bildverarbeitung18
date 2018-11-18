@@ -7,9 +7,6 @@ import utils.Translation;
 
 /**
  * TODO description
- * 
- * @author
- *
  */
 public class EvaluationDataSetEntry {
 	protected int id;
@@ -22,7 +19,7 @@ public class EvaluationDataSetEntry {
 	protected ArrayList<Integer> kNearestIDs;
 
 	/**
-	 * constructor for a new EvaluationDataSetEntry
+	 * Constructor for a new EvaluationDataSetEntry.
 	 * 
 	 * @param id the unique id for this entry (in the set)
 	 * @param fileFolderPath the folder path of the file
@@ -182,8 +179,6 @@ public class EvaluationDataSetEntry {
 	public String getFileNameAndFileExtension() {
 		return this.getFileName() + this.getFileExtension();
 	}
-
-	// general stuff
 
 	@Override
 	public String toString() {

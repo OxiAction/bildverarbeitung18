@@ -3,15 +3,12 @@ package views;
 import javafx.scene.layout.*;
 
 /**
- * Setup main regions for the views
- * 
- * @author Michael Schreiber
- *
+ * Setup main regions for the views.
  */
 public class ViewMain implements ViewInterface {
 
 	/**
-	 * initialize / show components
+	 * Initialize / show components.
 	 * 
 	 * @param borderPane
 	 * @param extraData

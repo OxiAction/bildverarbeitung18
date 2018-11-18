@@ -7,10 +7,7 @@ import utils.Debug;
 import utils.Utils;
 
 /**
- * Thread, calculating everything required for an EvaluationDataSetEntry: - grey scale data - metric data
- * 
- * @author
- *
+ * Evaluation thread class, calculating everything required for an entry.
  */
 public class EvaluationThread extends Thread {
 	protected int id;
@@ -18,7 +15,7 @@ public class EvaluationThread extends Thread {
 	protected EvaluationDataSet set;
 
 	/**
-	 * create a new thread which will create a new EvaluationDataSetEntry after finished
+	 * Thread for evaluating an set entry.
 	 * 
 	 * @param id the unique id for this thread
 	 * @param absoluteFilePath the absolute (image) file path (e.g. "C:/test_folder/test_image.jpg"
@@ -29,7 +26,11 @@ public class EvaluationThread extends Thread {
 		this.absoluteFilePath = absoluteFilePath;
 		this.set = set;
 	}
-
+	
+	/**
+	 * Run the thread, calculating all the necessary stuff for the entry.
+	 * After everything is finished calculating, the entry will be added to the set.
+	 */
 	@Override
 	public void run() {
 		Debug.log("EvaluationThread @ running with ID: " + this.id);

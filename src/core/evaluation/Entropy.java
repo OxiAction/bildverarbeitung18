@@ -1,5 +1,8 @@
 package core.evaluation;
 
+/**
+ * TODO description
+ */
 public class Entropy {
 	/**
 	 * Calculates the entropy of an full image with the formula E = Sum( p(g) * (-log(p(g)) ).

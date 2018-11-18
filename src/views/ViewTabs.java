@@ -5,15 +5,12 @@ import javafx.scene.layout.*;
 import events.*;
 
 /**
- * Container for the tabs 
- * 
- * @author Michael Schreiber
- *
+ * Container for the tabs.
  */
 public class ViewTabs implements ViewInterface {
 
 	/**
-	 * initialize / show components
+	 * Initialize / show components.
 	 * 
 	 * @param borderPane
 	 * @param extraData

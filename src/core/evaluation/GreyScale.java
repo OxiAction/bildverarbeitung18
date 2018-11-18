@@ -7,6 +7,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * TODO description
+ */
 public class GreyScale {
 	/**
 	 * Load an image, based on its absolute file path and fetches / returns its grey scale data.

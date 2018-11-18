@@ -6,15 +6,12 @@ import javafx.scene.layout.*;
 import utils.*;
 
 /**
- * Progress bar view (loading state)
- * 
- * @author Michael Schreiber
- *
+ * Progress bar view (loading state).
  */
 public class ViewProgressBar implements ViewInterface {
 
 	/**
-	 * initialize / show components
+	 * Initialize / show components.
 	 * 
 	 * @param borderPane
 	 * @param extraData

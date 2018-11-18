@@ -1,5 +1,8 @@
 package core.evaluation;
 
+/**
+ * TODO description
+ */
 public class Metric {
 	public static final String NAME_CORRELATION = "Correlation";
 	public static final String NAME_CHI_SQUARE = "Chi-Square";
@@ -9,7 +12,7 @@ public class Metric {
 	protected static final String[] NAMES = { NAME_CORRELATION, NAME_CHI_SQUARE, NAME_INTERSECTION, NAME_BHATTACHARYY_DISTANCE };
 
 	/**
-	 * returns value of two histograms, based on correlation metric
+	 * Returns value of two histograms, based on correlation metric.
 	 * 
 	 * @param h1
 	 * @param h2
@@ -29,7 +32,7 @@ public class Metric {
 	}
 
 	/**
-	 * returns value of two histograms, based on chi-square metric
+	 * Returns value of two histograms, based on chi-square metric.
 	 * 
 	 * @param h1
 	 * @param h2
@@ -44,7 +47,7 @@ public class Metric {
 	}
 
 	/**
-	 * returns value of two histograms, based on intersection metric
+	 * Returns value of two histograms, based on intersection metric.
 	 * 
 	 * @param h1
 	 * @param h2
@@ -59,7 +62,7 @@ public class Metric {
 	}
 
 	/**
-	 * returns value of two histograms, based on bhattacharyya distance metric
+	 * Returns value of two histograms, based on bhattacharyya distance metric.
 	 * 
 	 * @param h1
 	 * @param h2
@@ -76,7 +79,7 @@ public class Metric {
 	}
 
 	/**
-	 * get metric data by metric name
+	 * Get metric data by metric name.
 	 * 
 	 * @param name
 	 * @param h1
@@ -99,7 +102,7 @@ public class Metric {
 	}
 
 	/**
-	 * returns all available metric names as array
+	 * Returns all available metric names as array.
 	 * 
 	 * @return
 	 */
@@ -108,7 +111,7 @@ public class Metric {
 	}
 
 	/**
-	 * calculates the average of histogram
+	 * Calculates the average of histogram.
 	 * 
 	 * @param histogram
 	 * @return

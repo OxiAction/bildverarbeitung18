@@ -28,16 +28,13 @@ import utils.Utils;
 
 /**
  * Save / load data to / from .xml based on EvaluationDataSet objects.
- * 
- * @author Michael Schreiber
- *
  */
 public class Data {
 
 	public static String xmlName = "data.xml";
 
 	/**
-	 * loads a .xml file and returns its document object
+	 * Loads a .xml file and returns its document object.
 	 * 
 	 * @return document the document object
 	 * @throws SAXException
@@ -55,7 +52,7 @@ public class Data {
 	}
 
 	/**
-	 * saves a document object to .xml file
+	 * Saves a document object to .xml file.
 	 * 
 	 * @param document the document object
 	 * @throws TransformerException
@@ -73,7 +70,7 @@ public class Data {
 	}
 
 	/**
-	 * create .xml file
+	 * Create .xml file.
 	 * 
 	 * @return document the document object
 	 * 
@@ -92,7 +89,7 @@ public class Data {
 	}
 
 	/**
-	 * resets the .xml file (deleting all data)
+	 * Resets the .xml file (deleting all data).
 	 * 
 	 * @throws IOException
 	 */
@@ -127,7 +124,7 @@ public class Data {
 	}
 
 	/**
-	 * saves the EvaluationDataSet in the .xml file
+	 * Saves the EvaluationDataSet in the .xml file.
 	 * 
 	 * @param set the EvaluationDataSet to be saved
 	 * @throws IOException
@@ -199,7 +196,7 @@ public class Data {
 	}
 
 	/**
-	 * loads the .xml file and returns its EvaluationDataSet(s)
+	 * Loads the .xml file and returns its EvaluationDataSet(s).
 	 * 
 	 * @return sets the EvaluationDataSet(s) as a list
 	 * @throws IOException

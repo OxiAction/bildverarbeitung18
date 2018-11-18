@@ -8,9 +8,6 @@ import utils.Translation;
 
 /**
  * TODO description
- * 
- * @author 
- *
  */
 public class EvaluationDataSet {
 	protected Timestamp timestamp;
@@ -27,7 +24,7 @@ public class EvaluationDataSet {
 	public boolean save = true;
 	
 	/**
-	 * constructor for a new EvaluationDataSet
+	 * Constructor for a new EvaluationDataSet.
 	 * 
 	 * @param timestamp		the timestamp (creation date of this set)
 	 * @param name			the name of the set
@@ -44,7 +41,7 @@ public class EvaluationDataSet {
 	}
 	
 	/**
-	 * adds a new EvaluationDataSetEntry to the list of entries
+	 * Adds a new EvaluationDataSetEntry to the list of entries.
 	 * 
 	 * @param entry	the EvaluationDataSetEntry to be added
 	 */
@@ -53,7 +50,7 @@ public class EvaluationDataSet {
 	}
 	
 	/**
-	 * returns all EvaluationDataSetEntries as a List
+	 * Returns all EvaluationDataSetEntries as a List.
 	 * 
 	 * @return	all EvaluationDataSetEntries as a List
 	 */
@@ -62,7 +59,7 @@ public class EvaluationDataSet {
 	}
 	
 	/**
-	 * returns the size of the EvaluationDataSetEntries list
+	 * Returns the size of the EvaluationDataSetEntries list.
 	 * 
 	 * @return	size of the EvaluationDataSetEntries list
 	 */
@@ -139,8 +136,6 @@ public class EvaluationDataSet {
 	public void setMetricName(String metricName) {
 		this.metricName = metricName;
 	}
-	
-	// general stuff
 	
 	@Override
 	public String toString() {

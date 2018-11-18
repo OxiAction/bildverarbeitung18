@@ -3,16 +3,13 @@ package events;
 import java.util.ArrayList;
 
 /**
- * Simple event manager (subscribe pattern)
- * 
- * @author Michael Schreiber
- *
+ * Simple event manager (publish / subscribe pattern).
  */
 public class EventManager {
 	private static ArrayList<EventAbstract> events = new ArrayList<EventAbstract>();
 	
 	/**
-	 * add new event
+	 * Add new event.
 	 * 
 	 * @param event
 	 */
@@ -21,7 +18,7 @@ public class EventManager {
 	}
 	
 	/**
-	 * remove ALL events by eventName
+	 * Remove ALL events by eventName.
 	 * 
 	 * @param eventName
 	 */
@@ -36,7 +33,7 @@ public class EventManager {
 	}
 	
 	/**
-	 * remove certain event object 
+	 * Remove certain event object.
 	 * 
 	 * @param event
 	 */
@@ -50,7 +47,7 @@ public class EventManager {
 	}
 	
 	/**
-	 * dispatch event
+	 * Dispatch event.
 	 * 
 	 * @param event
 	 */
@@ -59,7 +56,7 @@ public class EventManager {
 	}
 	
 	/**
-	 * dispatch event with extraData object
+	 * Dispatch event with extraData object.
 	 * 
 	 * @param event
 	 * @param extraData

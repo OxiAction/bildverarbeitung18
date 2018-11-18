@@ -16,10 +16,7 @@ import core.data.*;
 import core.evaluation.*;
 
 /**
- * Tab content for the "scan results overview" section of the App
- * 
- * @author 
- *
+ * Tab content for the "scan results overview" section of the App.
  */
 public class ViewTabScanResultsOverview implements ViewInterface {
 
@@ -29,7 +26,7 @@ public class ViewTabScanResultsOverview implements ViewInterface {
 	protected String imagePath;
 
 	/**
-	 * initialize / show components
+	 * Initialize / show components.
 	 * 
 	 * @param borderPane
 	 * @param extraData

@@ -1,9 +1,7 @@
 package events;
 
 /**
- * 
- * @author Michael Schreiber
- *
+ * TODO description
  */
 public class EventButtonStartScanClicked extends EventAbstract {
 	public EventButtonStartScanClicked() {
