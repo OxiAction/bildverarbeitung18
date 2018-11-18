@@ -175,9 +175,13 @@ public class Data {
 				histogramData.setTextContent(Utils.intArray1DToString(entry.getHistogramData()));
 				entryElement.appendChild(histogramData);
 				
-				Element kNearestIDsData = document.createElement("kNearestIDs");
-				kNearestIDsData.setTextContent(Utils.intArrayListToString(entry.getKNearestIDs()));
-				entryElement.appendChild(kNearestIDsData);
+				Element entropy = document.createElement("entropy");
+				entropy.setTextContent(String.valueOf(entry.getEntropy()));
+				entryElement.appendChild(entropy);
+				
+				Element kNearestIDs = document.createElement("kNearestIDs");
+				kNearestIDs.setTextContent(Utils.intArrayListToString(entry.getKNearestIDs()));
+				entryElement.appendChild(kNearestIDs);
 
 				entries.appendChild(entryElement);
 			}
@@ -265,11 +269,14 @@ public class Data {
 							Element histogramDataElement = (Element) entryElement.getElementsByTagName("histogramData").item(0);
 							int[] histogramData = Utils.stringToIntArray1D(histogramDataElement.getTextContent());
 							
+							Element entropyElement = (Element) entryElement.getElementsByTagName("entropy").item(0);
+							double entropy = Double.parseDouble(entropyElement.getTextContent());
+							
 							Element kNearestIDsElement = (Element) entryElement.getElementsByTagName("kNearestIDs").item(0);
 							ArrayList<Integer> kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
 							
 							// create and add entry to the set
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, histogramData, kNearestIDs);
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, histogramData, entropy, kNearestIDs);
 							set.addEntry(entry);
 						}
 					}

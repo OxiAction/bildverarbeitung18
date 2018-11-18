@@ -62,18 +62,27 @@ public class ViewTabScanResults implements ViewInterface {
 			
 			Evaluation evaluation = new Evaluation(set);
 
-			evaluation.setOnRunning(e -> {
+			evaluation.setOnRunning(event -> {
 				Debug.log("Evaluation running...");
 				
 				Loader.show();
 			});
 
-			evaluation.setOnSucceeded(e -> {
+			evaluation.setOnSucceeded(event -> {
 				Debug.log("Evaluation success...");
 				set = evaluation.getValue();
 				this.process();
 				
 				Loader.hide();
+			});
+			
+			evaluation.setOnFailed(event -> {
+				Debug.log("Evaluation failed...");
+				throw new RuntimeException(evaluation.getException());
+			});
+			evaluation.setOnCancelled(event -> {
+				Debug.log("Evaluation cancelled...");
+				
 			});
 			
 			Thread t1 = new Thread(evaluation);
@@ -193,6 +202,10 @@ public class ViewTabScanResults implements ViewInterface {
 			columnSensorType.setMinWidth(50);
 			columnSensorType.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("sensorType"));
 			
+			TableColumn columnEntropy = new TableColumn(Translation.fetch("entropy"));
+			columnEntropy.setMinWidth(50);
+			columnEntropy.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("entropy"));
+			
 			TableColumn columnKNearestIDsAsString = new TableColumn(Translation.fetch("k_nearest_ids"));
 			columnKNearestIDsAsString.setMinWidth(50);
 			columnKNearestIDsAsString.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("KNearestIDsAsString"));
@@ -266,8 +279,7 @@ public class ViewTabScanResults implements ViewInterface {
 			
 			TableView<EvaluationDataSetEntry> table = new TableView();
 	        table.setItems(dataEntry);
-//		        table.getColumns().addAll(columnID, columnFileFolderPath, columnFileName, columnFileExtension, columnSensorType, columnGreyScaleValue);
-	        table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnKNearestIDsAsString);
+	        table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnEntropy, columnKNearestIDsAsString);
 	        
 	        vBox.getChildren().add(table);
 			

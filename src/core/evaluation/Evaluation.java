@@ -101,7 +101,9 @@ public class Evaluation extends Task<EvaluationDataSet> {
 					}
 					// replacing the largest element with the actual one (if it is smaller)
 					if (distance < maxValue) {
-						kNearest.remove(maxKey);
+						if (maxKey != null) {
+							kNearest.remove(maxKey);
+						}
 						kNearest.put(innerEntry, distance);
 					}
 				}
@@ -112,7 +114,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				}
 			}
 			
-			entry.setEntropyData(Entropy.get(entry.getGreyScaleData(), entry.getHistogramData()));	
+			entry.setEntropy(Entropy.get(entry.getGreyScaleData(), entry.getHistogramData()));	
 		}
 
 		// return the set, filled with all the entries and values:

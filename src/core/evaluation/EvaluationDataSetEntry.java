@@ -16,6 +16,7 @@ public class EvaluationDataSetEntry {
 	protected String sensorType;
 	protected int[][] greyScaleData;
 	protected int[] histogramData;
+	protected double entropy;
 	protected ArrayList<Integer> kNearestIDs;
 
 	/**
@@ -28,9 +29,10 @@ public class EvaluationDataSetEntry {
 	 * @param sensorType the sensor type
 	 * @param greyScaleData the grey scale data as 2d int array
 	 * @param histogramData the histogramData data 1d int array
+	 * @param entropy 
 	 * @param kNearestIDs the list with the k-nearest entries (ids)
 	 */
-	public EvaluationDataSetEntry(int id, String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleData, int[] histogramData, ArrayList<Integer> kNearestIDs) {
+	public EvaluationDataSetEntry(int id, String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleData, int[] histogramData, double entropy, ArrayList<Integer> kNearestIDs) {
 		this.id = id;
 		this.fileFolderPath = fileFolderPath;
 		this.fileName = fileName;
@@ -38,6 +40,7 @@ public class EvaluationDataSetEntry {
 		this.sensorType = sensorType;
 		this.greyScaleData = greyScaleData;
 		this.histogramData = histogramData;
+		this.entropy = entropy;
 		this.kNearestIDs = kNearestIDs;
 	}
 
@@ -164,7 +167,7 @@ public class EvaluationDataSetEntry {
 	}
 
 	/**
-	 * add a k-nearest entry by its id
+	 * Add a k-nearest entry by its id.
 	 * 
 	 * @param id
 	 */
@@ -175,7 +178,20 @@ public class EvaluationDataSetEntry {
 
 		this.kNearestIDs.add(id);
 	}
-
+	
+	public void setEntropy(double entropy) {
+		this.entropy = entropy;
+	}
+	
+	public double getEntropy() {
+		return this.entropy;
+	}
+	
+	/**
+	 * Returns file name + file extension.
+	 * 
+	 * @return
+	 */
 	public String getFileNameAndFileExtension() {
 		return this.getFileName() + this.getFileExtension();
 	}
@@ -188,10 +204,4 @@ public class EvaluationDataSetEntry {
 				"\n" + Translation.fetch("sensor_type") + ": " + this.getSensorType() + 
 				"\n" + Translation.fetch("k_nearest_ids") + ": " + this.getKNearestIDsAsString();
 	}
-
-	public void setEntropyData(double entropyData) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
