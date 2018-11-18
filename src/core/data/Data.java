@@ -161,7 +161,6 @@ public class Data {
 			Element entries = document.createElement("entries");
 
 			for (EvaluationDataSetEntry entry : set.getEntries()) {
-				Debug.log("Data @ save: processing entry with id: " + entry.getID());
 				
 				// create a new <entry> element
 				Element entryElement = document.createElement("entry");
@@ -172,9 +171,9 @@ public class Data {
 				entryElement.setAttribute("fileExtension", entry.getFileExtension());
 				entryElement.setAttribute("sensorType", entry.getSensorType());
 				
-				Element greyScaleData = document.createElement("greyScaleData");
-				greyScaleData.setTextContent(Utils.intArray2DToString(entry.getGreyScaleData()));
-				entryElement.appendChild(greyScaleData);
+				//Element greyScaleData = document.createElement("greyScaleData");
+				//greyScaleData.setTextContent(Utils.intArray2DToString(entry.getGreyScaleData()));
+				//entryElement.appendChild(greyScaleData);
 				
 				Element histogramData = document.createElement("histogramData");
 				histogramData.setTextContent(Utils.intArray1DToString(entry.getHistogramData()));
@@ -264,8 +263,8 @@ public class Data {
 							String fileExtension = entryElement.getAttribute("fileExtension");
 							String sensorType = entryElement.getAttribute("sensorType");
 							
-							Element greyScaleDataElement = (Element) entryElement.getElementsByTagName("greyScaleData").item(0);
-							int[][] greyScaleData = Utils.stringToIntArray2D(greyScaleDataElement.getTextContent());
+							//Element greyScaleDataElement = (Element) entryElement.getElementsByTagName("greyScaleData").item(0);
+							//int[][] greyScaleData = Utils.stringToIntArray2D(greyScaleDataElement.getTextContent());
 							
 							Element histogramDataElement = (Element) entryElement.getElementsByTagName("histogramData").item(0);
 							int[] histogramData = Utils.stringToIntArray1D(histogramDataElement.getTextContent());
@@ -274,7 +273,7 @@ public class Data {
 							ArrayList<Integer> kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
 							
 							// create and add entry to the set
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, histogramData, kNearestIDs);
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, histogramData, kNearestIDs);
 							set.addEntry(entry);
 						}
 					}

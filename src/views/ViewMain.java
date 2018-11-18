@@ -28,8 +28,5 @@ public class ViewMain implements ViewInterface {
 		
 		// center
 		new ViewTabs().init(container, extraData);
-		
-		// bottom
-		new ViewProgressBar().init(container, extraData);
 	}
 }

@@ -131,7 +131,16 @@ public class Utils {
 			
 			for (int j = 0; j < data[i].length; ++j) {
 				// converts for example 12 to 012 - or 1 to 001
-				result += String.format("%03d", data[i][j]);
+				int value = data[i][j];
+				if (value < 10) {
+					result += "00" + String.valueOf(value);
+				} else if (value < 100) {
+					result += "0" + String.valueOf(value);
+				} else {
+					result += String.valueOf(value);
+				}
+				// this approach is elegant but super slow:
+				//result += String.format("%03d", data[i][j]);
 			}
 		}
 		

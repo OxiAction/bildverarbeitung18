@@ -4,29 +4,31 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
+import javafx.concurrent.Task;
 import utils.Debug;
 import java.io.IOException;
 
 /**
  * The Evaluation class is responsible for processing every entry in a set.
  */
-public class Evaluation {
-
-	/**
-	 * Returns evaluated set based on incoming set. Threads (EvaluationThread) are used to speed up the calculation process (e.g. for grey scale /
-	 * histogram data gathering). After all threads have finished their work, we get the distance of the metric (based on histogram datas) for each
-	 * entry. The k-factor determines how many "nearest" (which means "similar distance") entries are stored within an entry.
-	 * 
-	 * @param set the set to be processed
-	 * @return the processed set
-	 * @throws IOException
-	 */
-	public static EvaluationDataSet get(EvaluationDataSet set) throws IOException {
+public class Evaluation extends Task<EvaluationDataSet> {
+	protected EvaluationDataSet set;
+	
+	public Evaluation(EvaluationDataSet set) {
+		this.set = set;
+	}
+	
+	@Override
+	protected EvaluationDataSet call() throws Exception {
 		Debug.log("-> EvaluationDataSet values:");
-		Debug.log(set.toString());
+		Debug.log(this.set.toString());
 
-		String sourceFolder = set.getSourceFolder();
+		String sourceFolder = this.set.getSourceFolder();
 
 		ArrayList<String> paths = PathFinder.getPaths(sourceFolder);
 
@@ -36,7 +38,7 @@ public class Evaluation {
 		for (int j = 0; j < paths.size(); j++) {
 			String absoluteFilePath = paths.get(j);
 			if (absoluteFilePath != null && absoluteFilePath != "") {
-				EvaluationThread evaluationThread = new EvaluationThread(idCounter, absoluteFilePath, set);
+				EvaluationThread evaluationThread = new EvaluationThread(idCounter, absoluteFilePath, this.set);
 				evaluationThreads.add(evaluationThread);
 				evaluationThread.start();
 
@@ -54,7 +56,7 @@ public class Evaluation {
 
 		// leave one out cross validation:
 		// - compare each entry with all other entries (by metric) and set k-nearest entries ids in entry
-		List<EvaluationDataSetEntry> setEntries = set.getEntries();
+		List<EvaluationDataSetEntry> setEntries = this.set.getEntries();
 		for (EvaluationDataSetEntry entry : setEntries) {
 			int[] histogramData = entry.getHistogramData();
 
@@ -63,7 +65,7 @@ public class Evaluation {
 				continue;
 			}
 
-			int kFactor = Integer.parseInt(set.getKFactor());
+			int kFactor = Integer.parseInt(this.set.getKFactor());
 			int count = 0;
 
 			// compare all others with current entry	
@@ -77,7 +79,7 @@ public class Evaluation {
 				int[] innerHistogramData = innerEntry.getHistogramData();
 
 				// compare histogramData of two entries by metric (which is choosen by metric name)
-				double distance = Metric.getDataByName(set.getMetricName(), histogramData, innerHistogramData);
+				double distance = Metric.getDataByName(this.set.getMetricName(), histogramData, innerHistogramData);
 
 				// adds a distance to the k-nearest hashtable:
 				// - first we check if we already have k-elements
@@ -108,12 +110,10 @@ public class Evaluation {
 				}
 			}
 			
-			entry.setEntropyData(ImageReader.getEntropyData(entry.getGreyScaleData(), entry.getHistogramData()));
-			
-			Debug.log("Evaluation: finished entry with ID " + entry.getID());
+			entry.setEntropyData(ImageReader.getEntropyData(entry.getGreyScaleData(), entry.getHistogramData()));	
 		}
 
 		// return the set, filled with all the entries and values:
-		return set;
+		return this.set;
 	}
 }

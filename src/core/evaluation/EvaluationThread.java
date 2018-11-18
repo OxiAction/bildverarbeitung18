@@ -16,7 +16,6 @@ public class EvaluationThread extends Thread {
 	protected int id;
 	protected String absoluteFilePath;
 	protected EvaluationDataSet set;
-	protected EvaluationDataSetEntry entry;
 
 	/**
 	 * create a new thread which will create a new EvaluationDataSetEntry after finished
@@ -33,7 +32,7 @@ public class EvaluationThread extends Thread {
 
 	@Override
 	public void run() {
-//		Debug.log("EvaluationThread @ running with ID: " + this.id);
+		Debug.log("EvaluationThread @ running with ID: " + this.id);
 
 		try {
 			HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(this.absoluteFilePath);
@@ -43,7 +42,7 @@ public class EvaluationThread extends Thread {
 			String sensorType = null;
 
 			// get sensor type by folder structure...
-			String[] partAfterSourceFolder = fileFolderPath.split(set.getSourceFolder());
+			String[] partAfterSourceFolder = fileFolderPath.split(this.set.getSourceFolder());
 			if (partAfterSourceFolder.length > 0) {
 				partAfterSourceFolder = partAfterSourceFolder[1].split("/");
 				if (partAfterSourceFolder.length > 0) {
@@ -60,15 +59,10 @@ public class EvaluationThread extends Thread {
 			// note: kNearest argument has to be null, as we can not yet calculate metric related stuff
 			int[][] greyScaleData = ImageReader.getGreyScaleData(absoluteFilePath);
 			int[] histogramData = ImageReader.getHistogramData(greyScaleData);
-			set.addEntry(new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, histogramData, null));
+			
+			this.set.addEntry(new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, histogramData, null));
 		} catch (IOException e) {
 			Debug.log("IOException: : " + e);
 		}
-
-//		Debug.log("EvaluationThread @ exiting with ID: " + this.id);
-	}
-
-	public EvaluationDataSetEntry getEntry() {
-		return this.entry;
 	}
 }

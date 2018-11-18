@@ -2,17 +2,19 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import utils.Debug;
+import utils.Loader;
 import utils.Translation;
 import views.ViewMain;
 
 /**
- * Main app entry point
+ * Main app entry point.
  */
 public class Main extends Application {
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -25,16 +27,22 @@ public class Main extends Application {
 		// initialize translation singleton
 		Translation.getInstance();
 		
+		// setup panes
+		StackPane stackPane = new StackPane();
 		BorderPane borderPane = new BorderPane();
+		stackPane.getChildren().add(borderPane);
+		
+		// setup loader
+		Loader.setPane(stackPane);
 		
 		// initialize main view
 		new ViewMain().init(borderPane, null);
 		
-		Scene scene = new Scene(borderPane, 800, 800);
+		// setup scene
+		Scene scene = new Scene(stackPane, 800, 800);
 		stage.setTitle("V" + Translation.fetch("version") + " " + Translation.fetch("main_window_title"));
 		stage.getIcons().add(new Image("file:icon.png"));
 		stage.setScene(scene);
 		stage.show();
 	}
-
 }

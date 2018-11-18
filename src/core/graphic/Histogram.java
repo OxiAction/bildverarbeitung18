@@ -10,19 +10,20 @@ import core.evaluation.EvaluationDataSetEntry;
 import java.util.ArrayList;
 
 /**
- * This class generates a Canvas based on GreyScaleValues from EvaluationDataSet and EvaluationDataSetEntry's TODO: Make average data double? TODO:
- * Make different sizes possible!
+ * This class generates a Canvas based on GreyScaleValues from EvaluationDataSet and EvaluationDataSetEntry's
+ * TODO: Make average data double?
+ * TODO: Make different sizes possible!
  * 
  * @author Richard Riediger
  */
 public class Histogram {
-	private static int V = 2; 	// multiplier for histogram
-	private static int H = 256;	// number of histogram values
+	private static int V = 2; // multiplier for histogram
+	private static int H = 256; // number of histogram values
 	private static int LINEWIDTH = 1;
 
 	/**
-	 * Returns Canvas based on average set data
-	 * TODO: Split this to multiple methods
+	 * Returns Canvas based on average set data TODO: Split this to multiple methods
+	 * 
 	 * @param set
 	 * @return canvas
 	 */
@@ -44,8 +45,8 @@ public class Histogram {
 		int i;
 		for (i = 0; i < greyScaleValues.size(); i++) {
 			greyScaleValues1D.add(generateHistogram(greyScaleValues.get(i)));
-//			Debug.log("Generated Histogram: " + i);
-//			print1dArray(greyScaleValues1D.get(i));
+			//Debug.log("Generated Histogram: " + i);
+			//print1dArray(greyScaleValues1D.get(i));
 		}
 
 		int[] additionOfAll1DArrays = new int[greyScaleValues1D.get(0).length];
@@ -53,15 +54,15 @@ public class Histogram {
 			additionOfAll1DArrays = add1DArrays(additionOfAll1DArrays, greyScaleValues1D.get(j));
 		}
 
-//		Debug.log("Addition of all 1D arrays: ");
-//		for (int k = 0; k < additionOfAll1DArrays.length; k++) {
-//			Debug.log(additionOfAll1DArrays[k] + " ");
-//		}
+		//Debug.log("Addition of all 1D arrays: ");
+		//for (int k = 0; k < additionOfAll1DArrays.length; k++) {
+		//	Debug.log(additionOfAll1DArrays[k] + " ");
+		//}
 
-//		Debug.log("\nAverage of all 1D arrays: ");
+		//Debug.log("\nAverage of all 1D arrays: ");
 		for (int k = 0; k < additionOfAll1DArrays.length; k++) {
 			additionOfAll1DArrays[k] = additionOfAll1DArrays[k] / i;
-//			Debug.log(additionOfAll1DArrays[k] + " ");
+			//Debug.log(additionOfAll1DArrays[k] + " ");
 		}
 
 		return generateNewCanvas(additionOfAll1DArrays);
@@ -91,10 +92,10 @@ public class Histogram {
 		for (i = 0; i < greyScaleValues.size(); i++) {
 			greyScaleValuesNORMALIZED = add2DArrays(greyScaleValuesNORMALIZED, greyScaleValues.get(i));
 		}
-//		Debug.log("Addition of all greyScaleValues:");
+		//Debug.log("Addition of all greyScaleValues:");
 		print2dArray(greyScaleValuesNORMALIZED);
 
-//		Debug.log("Average greyScaleValues:");
+		//Debug.log("Average greyScaleValues:");
 		greyScaleValuesNORMALIZED = calculateAverage2dArray(greyScaleValuesNORMALIZED, i);
 
 		return greyScaleValuesNORMALIZED;
@@ -196,8 +197,8 @@ public class Histogram {
 	 * @return
 	 */
 	private static Canvas generateCanvas(int[][] data) {
-		int width = H*V;
-		int height = H*V;
+		int width = H * V;
+		int height = H * V;
 		Canvas canvas = new Canvas(width, height);
 
 		int[] histogramData = generateHistogram(data);
@@ -214,8 +215,8 @@ public class Histogram {
 	 * @return
 	 */
 	private static Canvas generateNewCanvas(int[] data) {
-		int width = H*V;
-		int height = H*V;
+		int width = H * V;
+		int height = H * V;
 		Canvas canvas = new Canvas(width, height);
 
 		drawHistogram(canvas, data);
@@ -232,7 +233,7 @@ public class Histogram {
 	private static int[] generateHistogram(int[][] data) {
 		HistogramData histogramData = new HistogramData(data);
 		histogramData.generate();
-		//		histogramData.printHistogramData();
+		//histogramData.printHistogramData();
 
 		return histogramData.getHistogramData();
 	}
@@ -240,8 +241,8 @@ public class Histogram {
 	/**
 	 * Draws one histogram to canvas using V as a modifier to increase the size
 	 * TODO: ! BUG - (at least) x-range is too low for 256 values!
-	 * TODO: Improve code
-	 * TODO: Implement automatic scaling of the diagram with modifier V
+	 * TODO: Improve code TODO: Implement automatic scaling of the diagram with modifier V
+	 * 
 	 * @param canvas the canvas to draw the histogram on
 	 * @param histogram the histogram (int array)
 	 */
@@ -249,31 +250,31 @@ public class Histogram {
 		int c1 = 0, c2 = 0;
 		GraphicsContext graphicsContext2D = canvas.getGraphicsContext2D();
 		graphicsContext2D.setFill(Color.GREY);
-		graphicsContext2D.fillRect(0, 0, H*V, H*V);
+		graphicsContext2D.fillRect(0, 0, H * V, H * V);
 
 		graphicsContext2D.setLineWidth(LINEWIDTH);
 		graphicsContext2D.setStroke(Color.BLACK);
-		graphicsContext2D.strokeLine(0 + 15, H*V-25, H*V - 15, H*V-25); // X axis
-		graphicsContext2D.strokeLine(25, 0 + 15, 25, H*V - 15); // Y axis
+		graphicsContext2D.strokeLine(0 + 15, H * V - 25, H * V - 15, H * V - 25); // X axis
+		graphicsContext2D.strokeLine(25, 0 + 15, 25, H * V - 15); // Y axis
 
-		graphicsContext2D.strokeLine(H*V - 15, H*V-25, H*V - 15 - 5, H*V - 25 + 5); // X axis arrow 1
-		graphicsContext2D.strokeLine(H*V - 15, H*V-25, H*V - 15 - 5, H*V - 25 - 5); // X axis arrow 2
+		graphicsContext2D.strokeLine(H * V - 15, H * V - 25, H * V - 15 - 5, H * V - 25 + 5); // X axis arrow 1
+		graphicsContext2D.strokeLine(H * V - 15, H * V - 25, H * V - 15 - 5, H * V - 25 - 5); // X axis arrow 2
 		graphicsContext2D.strokeLine(25, 0 + 15, 25 + 5, 25 - 5); // Y axis arrow 1
 		graphicsContext2D.strokeLine(25, 0 + 15, 25 - 5, 25 - 5); // Y axis arrow 2
 
-		graphicsContext2D.setLineWidth(LINEWIDTH/2);
+		graphicsContext2D.setLineWidth(LINEWIDTH / 2);
 		graphicsContext2D.setStroke(Color.BLACK);
-		for (int i = 25; i < H*V - 35; i += 5*V) {
-			graphicsContext2D.strokeLine(i, H*V - 25 - 3, i, H*V - 25 + 3); // X axis divide lines
+		for (int i = 25; i < H * V - 35; i += 5 * V) {
+			graphicsContext2D.strokeLine(i, H * V - 25 - 3, i, H * V - 25 + 3); // X axis divide lines
 			if (c1 == 0) {
-				graphicsContext2D.strokeText("" + c1, i, H*V - 5, 15);
+				graphicsContext2D.strokeText("" + c1, i, H * V - 5, 15);
 			}
 			c1 = c1 + 10;
 			if (c1 % 50 == 0) {
-				graphicsContext2D.strokeText("" + c1, i, H*V - 5, 15); // X axis numbers
+				graphicsContext2D.strokeText("" + c1, i, H * V - 5, 15); // X axis numbers
 			}
 		}
-		for (int i = H*V - 35; i > 25; i -= 5*V) {
+		for (int i = H * V - 35; i > 25; i -= 5 * V) {
 			graphicsContext2D.strokeLine(25 - 3, i, 25 + 3, i); // Y axis divide lines
 			c2 = c2 + 10;
 			if (c2 % 50 == 0) {
@@ -283,9 +284,9 @@ public class Histogram {
 
 		// histogram lines
 		for (int h = 0; h < histogram.length; h++) {
-			graphicsContext2D.setLineWidth(LINEWIDTH/2);
+			graphicsContext2D.setLineWidth(LINEWIDTH / 2);
 			graphicsContext2D.setStroke(Color.DARKBLUE);
-			graphicsContext2D.strokeLine(25 + h * V, H*V - 25, 25 + h * V, H*V - 25 - histogram[h]*V);
+			graphicsContext2D.strokeLine(25 + h * V, H * V - 25, 25 + h * V, H * V - 25 - histogram[h] * V);
 		}
 	}
 }
