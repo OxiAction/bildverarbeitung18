@@ -22,7 +22,7 @@ import java.util.List;
 import utils.*;
 import core.data.Data;
 import core.evaluation.*;
-import core.graphic.*;
+import core.graphic.Histogram;
 
 /**
  * Tab content for the "scan results" section of the App
@@ -101,7 +101,8 @@ public class ViewTabScanResults implements ViewInterface {
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 		
 		// histogram
-		
+		Canvas histogram = Histogram.get(set);
+		if (histogram != null) {
 			Text textHistogram = new Text();
 			textHistogram.setWrappingWidth(300);
 			textHistogram.setFont(Font.font(textHistogram.getFont().getName(), FontWeight.BOLD, textHistogram.getFont().getSize()));
@@ -109,9 +110,9 @@ public class ViewTabScanResults implements ViewInterface {
 			vBox.getChildren().add(textHistogram);
 			// collect all texts
 			texts.add(textHistogram);
-			
-			Canvas histogram = Histogram.get(set);
+		
 			vBox.getChildren().add(histogram);
+		}
 			
 		// source entry information
 			

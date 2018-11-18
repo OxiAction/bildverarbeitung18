@@ -4,14 +4,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
 import javafx.concurrent.Task;
 import utils.Debug;
-import java.io.IOException;
 
 /**
  * The Evaluation class is responsible for processing every entry in a set.
@@ -19,6 +13,14 @@ import java.io.IOException;
 public class Evaluation extends Task<EvaluationDataSet> {
 	protected EvaluationDataSet set;
 	
+	/**
+	 * Task for evaluating a set based on incoming set.
+	 * Threads (EvaluationThread) are used to speed up the calculation process. 
+	 * After all threads have finished their work, we get the distance of the metric (based on histogram datas) for each entry. 
+	 * The k-factor (in the set) determines how many "nearest" (which means "similar distance") entries are stored within an entry.
+	 * 
+	 * @param set
+	 */
 	public Evaluation(EvaluationDataSet set) {
 		this.set = set;
 	}
@@ -110,7 +112,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				}
 			}
 			
-			entry.setEntropyData(ImageReader.getEntropyData(entry.getGreyScaleData(), entry.getHistogramData()));	
+			entry.setEntropyData(Entropy.get(entry.getGreyScaleData(), entry.getHistogramData()));	
 		}
 
 		// return the set, filled with all the entries and values:

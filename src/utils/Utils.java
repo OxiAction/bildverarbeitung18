@@ -221,4 +221,91 @@ public class Utils {
 		
 		return infos;
 	}
+	
+	/**
+	 * Prints an 1d int array to console.
+	 * 
+	 * @param arr
+	 */
+	public static void printIntArray1D(int[] arr) {
+		for (int j = 0; j < arr.length; j++) {
+			Debug.log(arr[j] + " ");
+		}
+		Debug.log("");
+	}
+
+	/**
+	 * prints an 2d int array to console.
+	 * 
+	 * @param arr
+	 */
+	public static void printIntArray2D(int[][] arr) {
+		for (int j = 0; j < arr.length; j++) {
+			for (int k = 0; k < arr[j].length; k++) {
+				Debug.log(" " + arr[j][k]);
+			}
+			Debug.log("");
+		}
+	}
+	
+	/**
+	 * Adds two equally sized 1d int arrays to each other.
+	 * 
+	 * @param arr1
+	 * @param arr2
+	 * @return sum
+	 */
+	public static int[] addIntArrays1D(int[] arr1, int[] arr2) {
+		int[] sum = new int[arr1.length];
+		for (int i = 0; i < arr1.length; i++) {
+			sum[i] = arr1[i] + arr2[i];
+		}
+		return sum;
+	}
+
+	/**
+	 * Adds two equally sized 2d int arrays to each other.
+	 * 
+	 * @param arr1
+	 * @param arr2
+	 * @return sum
+	 */
+	public static int[][] addIntArrays2D(int[][] arr1, int[][] arr2) {
+		int[][] sum = new int[arr1.length][arr1[0].length];
+		for (int i = 0; i < arr1.length; i++) {
+			for (int j = 0; j < arr1[i].length; j++) {
+				sum[i][j] = arr1[i][j] + arr2[i][j];
+			}
+		}
+		return sum;
+	}
+	
+	/**
+	 * Creates new 2d int array of the same size as the given one.
+	 * 
+	 * @param arr1
+	 * @return arr2
+	 */
+	public static int[][] createNewIntArray2DofSize(int[][] arr1) {
+		int x = arr1.length;
+		int y = arr1[0].length;
+		int[][] arr2 = new int[x][y];
+		return arr2;
+	}
+
+	/**
+	 * Calculates the average values of an 2d int array.
+	 * 
+	 * @param arr1
+	 * @param i
+	 * @return
+	 */
+	public static int[][] calculateAverageIntArray2D(int[][] arr1, int i) {
+		for (int j = 0; j < arr1.length; j++) {
+			for (int k = 0; k < arr1[j].length; k++) {
+				arr1[j][k] = arr1[j][k] / i;
+			}
+		}
+		return arr1;
+	}
 }

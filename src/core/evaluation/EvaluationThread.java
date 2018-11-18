@@ -57,8 +57,8 @@ public class EvaluationThread extends Thread {
 
 			// create and add entry to set
 			// note: kNearest argument has to be null, as we can not yet calculate metric related stuff
-			int[][] greyScaleData = ImageReader.getGreyScaleData(absoluteFilePath);
-			int[] histogramData = ImageReader.getHistogramData(greyScaleData);
+			int[][] greyScaleData = GreyScale.get(absoluteFilePath);
+			int[] histogramData = Histogram.get(greyScaleData);
 			
 			this.set.addEntry(new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, histogramData, null));
 		} catch (IOException e) {

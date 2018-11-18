@@ -24,7 +24,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import core.evaluation.*;
-import utils.Debug;
 import utils.Utils;
 
 /**

@@ -4,13 +4,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import utils.Debug;
+import utils.Utils;
 import core.evaluation.EvaluationDataSet;
 import core.evaluation.EvaluationDataSetEntry;
 
 import java.util.ArrayList;
 
 /**
- * This class generates a Canvas based on GreyScaleValues from EvaluationDataSet and EvaluationDataSetEntry's
+ * This class generates a Canvas based on GreyScaleValues from EvaluationDataSet and EvaluationDataSetEntry's.
  * TODO: Make average data double?
  * TODO: Make different sizes possible!
  * 
@@ -22,7 +23,8 @@ public class Histogram {
 	private static int LINEWIDTH = 1;
 
 	/**
-	 * Returns Canvas based on average set data TODO: Split this to multiple methods
+	 * Returns Canvas based on whole set.
+	 * TODO: Split this to multiple methods
 	 * 
 	 * @param set
 	 * @return canvas
@@ -31,8 +33,17 @@ public class Histogram {
 		ArrayList<int[][]> greyScaleValues = new ArrayList<int[][]>();
 
 		for (EvaluationDataSetEntry entry : set.getEntries()) {
-			greyScaleValues.add(entry.getGreyScaleData());
+			int[][] greyScaleData = entry.getGreyScaleData();
+			if (greyScaleData != null) {
+				greyScaleValues.add(greyScaleData);
+			}
 		}
+		
+		if (greyScaleValues.size() == 0) {
+			Debug.log("Histogram @ get: could not generate a Canvas because of missing grey scale data(s)!");
+			return null;
+		}
+		
 		// test data
 		//		int[][] data1 = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 1, 1, 3, 3 } };
 		//		int[][] data2 = { { 2, 2, 4, 4 }, { 6, 6, 8, 8 }, { 2, 4, 6, 8 } };
@@ -44,14 +55,14 @@ public class Histogram {
 		ArrayList<int[]> greyScaleValues1D = new ArrayList<int[]>();
 		int i;
 		for (i = 0; i < greyScaleValues.size(); i++) {
-			greyScaleValues1D.add(generateHistogram(greyScaleValues.get(i)));
+			greyScaleValues1D.add(core.evaluation.Histogram.get(greyScaleValues.get(i)));
 			//Debug.log("Generated Histogram: " + i);
 			//print1dArray(greyScaleValues1D.get(i));
 		}
 
 		int[] additionOfAll1DArrays = new int[greyScaleValues1D.get(0).length];
 		for (int j = 0; j < greyScaleValues1D.size(); j++) {
-			additionOfAll1DArrays = add1DArrays(additionOfAll1DArrays, greyScaleValues1D.get(j));
+			additionOfAll1DArrays = Utils.addIntArrays1D(additionOfAll1DArrays, greyScaleValues1D.get(j));
 		}
 
 		//Debug.log("Addition of all 1D arrays: ");
@@ -69,7 +80,7 @@ public class Histogram {
 	}
 
 	/**
-	 * Returns Canvas based on average set data
+	 * Returns Canvas based on set entry.
 	 * 
 	 * @param entry
 	 * @return canvas
@@ -79,115 +90,26 @@ public class Histogram {
 	}
 
 	/**
-	 * Calculates the average of all greyScaleValues
+	 * Calculates the average of all greyScaleValues.
 	 * 
 	 * @param greyScaleValues an ArrayList of all greyScaleValues 2d arrays
 	 * @return greyScaleValuesNORMALIZED average 2d int array
 	 */
 	@SuppressWarnings("unused")
 	private static int[][] normalize(ArrayList<int[][]> greyScaleValues) {
-		int[][] greyScaleValuesNORMALIZED = createNewArrayOfSize(greyScaleValues.get(0));
+		int[][] greyScaleValuesNORMALIZED = Utils.createNewIntArray2DofSize(greyScaleValues.get(0));
 
 		int i;
 		for (i = 0; i < greyScaleValues.size(); i++) {
-			greyScaleValuesNORMALIZED = add2DArrays(greyScaleValuesNORMALIZED, greyScaleValues.get(i));
+			greyScaleValuesNORMALIZED = Utils.addIntArrays2D(greyScaleValuesNORMALIZED, greyScaleValues.get(i));
 		}
 		//Debug.log("Addition of all greyScaleValues:");
-		print2dArray(greyScaleValuesNORMALIZED);
+		//Utils.printIntArray2D(greyScaleValuesNORMALIZED);
 
 		//Debug.log("Average greyScaleValues:");
-		greyScaleValuesNORMALIZED = calculateAverage2dArray(greyScaleValuesNORMALIZED, i);
+		greyScaleValuesNORMALIZED = Utils.calculateAverageIntArray2D(greyScaleValuesNORMALIZED, i);
 
 		return greyScaleValuesNORMALIZED;
-	}
-
-	/**
-	 * creates a new 2d array of the same size as the given one
-	 * 
-	 * @param arr1
-	 * @return arr2
-	 */
-	private static int[][] createNewArrayOfSize(int[][] arr1) {
-		int x = arr1.length;
-		int y = arr1[0].length;
-		int[][] arr2 = new int[x][y];
-		return arr2;
-	}
-
-	/**
-	 * prints a 2d array to console
-	 * 
-	 * @param arr
-	 */
-	private static void print1dArray(int[] arr) {
-		for (int j = 0; j < arr.length; j++) {
-			Debug.log(arr[j] + " ");
-		}
-		Debug.log("");
-	}
-
-	/**
-	 * prints a 2d array to console
-	 * 
-	 * @param arr
-	 */
-	private static void print2dArray(int[][] arr) {
-		for (int j = 0; j < arr.length; j++) {
-			for (int k = 0; k < arr[j].length; k++) {
-				Debug.log(" " + arr[j][k]);
-			}
-			Debug.log("");
-		}
-	}
-
-	/**
-	 * calculates the average values of an array and prints it to console
-	 * 
-	 * @param arr1
-	 * @param i
-	 * @return
-	 */
-	private static int[][] calculateAverage2dArray(int[][] arr1, int i) {
-		for (int j = 0; j < arr1.length; j++) {
-			for (int k = 0; k < arr1[j].length; k++) {
-				arr1[j][k] = arr1[j][k] / i;
-				Debug.log(" " + arr1[j][k]);
-			}
-			Debug.log("");
-		}
-		return arr1;
-	}
-
-	/**
-	 * Adds two equally sized 1d arrays to each other
-	 * 
-	 * @param arr1
-	 * @param arr2
-	 * @return sum
-	 */
-	private static int[] add1DArrays(int[] arr1, int[] arr2) {
-		int[] sum = new int[arr1.length];
-		for (int i = 0; i < arr1.length; i++) {
-			sum[i] = arr1[i] + arr2[i];
-		}
-		return sum;
-	}
-
-	/**
-	 * Adds two equally sized 2d arrays to each other
-	 * 
-	 * @param arr1
-	 * @param arr2
-	 * @return sum
-	 */
-	private static int[][] add2DArrays(int[][] arr1, int[][] arr2) {
-		int[][] sum = new int[arr1.length][arr1[0].length];
-		for (int i = 0; i < arr1.length; i++) {
-			for (int j = 0; j < arr1[i].length; j++) {
-				sum[i][j] = arr1[i][j] + arr2[i][j];
-			}
-		}
-		return sum;
 	}
 
 	/**
@@ -201,7 +123,7 @@ public class Histogram {
 		int height = H * V;
 		Canvas canvas = new Canvas(width, height);
 
-		int[] histogramData = generateHistogram(data);
+		int[] histogramData = core.evaluation.Histogram.get(data);
 
 		drawHistogram(canvas, histogramData);
 
@@ -209,7 +131,7 @@ public class Histogram {
 	}
 
 	/**
-	 * Generates a histogram of a greyScaleValues 2d array
+	 * Generates a histogram of a greyScaleValues 2d array.
 	 * 
 	 * @param data
 	 * @return
@@ -225,21 +147,7 @@ public class Histogram {
 	}
 
 	/**
-	 * Generates the histograms as arrays and stores them in a new ArrayList
-	 * 
-	 * @param data ArrayList that consists of all images
-	 * @return int array of size 100 for every greyscale
-	 */
-	private static int[] generateHistogram(int[][] data) {
-		HistogramData histogramData = new HistogramData(data);
-		histogramData.generate();
-		//histogramData.printHistogramData();
-
-		return histogramData.getHistogramData();
-	}
-
-	/**
-	 * Draws one histogram to canvas using V as a modifier to increase the size
+	 * Draws one histogram to canvas using V as a modifier to increase the size.
 	 * TODO: ! BUG - (at least) x-range is too low for 256 values!
 	 * TODO: Improve code TODO: Implement automatic scaling of the diagram with modifier V
 	 * 
