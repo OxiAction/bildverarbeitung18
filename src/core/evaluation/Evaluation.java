@@ -1,10 +1,11 @@
 package core.evaluation;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import javafx.concurrent.Task;
+import javafx.util.Pair;
 import utils.Debug;
 
 /**
@@ -66,51 +67,40 @@ public class Evaluation extends Task<EvaluationDataSet> {
 			if (histogramData == null) {
 				continue;
 			}
-
-			int kFactor = Integer.parseInt(this.set.getKFactor());
-			int count = 0;
+			
+			ArrayList<Pair<Integer, Double>> pairs = new ArrayList<Pair<Integer, Double>>();
 
 			// compare all others with current entry	
 			for (EvaluationDataSetEntry innerEntry : setEntries) {
 				if (entry == innerEntry) {
 					continue;
 				}
-				
-				Hashtable<EvaluationDataSetEntry, Double> kNearest = new Hashtable<EvaluationDataSetEntry, Double>();
 
 				int[] innerHistogramData = innerEntry.getHistogramData();
 
 				// compare histogramData of two entries by metric (which is choosen by metric name)
 				double distance = Metric.getDataByName(this.set.getMetricName(), histogramData, innerHistogramData);
-
-				// adds a distance to the k-nearest hashtable:
-				// - first we check if we already have k-elements
-				// - when there are already k-elements in the hashtable, we replace the largest with the new one (if it is smaller)
-				if (count < kFactor) {
-					kNearest.put(innerEntry, distance);
-					count++;
-				} else {
-					// finding the largest element in the hashtable
-					Object maxKey = null;
-					Double maxValue = Double.MIN_VALUE;
-					for (Map.Entry<EvaluationDataSetEntry, Double> mapEntry : kNearest.entrySet()) {
-						if (mapEntry.getValue() > maxValue) {
-							maxValue = mapEntry.getValue();
-							maxKey = mapEntry.getKey();
-						}
+				
+				Pair<Integer, Double> pair = new Pair<Integer, Double>(innerEntry.getID(), distance);
+				pairs.add(pair);
+			}
+			
+			// check if we found one or more pairs
+			if (pairs.size() > 0) {
+				Collections.sort(pairs, new Comparator<Pair<Integer, Double>>() {
+				    @Override
+				    public int compare(final Pair<Integer, Double> o1, final Pair<Integer, Double> o2) {
+						return Double.compare(o1.getValue(), o2.getValue());
+				    }
+				});
+				
+				int kFactor = Integer.parseInt(this.set.getKFactor());
+				for (int k = 0; k < pairs.size(); ++k) {
+					if (k > kFactor - 1) {
+						break;
 					}
-					// replacing the largest element with the actual one (if it is smaller)
-					if (distance < maxValue) {
-						if (maxKey != null) {
-							kNearest.remove(maxKey);
-						}
-						kNearest.put(innerEntry, distance);
-					}
-				}
-
-				// add id as a kNearest to entry
-				for (Map.Entry<EvaluationDataSetEntry, Double> mapEntry : kNearest.entrySet()) {
-					entry.addKNearestByID(mapEntry.getKey().getID());
+					
+					entry.addKNearestByID(pairs.get(k).getKey());
 				}
 			}
 			
