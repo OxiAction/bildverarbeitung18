@@ -1,22 +1,27 @@
 package core.evaluation;
 
+import static utils.Utils.getNumberOfGreyScaleValues;
+
 /**
- * TODO description
+ * Class that calculates the entropy of an image
+ * @author Richard Riediger
  */
 public class Entropy {
 	/**
-	 * Calculates the entropy of an full image with the formula E = Sum( p(g) * (-log(p(g)) ).
-	 * TODO: don't need greyScaleData currently, but might need it for local entropy / part of an image
-	 * 
+	 * Calculates the entropy of an image with the formula E = Sum( p(g) * (-log(p(g)) ).
+	 *
 	 * @param greyScaleData		the grey scale data of the image
 	 * @param histogramData		the histogram data of the image
 	 * @return the entropy value
 	 */
-	public static double get(int[][] greyScaleData, int[] histogramData) {
-		// get number of greyscale values, could also use greyScaleData x and y size and use x*y?
-		double numberOfGreyScaleValues = 0;
-		for (int i = 0; i < histogramData.length; i++) {
-			numberOfGreyScaleValues += histogramData[i];
+	public static double get(int[][] greyScaleData, int[] histogramData, boolean usingLocalEntropy) {
+		double numberOfGreyScaleValues = getNumberOfGreyScaleValues(greyScaleData);
+
+		if(!usingLocalEntropy){
+			System.out.println("Calculating Entropy...");
+		}
+		else{
+			System.out.println("Calculating local Entropy...");
 		}
 
 		// calculate probabilities of each greyScaleValue

@@ -486,4 +486,34 @@ public class Utils {
 		
 		return result;
 	}
+
+	/**
+	 * Calculates the mean greyscale value of an image based on its greyscale values and histogram
+	 *
+	 * @param 	greyScaleData
+	 * @param 	histogramData
+	 * @return	the mean greyscale value
+	 */
+	public static double getMeanGreyScaleValue(int[][] greyScaleData, int[] histogramData){
+		double meanGreyScale = 0.0;
+
+		for(int i = 0; i < histogramData.length; i++){
+			meanGreyScale += i * histogramData[i];
+		}
+		//System.out.println("meanGreyScale: " + meanGreyScale / getNumberOfGreyScaleValues(greyScaleData));
+		return meanGreyScale / getNumberOfGreyScaleValues(greyScaleData);
+	}
+
+	/**
+	 * Calculates the number of all greyscale values of an image
+	 *
+	 * @param 	greyScaleData
+	 * @return	the number of greyscale values
+	 */
+	public static int getNumberOfGreyScaleValues(int[][] greyScaleData){
+		int length = greyScaleData.length;
+		int width = greyScaleData[0].length;
+		//System.out.println("numberOfGreyScaleValues: " + length * width);
+		return length * width;
+	}
 }
