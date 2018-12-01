@@ -1,8 +1,8 @@
 package core.evaluation;
 
 
-import static utils.Utils.getMeanGreyScaleValue;
-import static utils.Utils.getNumberOfGreyScaleValues;
+import utils.Debug;
+import utils.Utils;
 
 /**
  * Class that calculates the variance of an image
@@ -19,14 +19,14 @@ public class Variance {
 	 * @return 	the variance value
 	 */
 	public static double get(int[][] greyScaleData, int[] histogramData, boolean usingLocalVariance) {
-		double meanGreyScale = getMeanGreyScaleValue(greyScaleData, histogramData);
-		double numberOfGreyScaleValues = getNumberOfGreyScaleValues(greyScaleData);
+		double meanGreyScale = Utils.getMeanGreyScaleValue(greyScaleData, histogramData);
+		double numberOfGreyScaleValues = Utils.getNumberOfGreyScaleValues(greyScaleData);
 		double variance = 0.0;
 		if(!usingLocalVariance){
-			System.out.println("Calculating Variance...");
+			Debug.log("Calculating Variance...");
 		}
 		else{
-			System.out.println("Calculating local Variance...");
+			Debug.log("Calculating local Variance...");
 		}
 
 		for(int j = 0; j < histogramData.length; j++){
@@ -34,10 +34,9 @@ public class Variance {
 				variance += Math.pow((j - meanGreyScale), 2);
 			}
 		}
-		//System.out.println("variance: " + variance / (numberOfGreyScaleValues - 1));
+		//Debug.log("variance: " + variance / (numberOfGreyScaleValues - 1));
 		return variance / (numberOfGreyScaleValues - 1);
 	}
-
 
 	/**
 	 * Testing variance methods

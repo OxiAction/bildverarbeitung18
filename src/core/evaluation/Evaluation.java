@@ -104,7 +104,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				}
 			}
 			
-			entry.setEntropy(Entropy.get(entry.getGreyScaleData(), entry.getHistogramData()));	
+			entry.setEntropy(Entropy.get(entry.getGreyScaleData(), entry.getHistogramData(), false));	
 		}
 
 		// return the set, filled with all the entries and values:

@@ -230,7 +230,7 @@ public class ViewTabNewScan implements ViewInterface {
 			hBoxSliceY.setSpacing(10);
 			vBox.getChildren().add(hBoxSliceY);
 			
-	// slice-y
+	// histogram-size
 	
 			Label labelHistogramSize = new Label(Translation.fetch("histogram_size") + ":");
 			ComboBox<String> comboBoxHistogramSize = new ComboBox<String>(FXCollections.observableArrayList(

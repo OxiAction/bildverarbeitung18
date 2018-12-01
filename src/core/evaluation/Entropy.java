@@ -1,6 +1,7 @@
 package core.evaluation;
 
-import static utils.Utils.getNumberOfGreyScaleValues;
+import utils.Debug;
+import utils.Utils;
 
 /**
  * Class that calculates the entropy of an image
@@ -15,13 +16,13 @@ public class Entropy {
 	 * @return the entropy value
 	 */
 	public static double get(int[][] greyScaleData, int[] histogramData, boolean usingLocalEntropy) {
-		double numberOfGreyScaleValues = getNumberOfGreyScaleValues(greyScaleData);
+		double numberOfGreyScaleValues = Utils.getNumberOfGreyScaleValues(greyScaleData);
 
 		if(!usingLocalEntropy){
-			System.out.println("Calculating Entropy...");
+			Debug.log("Calculating Entropy...");
 		}
 		else{
-			System.out.println("Calculating local Entropy...");
+			Debug.log("Calculating local Entropy...");
 		}
 
 		// calculate probabilities of each greyScaleValue
