@@ -15,7 +15,7 @@ public class Entropy {
 	public static double get(int[][] greyScaleData, int[] histogramData) {
 		// get number of greyscale values, could also use greyScaleData x and y size and use x*y?
 		double numberOfGreyScaleValues = 0;
-		for(int i = 0; i < histogramData.length; i++){
+		for (int i = 0; i < histogramData.length; i++) {
 			numberOfGreyScaleValues += histogramData[i];
 		}
 
@@ -26,10 +26,10 @@ public class Entropy {
 		double[] entropyValues = new double[histogramData.length];
 		double probabilityOfHistogramData = 0;
 		double entropy = 0;
-		for(int j = 0; j < histogramData.length; j++){
+		for (int j = 0; j < histogramData.length; j++) {
 			probabilityOfHistogramData = histogramData[j] / numberOfGreyScaleValues;
-			entropyValues[j] = (-1) * (Math.log(probabilityOfHistogramData)/Math.log(2)) * probabilityOfHistogramData;
-			if(entropyValues[j] > 0) {
+			entropyValues[j] = (-1) * (Math.log(probabilityOfHistogramData) / Math.log(2)) * probabilityOfHistogramData;
+			if (entropyValues[j] > 0) {
 				entropy += entropyValues[j];
 			}
 		}

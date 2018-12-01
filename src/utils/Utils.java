@@ -189,6 +189,80 @@ public class Utils {
 	}
 	
 	/**
+	 * Converts an double[][] array to String.
+	 * E.g.: { { 1.1, 9.9 } , { 3.4, 4.5 } } => "1.1-9.9|3.4-4.5"
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public static String doubleArray2DToString(double[][] data) {
+		// sanity check
+		if (data == null || data.length == 0) {
+			return "";
+		}
+		
+		String result = "";
+		
+		for (int i = 0; i < data.length; ++i) {
+			if (i > 0) {
+				// use "|" as delimiter
+				result += "|";
+			}
+			
+			for (int j = 0; j < data[i].length; ++j) {
+				if (j > 0) {
+					result += "-";
+				}
+				result += String.valueOf(data[i][j]);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Converts a String to an double[][] array.
+	 * E.g.: "1.1-9.9|3.4-4.5" => { { 1.1, 9.9 } , { 3.4, 4.5 } }
+	 * 
+	 * @param data
+	 * @return
+	 * @throws Exception
+	 */
+	public static double[][] stringToDoubleArray2D(String data) throws Exception {
+		int i = 0;
+		int j = 0;
+		int x = 0;
+		int y = 0;
+		
+		String[] parts1 = data.split("\\|");
+		// sanity check
+		if (parts1.length == 0) {
+			return null;
+		}
+		
+		String[] parts2 = null;
+		x = parts1.length;
+		
+		if (parts1.length == 0) {
+			throw new Exception("The data String is invalid.");
+		}
+		
+		parts2 = parts1[0].split("-");
+		y = parts2.length;
+		
+		double[][] result = new double[x][y];
+		
+		for (i = 0; i < parts1.length; ++i) {
+			parts2 = parts1[i].split("-");
+			for (j = 0; j < parts2.length; ++j) {
+				result[i][j] = Double.parseDouble(parts2[j]);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * Returns a HashMap with the following keys (keys are null if it could not get the required information):
 	 * - fileExtension
 	 * - fileFolderPath
@@ -225,10 +299,11 @@ public class Utils {
 	 * @param arr
 	 */
 	public static void printIntArray1D(int[] arr) {
-		for (int j = 0; j < arr.length; j++) {
-			Debug.log(arr[j] + " ");
+		String line = "";
+		for (int k = 0; k < arr.length; k++) {
+			line += "\t" + arr[k] + " ";
 		}
-		Debug.log("");
+		Debug.log(line + "\n");
 	}
 
 	/**
@@ -238,10 +313,40 @@ public class Utils {
 	 */
 	public static void printIntArray2D(int[][] arr) {
 		for (int j = 0; j < arr.length; j++) {
+			String line = "";
 			for (int k = 0; k < arr[j].length; k++) {
-				Debug.log(" " + arr[j][k]);
+				line += "\t" + arr[j][k] + " ";
 			}
-			Debug.log("");
+			Debug.log(line + "\n");
+		}
+	}
+	
+	/**
+	 * prints an 4d int array to console.
+	 * 
+	 * @param arr
+	 */
+	public static void printIntArray4D(int[][][][] arr) {
+		for (int j = 0; j < arr.length; j++) {
+			if (j > 0) {
+				Debug.log("---");
+			}
+			
+			for (int k = 0; k < arr[j].length; k++) {
+				String line = "";
+				for (int j2 = 0; j2 < arr[j][k].length; j2++) {
+					if (j2 > 0) {
+						line += "\n";
+					}
+					for (int k2 = 0; k2 < arr[j][k][j2].length; k2++) {
+						
+						line += "\t" + arr[j][k][j2][k2] + " ";
+					}
+					
+				}
+				Debug.log(line + "\n");
+			}
+			
 		}
 	}
 	
@@ -304,5 +409,81 @@ public class Utils {
 			}
 		}
 		return arr1;
+	}
+	
+	/**
+	 * Divides an 2d int array into an 4d chunks arrays.
+	 * 
+	 * @param source	source 2d int array
+	 * @param slixeX	slice on x-axis
+	 * @param sliceY	slice on y-axis
+	 * @return
+	 */
+	public static int[][][][] getChunksFromIntArray2D(int[][] source, int sliceX, int sliceY) {
+		if (source == null || source.length == 0) {
+			return null;
+		}
+		Debug.log("[source Array]:");
+		printIntArray2D(source);
+
+		int height = source.length;
+		int divideHeight = height / sliceY; // will be rounded down
+		if (height % sliceY != 0) {
+			Debug.log("Warning: last array row will be ignored (regarding y-dimension of the source array)!");
+		}
+		height = divideHeight * sliceY;
+
+		int width = source[0].length;
+		int divideWidth = width / sliceX; // will be rounded down
+		if (width % sliceX != 0) {
+			Debug.log("Warning: last array column will be ignored (regarding x-dimension of the source array)!");
+		}
+		width = divideWidth * sliceX;
+		
+		Debug.log("result dimensions [chunk y][chunk x][source y][source x]: " + "[" + sliceY + "][" + sliceX + "][" + divideHeight + "][" + divideWidth + "]");
+		
+		int[][][][] result = new int[sliceY][sliceX][divideHeight][divideWidth];
+
+		int chunkY = 0;
+		int chunkX = 0;
+
+		int y = 0;
+		int x;
+
+		for (int h = 0; h < height; ++h) {
+			chunkX = 0;
+			Debug.log("-X rest chunkX to " + chunkX);
+
+			x = 0;
+			for (int w = 0; w < width; ++w) {
+				Debug.log("=> set [" + chunkY + "][" + chunkX + "][" + x + "][" + y + "] to " + source[h][w]);
+				result[chunkY][chunkX][y][x] = source[h][w];
+
+				if ((w + 1) % divideWidth == 0) {
+					x = 0;
+					Debug.log("-X reset x to " + x);
+					chunkX++;
+					Debug.log("->> inc chunkX to " + chunkX);
+				} else {
+					x++;
+					Debug.log("->> inc x to " + x);
+				}
+			}
+
+			if ((h + 1) % divideHeight == 0) {
+				y = 0;
+				chunkY++;
+				Debug.log("->> inc chunkY to " + chunkY);
+			} else {
+				y++;
+				Debug.log("->> inc y to " + y);
+			}
+		}
+
+		//Debug.log("[result Array]:");
+		//printIntArray2D(result[0][0]);
+		//printIntArray4D(result);
+		
+		return result;
 	}
 }

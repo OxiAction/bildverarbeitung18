@@ -18,21 +18,23 @@ public class EvaluationDataSetEntry {
 	protected int[] histogramData;
 	protected double entropy;
 	protected ArrayList<Integer> kNearestIDs;
+	protected double[][] slicedEntropies;
 
 	/**
 	 * Constructor for a new EvaluationDataSetEntry.
 	 * 
-	 * @param id the unique id for this entry (in the set)
-	 * @param fileFolderPath the folder path of the file
-	 * @param fileName the file name (without extension!)
-	 * @param fileExtension the file extension (without .) - e.g. "jpg"
-	 * @param sensorType the sensor type
-	 * @param greyScaleData the grey scale data as 2d int array
-	 * @param histogramData the histogramData data 1d int array
-	 * @param entropy 
-	 * @param kNearestIDs the list with the k-nearest entries (ids)
+	 * @param id 				the unique id for this entry (in the set)
+	 * @param fileFolderPath 	the folder path of the file
+	 * @param fileName 			the file name (without extension!)
+	 * @param fileExtension 	the file extension (without .) - e.g. "jpg"
+	 * @param sensorType 		the sensor type
+	 * @param greyScaleData 	the grey scale data as 2d int array
+	 * @param histogramData 	the histogramData data 1d int array
+	 * @param entropy 			TODO
+	 * @param kNearestIDs 		the list with the k-nearest entries (ids)
+	 * @param slicedEntropies 	TODO
 	 */
-	public EvaluationDataSetEntry(int id, String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleData, int[] histogramData, double entropy, ArrayList<Integer> kNearestIDs) {
+	public EvaluationDataSetEntry(int id, String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleData, int[] histogramData, double entropy, ArrayList<Integer> kNearestIDs, double[][] slicedEntropies) {
 		this.id = id;
 		this.fileFolderPath = fileFolderPath;
 		this.fileName = fileName;
@@ -42,6 +44,7 @@ public class EvaluationDataSetEntry {
 		this.histogramData = histogramData;
 		this.entropy = entropy;
 		this.kNearestIDs = kNearestIDs;
+		this.slicedEntropies = slicedEntropies;
 	}
 
 	/**
@@ -185,6 +188,18 @@ public class EvaluationDataSetEntry {
 	
 	public double getEntropy() {
 		return this.entropy;
+	}
+	
+	public void setSlicedEntropies(double[][] slicedEntropies) {
+		this.slicedEntropies = slicedEntropies;
+	}
+	
+	public double[][] getSlicedEntropies() {
+		return this.slicedEntropies;
+	}
+	
+	public String getSlicedEntropiesAsString() {
+		return "TODO";
 	}
 	
 	/**

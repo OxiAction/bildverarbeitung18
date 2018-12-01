@@ -177,10 +177,10 @@ public class ViewTabNewScan implements ViewInterface {
 		Label labelKFactor = new Label(Translation.fetch("k_factor") + ":");
 		// 10 - 50 - 100
 		ComboBox<String> comboBoxKFactor = new ComboBox<String>(FXCollections.observableArrayList(
-		        "2",
-		        "4",
 		        "8",
-		        "16"
+		        "16",
+		        "32",
+		        "64"
 		    ));
 		comboBoxKFactor.getSelectionModel().select(0);
 		HBox hBoxKFactor = new HBox();
@@ -200,6 +200,52 @@ public class ViewTabNewScan implements ViewInterface {
 		hBoxMetric.setSpacing(10);
 		vBox.getChildren().add(hBoxMetric);
 		
+	// slice-x
+	
+			Label labelSliceX = new Label(Translation.fetch("slice_x") + ":");
+			ComboBox<String> comboBoxSliceX = new ComboBox<String>(FXCollections.observableArrayList(
+			        "2",
+			        "4",
+			        "8",
+			        "10"
+			    ));
+			comboBoxSliceX.getSelectionModel().select(0);
+			HBox hBoxSliceX = new HBox();
+			hBoxSliceX.getChildren().addAll(labelSliceX, comboBoxSliceX);
+			hBoxSliceX.setSpacing(10);
+			vBox.getChildren().add(hBoxSliceX);
+			
+	// slice-y
+	
+			Label labelSliceY = new Label(Translation.fetch("slice_y") + ":");
+			ComboBox<String> comboBoxSliceY = new ComboBox<String>(FXCollections.observableArrayList(
+			        "2",
+			        "4",
+			        "8",
+			        "10"
+			    ));
+			comboBoxSliceY.getSelectionModel().select(0);
+			HBox hBoxSliceY = new HBox();
+			hBoxSliceY.getChildren().addAll(labelSliceY, comboBoxSliceY);
+			hBoxSliceY.setSpacing(10);
+			vBox.getChildren().add(hBoxSliceY);
+			
+	// slice-y
+	
+			Label labelHistogramSize = new Label(Translation.fetch("histogram_size") + ":");
+			ComboBox<String> comboBoxHistogramSize = new ComboBox<String>(FXCollections.observableArrayList(
+			        "256",
+			        "128",
+			        "64",
+			        "32",
+			        "16"
+			    ));
+			comboBoxHistogramSize.getSelectionModel().select(0);
+			HBox hBoxHistogramSize = new HBox();
+			hBoxHistogramSize.getChildren().addAll(labelHistogramSize, comboBoxHistogramSize);
+			hBoxHistogramSize.setSpacing(10);
+			vBox.getChildren().add(hBoxHistogramSize);
+		
 	// button start scan
 		
 		buttonStartScan = new Button(Translation.fetch("button_new_scan_start_scan"));
@@ -218,7 +264,10 @@ public class ViewTabNewScan implements ViewInterface {
 								textFieldName.getText().trim(),
 								textFieldSourceFolder.getText().trim().replace('\\', '/'),
 								comboBoxKFactor.getValue(),
-								comboBoxMetric.getValue());
+								comboBoxMetric.getValue(),
+								comboBoxSliceX.getValue(),
+								comboBoxSliceY.getValue(),
+								comboBoxHistogramSize.getValue());
 						
 						/*
 						HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(imagePath);

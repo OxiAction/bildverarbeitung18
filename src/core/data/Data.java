@@ -153,6 +153,9 @@ public class Data {
 			setElement.setAttribute("sourceFolder", set.getSourceFolder());
 			setElement.setAttribute("kFactor", set.getKFactor());
 			setElement.setAttribute("metricName", set.getMetricName());
+			setElement.setAttribute("sliceX", set.getSliceX());
+			setElement.setAttribute("sliceY", set.getSliceY());
+			setElement.setAttribute("histogramSize", set.getHistogramSize());
 
 			Element entries = document.createElement("entries");
 
@@ -236,6 +239,9 @@ public class Data {
 					String sourceFolder = setElement.getAttribute("sourceFolder");
 					String kFactor = setElement.getAttribute("kFactor");
 					String metricName = setElement.getAttribute("metricName");
+					String sliceX = setElement.getAttribute("sliceX");
+					String sliceY = setElement.getAttribute("sliceY");
+					String histogramSize = setElement.getAttribute("histogramSize");
 
 					// convert string to timestamp object
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -243,7 +249,7 @@ public class Data {
 					Timestamp timestampObject = new Timestamp(date.getTime());
 
 					// create and add set to the list of sets
-					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, kFactor, metricName);
+					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, kFactor, metricName, sliceX, sliceY, histogramSize);
 
 					Element entriesElement = (Element) setElement.getElementsByTagName("entries").item(0);
 
@@ -276,7 +282,7 @@ public class Data {
 							ArrayList<Integer> kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
 							
 							// create and add entry to the set
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, histogramData, entropy, kNearestIDs);
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, histogramData, entropy, kNearestIDs, null);
 							set.addEntry(entry);
 						}
 					}

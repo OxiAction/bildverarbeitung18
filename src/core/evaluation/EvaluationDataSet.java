@@ -15,6 +15,9 @@ public class EvaluationDataSet {
 	protected String sourceFolder;
 	protected String kFactor;
 	protected String metricName;
+	protected String sliceX;
+	protected String sliceY;
+	protected String histogramSize;
 	protected EvaluationDataSetEntry sourceEntry;
 	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
 	
@@ -31,13 +34,19 @@ public class EvaluationDataSet {
 	 * @param sourceFolder	the full path of the selected scan folder
 	 * @param kFactor		maximum number of files to be scanned
 	 * @param metricName	the metric name which was used for the scan
+	 * @param sliceX		TODO
+	 * @param sliceY		TODO
+	 * @param histogramSize	TODO
 	 */
-	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metricName) {
+	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metricName, String sliceX, String sliceY, String histogramSize) {
 		this.timestamp = timestamp;
 		this.name = name;
 		this.sourceFolder = sourceFolder;
 		this.kFactor = kFactor;
 		this.metricName = metricName;
+		this.sliceX = sliceX;
+		this.sliceY = sliceY;
+		this.histogramSize = histogramSize;
 	}
 	
 	/**
@@ -137,13 +146,58 @@ public class EvaluationDataSet {
 		this.metricName = metricName;
 	}
 	
+	/**
+	 * @return the sliceX
+	 */
+	public String getSliceX() {
+		return sliceX;
+	}
+
+	/**
+	 * @param sliceX the sliceX to set
+	 */
+	public void setSliceX(String sliceX) {
+		this.sliceX = sliceX;
+	}
+	
+	/**
+	 * @return the sliceY
+	 */
+	public String getSliceY() {
+		return sliceY;
+	}
+
+	/**
+	 * @param sliceY the sliceY to set
+	 */
+	public void setSliceY(String sliceY) {
+		this.sliceY = sliceY;
+	}
+	
+	/**
+	 * @return the histogramSize
+	 */
+	public String getHistogramSize() {
+		return histogramSize;
+	}
+
+	/**
+	 * @param histogramSize the histogramSize to set
+	 */
+	public void setHistogramSize(String histogramSize) {
+		this.histogramSize = histogramSize;
+	}
+	
 	@Override
 	public String toString() {
 		return Translation.fetch("timestamp") + ": " + this.getTimestamp() + 
 				"\n" + Translation.fetch("name") + ": " + this.getName() + 
 				"\n" + Translation.fetch("source_folder") + ": " + this.getSourceFolder() + 
 				"\n" + Translation.fetch("k_factor") + ": " + this.getKFactor() + 
-				"\n" + Translation.fetch("metric") + ": " + this.getMetricName();
+				"\n" + Translation.fetch("metric") + ": " + this.getMetricName() + 
+				"\n" + Translation.fetch("slice_x") + ": " + this.getSliceX() + 
+				"\n" + Translation.fetch("slice_y") + ": " + this.getSliceY() + 
+				"\n" + Translation.fetch("histogram_size") + ": " + this.getHistogramSize();
 	}
 	
 }

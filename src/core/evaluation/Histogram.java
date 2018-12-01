@@ -5,13 +5,26 @@ package core.evaluation;
  */
 public class Histogram {
 	/**
-	 * Takes a two dimensional greyScale value array and generates a histogram out of it.
+	 * Takes a two dimensional greyScale value array and generates a histogram with size 256 out of it.
 	 * 
 	 * @param 	greyScaleData	the greyScale values of an image, an 2D int array
 	 * @return	the histogram
 	 */
 	public static int[] get(int[][] greyScaleData) {
-		int[] histogramData = { 
+		return get(greyScaleData, 256);
+	}
+	
+	/**
+	 * Takes a two dimensional greyScale value array and generates a histogram out of it.
+	 * 
+	 * TODO implement scalable histogram. Use parameter size for this
+	 * 
+	 * @param 	greyScaleData	the greyScale values of an image, an 2D int array
+	 * @param 	size			the scaled size (e.g. 16 32 64 128 256)
+	 * @return	the histogram
+	 */
+	public static int[] get(int[][] greyScaleData, int size) {
+		int[] histogramData = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -28,16 +41,6 @@ public class Histogram {
 				histogramData[greyScaleData[i][j]] += 1;
 			}
 		}
-
-		/*
-		Debug.log("HistogramData: ");
-		for (int i = 0; i < histogramData.length; i++) {
-			Debug.log(histogramData[i] + " ");
-			if ((i % 40 == 0) && (i > 0)) {
-				Debug.log("");
-			}
-		}
-		*/
 
 		return histogramData;
 	}
