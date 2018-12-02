@@ -23,7 +23,7 @@ public class Metric {
 		double h1avg = getAverage(h1);
 		double h2avg = getAverage(h2);
 
-		for (int i = 0; i < h1.length; i++) {
+		for (int i = 0; i < h1.length; ++i) {
 			n += (h1[i] - h1avg) * (h2[i] - h2avg);
 			d1 += Math.pow((h1[i] - h1avg), 2);
 			d2 += Math.pow((h2[i] - h2avg), 2);
@@ -40,7 +40,7 @@ public class Metric {
 	 */
 	public static double getChiSquareData(int[] h1, int[] h2) {
 		double d = 0;
-		for (int i = 0; i < h1.length; i++) {
+		for (int i = 0; i < h1.length; ++i) {
 			d += (Math.pow((h1[i] - h2[i]), 2)) / h1[i];
 		}
 		return d;
@@ -55,7 +55,7 @@ public class Metric {
 	 */
 	public static double getIntersectionData(int[] h1, int[] h2) {
 		double d = 0;
-		for (int i = 0; i < h1.length; i++)
+		for (int i = 0; i < h1.length; ++i)
 			d += Math.min(h1[i], h2[i]);
 
 		return d;
@@ -70,7 +70,7 @@ public class Metric {
 	 */
 	public static double getBhattacharyyaDistanceData(int[] h1, int[] h2) {
 		double s = 0, q;
-		for (int i = 0; i < h1.length; i++)
+		for (int i = 0; i < h1.length; ++i)
 			s += Math.sqrt(h1[i] * h2[i]);
 
 		q = 1 / (Math.sqrt(getAverage(h1) * getAverage(h2) * Math.pow(h1.length, 2)));
@@ -118,7 +118,7 @@ public class Metric {
 	 */
 	protected static double getAverage(int[] histogram) {
 		int avg = 0;
-		for (int i = 0; i < histogram.length; i++)
+		for (int i = 0; i < histogram.length; ++i)
 			avg += histogram[i];
 		return (avg / histogram.length);
 

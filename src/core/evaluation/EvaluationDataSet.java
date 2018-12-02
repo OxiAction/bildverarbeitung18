@@ -20,12 +20,12 @@ public class EvaluationDataSet {
 	protected int histogramSize;
 	protected EvaluationDataSetEntry sourceEntry;
 	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
-	
+
 	/**
 	 * indicates if this set needs to be updated or is just read
 	 */
 	public boolean save = true;
-	
+
 	/**
 	 * Constructor for a new EvaluationDataSet.
 	 * 
@@ -34,9 +34,9 @@ public class EvaluationDataSet {
 	 * @param sourceFolder	the full path of the selected scan folder
 	 * @param kFactor		maximum number of files to be scanned
 	 * @param metricName	the metric name which was used for the scan
-	 * @param sliceX		TODO
-	 * @param sliceY		TODO
-	 * @param histogramSize	TODO
+	 * @param sliceX		number of slices on the x-axis of the images (e.g. for sliced entropy)
+	 * @param sliceY		number of slices on the y-axis of the images (e.g. for sliced entropy)
+	 * @param histogramSize	size of the histogram
 	 */
 	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metricName, int sliceX, int sliceY, int histogramSize) {
 		this.timestamp = timestamp;
@@ -48,7 +48,7 @@ public class EvaluationDataSet {
 		this.sliceY = sliceY;
 		this.histogramSize = histogramSize;
 	}
-	
+
 	/**
 	 * Adds a new EvaluationDataSetEntry to the list of entries.
 	 * 
@@ -57,7 +57,7 @@ public class EvaluationDataSet {
 	public void addEntry(EvaluationDataSetEntry entry) {
 		entries.add(entry);
 	}
-	
+
 	/**
 	 * Returns all EvaluationDataSetEntries as a List.
 	 * 
@@ -66,7 +66,7 @@ public class EvaluationDataSet {
 	public List<EvaluationDataSetEntry> getEntries() {
 		return entries;
 	}
-	
+
 	/**
 	 * Returns the size of the EvaluationDataSetEntries list.
 	 * 
@@ -75,7 +75,7 @@ public class EvaluationDataSet {
 	public Integer getEntriesSize() {
 		return entries.size();
 	}
-	
+
 	/**
 	 * @return the timestamp
 	 */
@@ -89,7 +89,7 @@ public class EvaluationDataSet {
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
-	
+
 	/**
 	 * @return the name
 	 */
@@ -145,7 +145,7 @@ public class EvaluationDataSet {
 	public void setMetricName(String metricName) {
 		this.metricName = metricName;
 	}
-	
+
 	/**
 	 * @return the sliceX
 	 */
@@ -159,7 +159,7 @@ public class EvaluationDataSet {
 	public void setSliceX(int sliceX) {
 		this.sliceX = sliceX;
 	}
-	
+
 	/**
 	 * @return the sliceY
 	 */
@@ -173,7 +173,7 @@ public class EvaluationDataSet {
 	public void setSliceY(int sliceY) {
 		this.sliceY = sliceY;
 	}
-	
+
 	/**
 	 * @return the histogramSize
 	 */

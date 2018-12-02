@@ -34,7 +34,7 @@ public class ViewTabNewScan implements ViewInterface {
 	protected Image image;
 	protected Button buttonStartScan;
 	protected String imagePath;
-	
+
 	protected Label labelNameNotUnique;
 	protected VBox vBox;
 	protected HBox hBoxName;
@@ -51,31 +51,31 @@ public class ViewTabNewScan implements ViewInterface {
 		if (!(container instanceof TabPane)) {
 			throw new Exception("container doesnt seem to be of type TabPane!");
 		}
-		
+
 		final double labelsWidth = 125;
-		
+
 		// load sets
 		sets = Data.load();
-		
-		TabPane tabPane = (TabPane) container;	
-		
+
+		TabPane tabPane = (TabPane) container;
+
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
-		
+
 		vBox = new VBox();
 		vBox.setSpacing(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10));
-		
-	// intro text
-		
+
+		// intro text
+
 		Text text = new Text();
 		text.setWrappingWidth(300);
 		text.setText(Translation.fetch("text_new_scan"));
 		vBox.getChildren().add(text);
-		
-	// name
-		
+
+		// name
+
 		Label labelName = new Label(Translation.fetch("name") + ":");
 		labelName.setPrefWidth(labelsWidth);
 		textFieldName = new TextField();
@@ -83,65 +83,23 @@ public class ViewTabNewScan implements ViewInterface {
 		hBoxName.getChildren().addAll(labelName, textFieldName);
 		hBoxName.setSpacing(10);
 		vBox.getChildren().add(hBoxName);
-		
+
 		textFieldName.textProperty().addListener((observable, oldValue, newValue) -> {
 			// limit length
 			if (textFieldName.getText().length() > 15) {
 				textFieldName.setText(textFieldName.getText().substring(0, 15));
 			}
-			
+
 			updateButtonStartScan();
 		});
-		
+
 		// labelNameNotUnique will be added / removed dynamically
 		labelNameNotUnique = new Label(Translation.fetch("name_not_unique"));
 		labelNameNotUnique.setTextFill(Color.RED);
 		labelNameNotUnique.setFont(Font.font(labelNameNotUnique.getFont().getName(), FontWeight.BOLD, labelNameNotUnique.getFont().getSize()));
-		
-	// image select
-		
-		/*
-		Label labelImage = new Label(Translation.fetch("image") + ":");
-		ImageView imageView = new ImageView();
-		imageView.setFitWidth(100);
-		imageView.setPreserveRatio(true);
-		imageView.setSmooth(true);
-		HBox hBoxImage = new HBox();
-		hBoxImage.getChildren().addAll(labelImage, imageView);
-		hBoxImage.setSpacing(10);
-		vBox.getChildren().add(hBoxImage);
-		
-		Button buttonSelectImage = new Button(Translation.fetch("button_new_scan_select_image"));
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter(Translation.fetch("filechooser_new_scan_type"), "*.jpg", "*.png"));
-		fileChooser.setTitle(Translation.fetch("filechooser_new_scan_title"));
-		buttonSelectImage.setOnAction(
-			new EventHandler<ActionEvent>() {
 
-				@Override
-			    public void handle(final ActionEvent e) {
-			        File selectedFile = fileChooser.showOpenDialog(null);
-			        
-			        if (selectedFile != null) {
-			        	// we need URI here
-			        	image = new Image(selectedFile.toURI().toString());
-			        	imageView.setImage(image);
-			        	// absolute path
-			        	imagePath = selectedFile.getAbsolutePath();
-			        	
-			        	updateButtonStartScan();
-			        	
-			        	Debug.log("-> image path: " + imagePath);
-			        } else {
-			        	// no file selected
-			        }
-			    }
-			});
-		vBox.getChildren().add(buttonSelectImage);
-		*/
-		
-	// source folder select
-		
+		// source folder select
+
 		Label labelSourceFolder = new Label(Translation.fetch("folder") + ":");
 		labelSourceFolder.setPrefWidth(labelsWidth);
 		textFieldSourceFolder = new TextField();
@@ -149,8 +107,7 @@ public class ViewTabNewScan implements ViewInterface {
 		hBoxSourceFolder.getChildren().addAll(labelSourceFolder, textFieldSourceFolder);
 		hBoxSourceFolder.setSpacing(10);
 		vBox.getChildren().add(hBoxSourceFolder);
-		
-		
+
 		Label labelSelectSourceFolder = new Label(""); // just empty label for spacing
 		labelSelectSourceFolder.setPrefWidth(labelsWidth);
 		Button buttonSelectSourceFolder = new Button(Translation.fetch("button_new_scan_select_source_folder"));
@@ -158,50 +115,43 @@ public class ViewTabNewScan implements ViewInterface {
 		hBoxSelectSourceFolder.getChildren().addAll(labelSelectSourceFolder, buttonSelectSourceFolder);
 		hBoxSelectSourceFolder.setSpacing(10);
 		vBox.getChildren().add(hBoxSelectSourceFolder);
-		
+
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		buttonSelectSourceFolder.setOnAction(
-				new EventHandler<ActionEvent>() {
-				    @Override
-				    public void handle(final ActionEvent e) {
-				    	File selectedDirectory = directoryChooser.showDialog(null);
-				        
-				        if (selectedDirectory != null) {
-				        	// absolute path
-				        	textFieldSourceFolder.setText(selectedDirectory.getAbsolutePath());
-				        	
-				        	updateButtonStartScan();
-				        	
-				        	Debug.log("-> source folder: " + textFieldSourceFolder.getText());
-				        } else {
-				        	// no directory selected
-				        }
-				    }
-				});
-		
+		buttonSelectSourceFolder.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(final ActionEvent e) {
+				File selectedDirectory = directoryChooser.showDialog(null);
+
+				if (selectedDirectory != null) {
+					// absolute path
+					textFieldSourceFolder.setText(selectedDirectory.getAbsolutePath());
+
+					updateButtonStartScan();
+
+					Debug.log("-> source folder: " + textFieldSourceFolder.getText());
+				} else {
+					// no directory selected
+				}
+			}
+		});
+
 		textFieldSourceFolder.textProperty().addListener((observable, oldValue, newValue) -> {
 			updateButtonStartScan();
 		});
-		
-	// k-factor
-		
+
+		// k-factor
+
 		Label labelKFactor = new Label(Translation.fetch("k_factor") + ":");
 		labelKFactor.setPrefWidth(labelsWidth);
-		// 10 - 50 - 100
-		ComboBox<String> comboBoxKFactor = new ComboBox<String>(FXCollections.observableArrayList(
-		        "8",
-		        "16",
-		        "32"
-		    ));
+		ComboBox<String> comboBoxKFactor = new ComboBox<String>(FXCollections.observableArrayList("8", "16", "32"));
 		comboBoxKFactor.getSelectionModel().select(0);
 		HBox hBoxKFactor = new HBox();
 		hBoxKFactor.getChildren().addAll(labelKFactor, comboBoxKFactor);
 		hBoxKFactor.setSpacing(10);
 		vBox.getChildren().add(hBoxKFactor);
-		
-	// metric
-		// see: https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/histogram_comparison/histogram_comparison.html
-		
+
+		// metric
+
 		Label labelMetric = new Label(Translation.fetch("metric") + ":");
 		labelMetric.setPrefWidth(labelsWidth);
 		ObservableList<String> comboBoxMetricValues = FXCollections.observableArrayList(Metric.getNames());
@@ -211,127 +161,105 @@ public class ViewTabNewScan implements ViewInterface {
 		hBoxMetric.getChildren().addAll(labelMetric, comboBoxMetric);
 		hBoxMetric.setSpacing(10);
 		vBox.getChildren().add(hBoxMetric);
-		
-	// slice-x
-	
+
+		// slice-x
+
 		Label labelSliceX = new Label(Translation.fetch("slice_x") + ":");
 		labelSliceX.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxSliceX = new ComboBox<String>(FXCollections.observableArrayList(
-		        "2",
-		        "4",
-		        "8",
-		        "10"
-		    ));
+		ComboBox<String> comboBoxSliceX = new ComboBox<String>(FXCollections.observableArrayList("2", "4", "8", "10"));
 		comboBoxSliceX.getSelectionModel().select(0);
 		HBox hBoxSliceX = new HBox();
 		hBoxSliceX.getChildren().addAll(labelSliceX, comboBoxSliceX);
 		hBoxSliceX.setSpacing(10);
 		vBox.getChildren().add(hBoxSliceX);
-			
-	// slice-y
-	
+
+		// slice-y
+
 		Label labelSliceY = new Label(Translation.fetch("slice_y") + ":");
 		labelSliceY.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxSliceY = new ComboBox<String>(FXCollections.observableArrayList(
-		        "2",
-		        "4",
-		        "8",
-		        "10"
-		    ));
+		ComboBox<String> comboBoxSliceY = new ComboBox<String>(FXCollections.observableArrayList("2", "4", "8", "10"));
 		comboBoxSliceY.getSelectionModel().select(0);
 		HBox hBoxSliceY = new HBox();
 		hBoxSliceY.getChildren().addAll(labelSliceY, comboBoxSliceY);
 		hBoxSliceY.setSpacing(10);
 		vBox.getChildren().add(hBoxSliceY);
-			
-	// histogram-size
-	
+
+		// histogram-size
+
 		Label labelHistogramSize = new Label(Translation.fetch("histogram_size") + ":");
 		labelHistogramSize.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxHistogramSize = new ComboBox<String>(FXCollections.observableArrayList(
-		        "256",
-		        "128",
-		        "64",
-		        "32"
-		    ));
+		ComboBox<String> comboBoxHistogramSize = new ComboBox<String>(FXCollections.observableArrayList("256", "128", "64", "32"));
 		comboBoxHistogramSize.getSelectionModel().select(0);
 		HBox hBoxHistogramSize = new HBox();
 		hBoxHistogramSize.getChildren().addAll(labelHistogramSize, comboBoxHistogramSize);
 		hBoxHistogramSize.setSpacing(10);
 		vBox.getChildren().add(hBoxHistogramSize);
-		
-	// button start scan
-		
+
+		// button start scan
+
 		buttonStartScan = new Button(Translation.fetch("button_new_scan_start_scan"));
 		if (!Debug.enabled) {
 			buttonStartScan.setDisable(true);
 		}
-		buttonStartScan.setOnAction(
-				new EventHandler<ActionEvent>() {
+		buttonStartScan.setOnAction(new EventHandler<ActionEvent>() {
 
-					@Override
-				    public void handle(final ActionEvent e) {
-						Debug.log("-> start scan");
-						
-						EvaluationDataSet set = new EvaluationDataSet(
-								new Timestamp(System.currentTimeMillis()),
-								textFieldName.getText().trim(),
-								textFieldSourceFolder.getText().trim().replace('\\', '/'),
-								comboBoxKFactor.getValue(),
-								comboBoxMetric.getValue(),
-								Integer.parseInt(comboBoxSliceX.getValue()),
-								Integer.parseInt(comboBoxSliceY.getValue()),
-								Integer.parseInt(comboBoxHistogramSize.getValue()));
-						
-						/*
-						HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(imagePath);
-						set.setSourceEntry(new EvaluationDataSetEntry(infos.get("fileFolderPath"), infos.get("fileName"), infos.get("fileExtension"), null));
-						*/
-						
-						EventManager.dispatch(new EventButtonStartScanClicked(), set);
-					}});
+			@Override
+			public void handle(final ActionEvent e) {
+				Debug.log("-> start scan");
+
+				EvaluationDataSet set = new EvaluationDataSet(
+						new Timestamp(System.currentTimeMillis()),
+						textFieldName.getText().trim(),
+						textFieldSourceFolder.getText().trim().replace('\\', '/'),
+						comboBoxKFactor.getValue(),
+						comboBoxMetric.getValue(),
+						Integer.parseInt(comboBoxSliceX.getValue()),
+						Integer.parseInt(comboBoxSliceY.getValue()),
+						Integer.parseInt(comboBoxHistogramSize.getValue())
+						);
+
+				EventManager.dispatch(new EventButtonStartScanClicked(), set);
+			}
+		});
 		vBox.getChildren().add(buttonStartScan);
-		
-	// setup
-		
+
+		// setup
+
 		scrollPane.setContent(vBox);
-		
+
 		Tab tab = new Tab(Translation.fetch("new_scan"));
 		tab.setContent(scrollPane);
-		
+
 		tabPane.getTabs().add(tab);
-		
+
 		tabPane.getSelectionModel().select(tab);
-		
+
 		tab.setOnCloseRequest(new EventHandler<Event>() {
-		    @Override
-		    public void handle(Event e) {
-		    	EventManager.dispatch(new EventTabNewScanClosed());
-		    }
+			@Override
+			public void handle(Event e) {
+				EventManager.dispatch(new EventTabNewScanClosed());
+			}
 		});
-		
-		// @TODO just a quick fix for resizing Text Nodes...
+
+		// update texts width on resize
 		scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
-			@Override public void changed(ObservableValue<? extends Bounds> bounds, Bounds oldBounds, Bounds newBounds) {
+			@Override
+			public void changed(ObservableValue<? extends Bounds> bounds, Bounds oldBounds, Bounds newBounds) {
 				text.setWrappingWidth(newBounds.getWidth() - 25);
-			}  
+			}
 		});
-		
+
 		updateButtonStartScan();
 	}
-	
+
 	protected void updateButtonStartScan() {
-		if (
-				isTextFieldNameValid() 
-				&& !textFieldSourceFolder.getText().trim().isEmpty() 
-			) {
+		if (isTextFieldNameValid() && !textFieldSourceFolder.getText().trim().isEmpty()) {
 			buttonStartScan.setDisable(false);
-		//} else if (!Debug.enabled) {
 		} else {
 			buttonStartScan.setDisable(true);
 		}
 	}
-	
+
 	protected boolean isTextFieldNameValid() {
 		vBox.getChildren().remove(labelNameNotUnique);
 		String value = textFieldName.getText().trim();
@@ -344,11 +272,12 @@ public class ViewTabNewScan implements ViewInterface {
 						// append error message after hBoxName
 						vBox.getChildren().add(vBox.getChildren().indexOf(hBoxName) + 1, labelNameNotUnique);
 					}
+
 					return false;
 				}
 			}
 		}
-		
+
 		return true;
 	}
 }

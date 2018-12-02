@@ -17,7 +17,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 	/**
 	 * Task for evaluating a set based on incoming set.
 	 * Threads (EvaluationThread) are used to speed up the calculation process. 
-	 * After all threads have finished their work, we get the distance of the metric (based on histogram datas) for each entry. 
+	 * After all threads have finished their work, we get the distance of the metric (based on histogram data) for each entry. 
 	 * The k-factor (in the set) determines how many "nearest" (which means "similar distance") entries are stored within an entry.
 	 * 
 	 * @param set
@@ -30,17 +30,17 @@ public class Evaluation extends Task<EvaluationDataSet> {
 	protected EvaluationDataSet call() throws Exception {
 		Debug.log("-> EvaluationDataSet values:");
 		Debug.log(this.set.toString());
-
-		String sourceFolder = this.set.getSourceFolder();
-
-		ArrayList<String> paths = PathFinder.getPaths(sourceFolder);
-
+		
+		// get all valid image (absolute) paths from the source folder
+		ArrayList<String> paths = PathFinder.getPaths(this.set.getSourceFolder());
+		// list which contains all evaluation threads
 		ArrayList<EvaluationThread> evaluationThreads = new ArrayList<EvaluationThread>();
-
+		
+		// the threads unique id
 		int idCounter = 1;
-		for (int j = 0; j < paths.size(); j++) {
-			String absoluteFilePath = paths.get(j);
-			if (absoluteFilePath != null && absoluteFilePath != "") {
+		// setup and start threads
+		for (String absoluteFilePath : paths) {
+			if (absoluteFilePath != "") {
 				EvaluationThread evaluationThread = new EvaluationThread(idCounter, absoluteFilePath, this.set);
 				evaluationThreads.add(evaluationThread);
 				evaluationThread.start();
@@ -48,7 +48,8 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				idCounter++;
 			}
 		}
-
+		
+		// wait for all threads to die, before we continue with the code
 		for (EvaluationThread evaluationThread : evaluationThreads) {
 			try {
 				evaluationThread.join();
@@ -58,7 +59,11 @@ public class Evaluation extends Task<EvaluationDataSet> {
 		}
 
 		// leave one out cross validation:
-		// - compare each entry with all other entries (by metric) and set k-nearest entries ids in entry
+		// compare each entry with all other entries (by metric) and set k-nearest entries ids in entry
+		
+		int i;
+		int kFactor = Integer.parseInt(this.set.getKFactor());
+		
 		List<EvaluationDataSetEntry> setEntries = this.set.getEntries();
 		for (EvaluationDataSetEntry entry : setEntries) {
 			int[] histogramData = entry.getHistogramData();
@@ -78,15 +83,17 @@ public class Evaluation extends Task<EvaluationDataSet> {
 
 				int[] innerHistogramData = innerEntry.getHistogramData();
 
-				// compare histogramData of two entries by metric (which is choosen by metric name)
+				// compare histogramData of two entries by metric (which is chosen by metric name)
 				double distance = Metric.getDataByName(this.set.getMetricName(), histogramData, innerHistogramData);
 				
+				// store innerEntry id together with its distance (required for k-nearest stuff)
 				Pair<Integer, Double> pair = new Pair<Integer, Double>(innerEntry.getID(), distance);
 				pairs.add(pair);
 			}
 			
 			// check if we found one or more pairs
 			if (pairs.size() > 0) {
+				// sort the pairs by distance (ascending)
 				Collections.sort(pairs, new Comparator<Pair<Integer, Double>>() {
 				    @Override
 				    public int compare(final Pair<Integer, Double> o1, final Pair<Integer, Double> o2) {
@@ -94,15 +101,18 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				    }
 				});
 				
-				int kFactor = Integer.parseInt(this.set.getKFactor());
-				for (int k = 0; k < pairs.size(); ++k) {
-					if (k > kFactor - 1) {
+				for (i = 0; i < pairs.size(); ++i) {
+					// make sure we do not exceed the specified k-factor
+					if (i > kFactor - 1) {
 						break;
 					}
 					
-					int id = pairs.get(k).getKey();
+					int id = pairs.get(i).getKey();
+					
+					// k-nearest id
 					entry.addKNearestByID(id);
 					
+					// k-nearest sensor type
 					for (EvaluationDataSetEntry innerEntry2 : setEntries) {
 						if (innerEntry2.getID() == id) {
 							entry.addKNearestBySensorType(innerEntry2.getSensorType());

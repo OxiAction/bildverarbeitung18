@@ -24,34 +24,35 @@ public class ViewTabWelcome implements ViewInterface {
 		if (!(container instanceof TabPane)) {
 			throw new Exception("container doesnt seem to be of type TabPane!");
 		}
-		
+
 		TabPane tabPane = (TabPane) container;
-		
+
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
-		
-		VBox  vBox = new VBox();
+
+		VBox vBox = new VBox();
 		vBox.setSpacing(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10));
-		
+
 		Text text = new Text();
 		text.setWrappingWidth(300);
 		text.setText(Translation.fetch("text_welcome"));
 		vBox.getChildren().add(text);
-		
+
 		scrollPane.setContent(vBox);
-		
+
 		Tab tab = new Tab(Translation.fetch("welcome"));
 		tab.setContent(scrollPane);
-		
+
 		tabPane.getTabs().add(tab);
-		
-		// @TODO just a quick fix for resizing Text Nodes...
+
+		// update texts width on resize
 		scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
-			@Override public void changed(ObservableValue<? extends Bounds> bounds, Bounds oldBounds, Bounds newBounds) {
+			@Override
+			public void changed(ObservableValue<? extends Bounds> bounds, Bounds oldBounds, Bounds newBounds) {
 				text.setWrappingWidth(newBounds.getWidth() - 25);
-			}  
+			}
 		});
 	}
 }

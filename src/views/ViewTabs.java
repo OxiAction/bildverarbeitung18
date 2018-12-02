@@ -20,69 +20,65 @@ public class ViewTabs implements ViewInterface {
 		if (!(container instanceof BorderPane)) {
 			throw new Exception("container doesnt seem to be of type BorderPane!");
 		}
-		
-		BorderPane borderPane = (BorderPane) container;	
-		
+
+		BorderPane borderPane = (BorderPane) container;
+
 		TabPane tabPane = new TabPane();
-		
+
 		new ViewTabWelcome().init(tabPane, null);
-		
+
 		borderPane.setCenter(tabPane);
-		
-	// new scan
-		
+
+		// new scan
+
 		EventButtonNewScanClicked eventButtonNewScan = new EventButtonNewScanClicked() {
 			@Override
 			public void dispatch(Object extraData) {
 				try {
 					new ViewTabNewScan().init(tabPane, extraData);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		};
 		EventManager.add(eventButtonNewScan);
-		
-	// start scan
-		
+
+		// start scan
+
 		EventButtonStartScanClicked eventButtonStartScanClicked = new EventButtonStartScanClicked() {
 			@Override
 			public void dispatch(Object extraData) {
 				try {
 					new ViewTabScanResults().init(tabPane, extraData);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		};
 		EventManager.add(eventButtonStartScanClicked);
-		
-	// scan results overview
-		
+
+		// scan results overview
+
 		EventButtonScanResultsOverviewClicked eventButtonScanResultsOverview = new EventButtonScanResultsOverviewClicked() {
 			@Override
 			public void dispatch(Object extraData) {
 				try {
 					new ViewTabScanResultsOverview().init(tabPane, extraData);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		};
 		EventManager.add(eventButtonScanResultsOverview);
-		
-	// config
-		
+
+		// config
+
 		EventButtonConfigClicked eventButtonConfig = new EventButtonConfigClicked() {
 			@Override
 			public void dispatch(Object extraData) {
 				try {
 					new ViewTabConfig().init(tabPane, extraData);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

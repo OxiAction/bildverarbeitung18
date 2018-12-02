@@ -17,9 +17,9 @@ public class EvaluationThread extends Thread {
 	/**
 	 * Thread for evaluating an set entry.
 	 * 
-	 * @param id the unique id for this thread
-	 * @param absoluteFilePath the absolute (image) file path (e.g. "C:/test_folder/test_image.jpg"
-	 * @param set the parent set, which will contain the created EvaluationDataSetEntry
+	 * @param id 				the unique id for this thread
+	 * @param absoluteFilePath 	the absolute (image) file path (e.g. "C:/test_folder/test_image.jpg"
+	 * @param set 				the parent set, which will contain the created EvaluationDataSetEntry
 	 */
 	public EvaluationThread(int id, String absoluteFilePath, EvaluationDataSet set) {
 		this.id = id;
@@ -55,14 +55,13 @@ public class EvaluationThread extends Thread {
 			if (sensorType == null) {
 				throw new IOException("IOException: Could not determine the sensorType by folder structure!");
 			}
-			
-			// set related config
+
+			// fetch set configuration stuff
 			int sliceX = set.getSliceX();
 			int sliceY = set.getSliceY();
 			int histogramSize = set.getHistogramSize();
-			
-			// create and add entry to set
-			// note: kNearest argument has to be null, as we can not yet calculate metric related stuff
+
+			// calculate data for this entry
 			int[][] greyScaleData = GreyScale.get(absoluteFilePath);
 			int[][][][] greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, sliceX, sliceY);
 			int[] histogramData = Histogram.get(greyScaleData, histogramSize);
@@ -75,13 +74,29 @@ public class EvaluationThread extends Thread {
 				for (int j = 0; j < sliceX; ++j) {
 					int[] localHistogramData = Histogram.get(greyScaleSlicedData[i][j], histogramSize);
 					double localEntropy = Entropy.get(greyScaleSlicedData[i][j], localHistogramData);
-					
+
 					slicedEntropies[i][j] = localEntropy;
 				}
 			}
-			
+
+			// create and add entry to set
 			this.set.addEntry(
-					new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, greyScaleSlicedData, histogramData, variance, entropy, null, null, slicedEntropies));
+					new EvaluationDataSetEntry(
+							this.id,
+							fileFolderPath,
+							fileName,
+							fileExtension,
+							sensorType,
+							greyScaleData,
+							greyScaleSlicedData,
+							histogramData,
+							variance,
+							entropy,
+							null, // kNearestIDs argument has to be null, as we can not yet calculate metric related stuff
+							null, // kNearestSensorTypes argument has to be null, as we can not yet calculate metric related stuff
+							slicedEntropies
+							)
+					);
 		} catch (IOException e) {
 			Debug.log("IOException: : " + e);
 		}

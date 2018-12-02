@@ -30,8 +30,8 @@ public class GreyScale {
 			int[][] result = new int[width][height];
 			Raster raster = image.getData();
 
-			for (int col = 0; col < height; col++) {
-				for (int row = 0; row < width; row++) {
+			for (int col = 0; col < height; ++col) {
+				for (int row = 0; row < width; ++row) {
 					result[row][col] = raster.getSample(row, col, 0);
 				}
 			}
