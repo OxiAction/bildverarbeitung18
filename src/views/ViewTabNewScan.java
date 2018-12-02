@@ -308,10 +308,10 @@ public class ViewTabNewScan implements ViewInterface {
 		if (
 				isTextFieldNameValid() 
 				&& !textFieldSourceFolder.getText().trim().isEmpty() 
-//				&& image != null
 			) {
 			buttonStartScan.setDisable(false);
-		} else if (!Debug.enabled) {
+		//} else if (!Debug.enabled) {
+		} else {
 			buttonStartScan.setDisable(true);
 		}
 	}
