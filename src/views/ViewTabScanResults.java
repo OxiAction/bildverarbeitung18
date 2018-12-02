@@ -204,11 +204,11 @@ public class ViewTabScanResults implements ViewInterface {
 			
 			TableColumn columnVariance = new TableColumn(Translation.fetch("variance"));
 			columnVariance.setMinWidth(50);
-			columnVariance.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("variance"));
+			columnVariance.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("varianceAsString"));
 			
 			TableColumn columnEntropy = new TableColumn(Translation.fetch("entropy"));
 			columnEntropy.setMinWidth(50);
-			columnEntropy.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("entropy"));
+			columnEntropy.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("entropyAsString"));
 			
 			TableColumn columnKNearestIDsAsString = new TableColumn(Translation.fetch("k_nearest_ids"));
 			columnKNearestIDsAsString.setMinWidth(50);

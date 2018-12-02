@@ -1,6 +1,9 @@
 package core.evaluation;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import utils.Translation;
@@ -9,6 +12,8 @@ import utils.Translation;
  * TODO description
  */
 public class EvaluationDataSetEntry {
+	protected DecimalFormat decimalFormat;
+	
 	protected int id;
 	protected String fileFolderPath;
 	protected String fileName;
@@ -52,6 +57,11 @@ public class EvaluationDataSetEntry {
 			ArrayList<Integer> kNearestIDs, 
 			double[][] slicedEntropies
 			) {
+		
+		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+		otherSymbols.setDecimalSeparator('.');
+		this.decimalFormat = new DecimalFormat("0.0000", otherSymbols);
+		
 		this.id = id;
 		this.fileFolderPath = fileFolderPath;
 		this.fileName = fileName;
@@ -223,12 +233,20 @@ public class EvaluationDataSetEntry {
 		return this.variance;
 	}
 	
+	public String getVarianceAsString() {
+		return this.decimalFormat.format(this.variance);
+	}
+	
 	public void setEntropy(double entropy) {
 		this.entropy = entropy;
 	}
 	
 	public double getEntropy() {
 		return this.entropy;
+	}
+	
+	public String getEntropyAsString() {
+		return this.decimalFormat.format(this.entropy);
 	}
 	
 	public void setSlicedEntropies(double[][] slicedEntropies) {
@@ -253,10 +271,10 @@ public class EvaluationDataSetEntry {
 			
 			for (int j = 0; j < this.slicedEntropies[i].length; ++j) {
 				if (j > 0) {
-					result += ", ";
+					result += " \t";
 				}
 				
-				result += String.valueOf(this.slicedEntropies[i][j]);
+				result += String.valueOf(this.decimalFormat.format(this.slicedEntropies[i][j]));
 			}
 		}
 		

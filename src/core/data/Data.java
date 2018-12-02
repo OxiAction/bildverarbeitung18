@@ -170,9 +170,7 @@ public class Data {
 				entryElement.setAttribute("fileExtension", entry.getFileExtension());
 				entryElement.setAttribute("sensorType", entry.getSensorType());
 				
-				//Element greyScaleData = document.createElement("greyScaleData");
-				//greyScaleData.setTextContent(Utils.intArray2DToString(entry.getGreyScaleData()));
-				//entryElement.appendChild(greyScaleData);
+				// note: greyScaleData is NOT being saved / loaded (due to performance reasons)
 				
 				Element histogramData = document.createElement("histogramData");
 				histogramData.setTextContent(Utils.intArray1DToString(entry.getHistogramData()));
@@ -185,6 +183,10 @@ public class Data {
 				Element entropy = document.createElement("entropy");
 				entropy.setTextContent(String.valueOf(entry.getEntropy()));
 				entryElement.appendChild(entropy);
+				
+				Element slicedEntropies = document.createElement("slicedEntropies");
+				slicedEntropies.setTextContent(Utils.doubleArray2DToString(entry.getSlicedEntropies()));
+				entryElement.appendChild(slicedEntropies);
 				
 				Element kNearestIDs = document.createElement("kNearestIDs");
 				kNearestIDs.setTextContent(Utils.intArrayListToString(entry.getKNearestIDs()));
@@ -273,9 +275,6 @@ public class Data {
 							String fileExtension = entryElement.getAttribute("fileExtension");
 							String sensorType = entryElement.getAttribute("sensorType");
 							
-							//Element greyScaleDataElement = (Element) entryElement.getElementsByTagName("greyScaleData").item(0);
-							//int[][] greyScaleData = Utils.stringToIntArray2D(greyScaleDataElement.getTextContent());
-							
 							Element histogramDataElement = (Element) entryElement.getElementsByTagName("histogramData").item(0);
 							int[] histogramData = Utils.stringToIntArray1D(histogramDataElement.getTextContent());
 							
@@ -285,11 +284,15 @@ public class Data {
 							Element entropyElement = (Element) entryElement.getElementsByTagName("entropy").item(0);
 							double entropy = Double.parseDouble(entropyElement.getTextContent());
 							
+							Element slicedEntropiesElement = (Element) entryElement.getElementsByTagName("slicedEntropies").item(0);
+							double[][] slicedEntropies = Utils.stringToDoubleArray2D(slicedEntropiesElement.getTextContent());
+							
 							Element kNearestIDsElement = (Element) entryElement.getElementsByTagName("kNearestIDs").item(0);
 							ArrayList<Integer> kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
 							
 							// create and add entry to the set
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, null, histogramData, variance, entropy, kNearestIDs, null);
+							// note: greyScaleData is NOT being saved / loaded (due to performance reasons)
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, null, histogramData, variance, entropy, kNearestIDs, slicedEntropies);
 							set.addEntry(entry);
 						}
 					}
