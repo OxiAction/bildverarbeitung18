@@ -100,7 +100,15 @@ public class Evaluation extends Task<EvaluationDataSet> {
 						break;
 					}
 					
-					entry.addKNearestByID(pairs.get(k).getKey());
+					int id = pairs.get(k).getKey();
+					entry.addKNearestByID(id);
+					
+					for (EvaluationDataSetEntry innerEntry2 : setEntries) {
+						if (innerEntry2.getID() == id) {
+							entry.addKNearestBySensorType(innerEntry2.getSensorType());
+						}
+					}
+						
 				}
 			}
 		}

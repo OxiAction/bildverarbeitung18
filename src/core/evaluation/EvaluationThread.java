@@ -81,7 +81,7 @@ public class EvaluationThread extends Thread {
 			}
 			
 			this.set.addEntry(
-					new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, greyScaleSlicedData, histogramData, variance, entropy, null, slicedEntropies));
+					new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, greyScaleSlicedData, histogramData, variance, entropy, null, null, slicedEntropies));
 		} catch (IOException e) {
 			Debug.log("IOException: : " + e);
 		}

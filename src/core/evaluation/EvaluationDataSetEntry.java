@@ -25,6 +25,7 @@ public class EvaluationDataSetEntry {
 	protected double variance;
 	protected double entropy;
 	protected ArrayList<Integer> kNearestIDs;
+	protected ArrayList<String> kNearestSensorTypes;
 	protected double[][] slicedEntropies;
 
 	/**
@@ -41,6 +42,7 @@ public class EvaluationDataSetEntry {
 	 * @param variance 				TODO
 	 * @param entropy 				TODO
 	 * @param kNearestIDs 			the list with the k-nearest entries (ids)
+	 * @param kNearestSensorTypes 	the list with the k-nearest entries (sensor types)
 	 * @param slicedEntropies 		TODO
 	 */
 	public EvaluationDataSetEntry(
@@ -55,6 +57,7 @@ public class EvaluationDataSetEntry {
 			double variance, 
 			double entropy,
 			ArrayList<Integer> kNearestIDs, 
+			ArrayList<String> kNearestSensorTypes, 
 			double[][] slicedEntropies
 			) {
 		
@@ -73,6 +76,7 @@ public class EvaluationDataSetEntry {
 		this.variance = variance;
 		this.entropy = entropy;
 		this.kNearestIDs = kNearestIDs;
+		this.kNearestSensorTypes = kNearestSensorTypes;
 		this.slicedEntropies = slicedEntropies;
 	}
 
@@ -196,7 +200,7 @@ public class EvaluationDataSetEntry {
 	}
 
 	/**
-	 * @return the kNearestIDs as String, divided by ", " - returns empty String if not IDs found
+	 * @return the kNearestIDs as String, divided by ", " - returns empty String if no IDs found
 	 */
 	public String getKNearestIDsAsString() {
 		if (this.getKNearestIDs() == null || this.getKNearestIDs().size() == 0) {
@@ -223,6 +227,38 @@ public class EvaluationDataSetEntry {
 		}
 
 		this.kNearestIDs.add(id);
+	}
+	
+	/**
+	 * @return the kNearestSensorTypes
+	 */
+	public ArrayList<String> getKNearestSensorTypes() {
+		return this.kNearestSensorTypes;
+	}
+	
+	/**
+	 * @return the kNearestSensorTypes as String, divided by ", " - returns empty String if no SensorTypes found
+	 */
+	public String getKNearestSensorTypesAsString() {
+		if (this.getKNearestSensorTypes() == null || this.getKNearestSensorTypes().size() == 0) {
+			return "";
+		}
+		return this.getKNearestSensorTypes().stream().map(Object::toString).collect(Collectors.joining(", "));
+	}
+	
+	/**
+	 * @param kNearestSensorTypes the kNearestSensorTypes to set
+	 */
+	public void setKNearestSensorTypes(ArrayList<String> kNearestSensorTypes) {
+		this.kNearestSensorTypes = kNearestSensorTypes;
+	}
+	
+	public void addKNearestBySensorType(String sensorType) {
+		if (this.kNearestSensorTypes == null) {
+			this.kNearestSensorTypes = new ArrayList<String>();
+		}
+
+		this.kNearestSensorTypes.add(sensorType);
 	}
 	
 	public void setVariance(double variance) {

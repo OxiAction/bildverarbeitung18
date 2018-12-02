@@ -210,13 +210,17 @@ public class ViewTabScanResults implements ViewInterface {
 			columnEntropy.setMinWidth(50);
 			columnEntropy.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("entropyAsString"));
 			
+			TableColumn columnSlicedEntropies = new TableColumn(Translation.fetch("sliced_entropies") + " (x: " + set.getSliceX() + " / y: " + set.getSliceY() + ")");
+			columnSlicedEntropies.setMinWidth(50);
+			columnSlicedEntropies.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("slicedEntropiesAsString"));
+			
 			TableColumn columnKNearestIDsAsString = new TableColumn(Translation.fetch("k_nearest_ids"));
 			columnKNearestIDsAsString.setMinWidth(50);
 			columnKNearestIDsAsString.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("KNearestIDsAsString"));
 			
-			TableColumn columnSlicedEntropies = new TableColumn(Translation.fetch("sliced_entropies") + " (x: " + set.getSliceX() + " / y: " + set.getSliceY() + ")");
-			columnSlicedEntropies.setMinWidth(50);
-			columnSlicedEntropies.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("slicedEntropiesAsString"));
+			TableColumn columnKNearestSensorTypesAsString = new TableColumn(Translation.fetch("k_nearest_sensor_types"));
+			columnKNearestSensorTypesAsString.setMinWidth(50);
+			columnKNearestSensorTypesAsString.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("KNearestSensorTypesAsString"));
 			
 			/*
 			TableColumn columnFileFolderPath = new TableColumn(Translation.fetch("file_folder_path"));
@@ -287,7 +291,7 @@ public class ViewTabScanResults implements ViewInterface {
 			
 			TableView<EvaluationDataSetEntry> table = new TableView();
 	        table.setItems(dataEntry);
-	        table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnVariance, columnEntropy, columnKNearestIDsAsString, columnSlicedEntropies);
+	        table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnVariance, columnEntropy, columnSlicedEntropies, columnKNearestIDsAsString, columnKNearestSensorTypesAsString);
 	        
 	        vBox.getChildren().add(table);
 			

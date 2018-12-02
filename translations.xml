@@ -20,6 +20,7 @@
 		<folder><![CDATA[Ordner]]></folder>
 		<k_factor><![CDATA[K-Faktor]]></k_factor>
 		<k_nearest_ids><![CDATA[K-näheste IDs]]></k_nearest_ids>
+		<k_nearest_sensor_types><![CDATA[K-näheste Sensor-Typen]]></k_nearest_sensor_types>
 		<entropy><![CDATA[Entropie]]></entropy>
 		<variance><![CDATA[Varianz]]></variance>
 		<sliced_entropies><![CDATA[Lokale Entropien]]></sliced_entropies>
@@ -69,6 +70,7 @@
 		<folder><![CDATA[Folder]]></folder>
 		<k_factor><![CDATA[K-Factor]]></k_factor>
 		<k_nearest_ids><![CDATA[K-nearest IDs]]></k_nearest_ids>
+		<k_nearest_sensor_types><![CDATA[K-nearest Sensor-Types]]></k_nearest_sensor_types>
 		<entropy><![CDATA[Entropie]]></entropy>
 		<variance><![CDATA[Variance]]></variance>
 		<sliced_entropies><![CDATA[Local Entropies]]></sliced_entropies>

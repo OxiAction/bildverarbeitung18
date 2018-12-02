@@ -23,11 +23,11 @@ public class Utils {
 		
 		StringBuffer result = new StringBuffer();
 		
-		for (Integer integer : data) {
+		for (Integer value : data) {
 			if (result.length() > 0) {
 				result.append(", ");
 			}
-			result.append(integer);
+			result.append(value);
 		}
 
 		return result.toString();
@@ -41,20 +41,66 @@ public class Utils {
 	 * @return
 	 */
 	public static ArrayList<Integer> stringToIntArrayList(String data) {
-		String[] integers = data.split(", ");
+		String[] values = data.split(", ");
 		// sanity check
-		if (integers.length == 0) {
+		if (values.length == 0) {
 			return null;
 		}
 		
 		ArrayList<Integer> result = new ArrayList<Integer>();
-		for (int i = 0; i < integers.length; ++i) {
-			result.add(Integer.parseInt(integers[i]));
+		for (int i = 0; i < values.length; ++i) {
+			result.add(Integer.parseInt(values[i]));
 		}
 		
 		return result;
 	}
 	
+	/**
+	 * Converts an ArrayList<String> to String ("|" is the delimeter).
+	 * E.g.: ArrayList<String> with entries 1, 2, 4 => "1, 2, 4"
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public static String stringArrayListToString(ArrayList<String> data) {
+		// sanity check
+		if (data == null || data.size() == 0) {
+			return "";
+		}
+		
+		StringBuffer result = new StringBuffer();
+		
+		for (String value : data) {
+			if (result.length() > 0) {
+				result.append(", ");
+			}
+			result.append(value);
+		}
+
+		return result.toString();
+	}
+	
+	/**
+	 * Converts a String ("|" is the delimeter) to ArrayList<String>.
+	 * E.g.: "1, 2, 4" => ArrayList<String> with entries 1, 2, 4
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public static ArrayList<String> stringToStringArrayList(String data) {
+		String[] values = data.split(", ");
+		// sanity check
+		if (values.length == 0) {
+			return null;
+		}
+		
+		ArrayList<String> result = new ArrayList<String>();
+		for (int i = 0; i < values.length; ++i) {
+			result.add(values[i]);
+		}
+		
+		return result;
+	}
 
 	/**
 	 * Converts an int[] array to String.

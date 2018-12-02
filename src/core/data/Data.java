@@ -191,6 +191,10 @@ public class Data {
 				Element kNearestIDs = document.createElement("kNearestIDs");
 				kNearestIDs.setTextContent(Utils.intArrayListToString(entry.getKNearestIDs()));
 				entryElement.appendChild(kNearestIDs);
+				
+				Element kNearestSensorTypes = document.createElement("kNearestSensorTypes");
+				kNearestSensorTypes.setTextContent(Utils.stringArrayListToString(entry.getKNearestSensorTypes()));
+				entryElement.appendChild(kNearestSensorTypes);
 
 				entries.appendChild(entryElement);
 			}
@@ -290,9 +294,12 @@ public class Data {
 							Element kNearestIDsElement = (Element) entryElement.getElementsByTagName("kNearestIDs").item(0);
 							ArrayList<Integer> kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
 							
+							Element kNearestSensorTypesElement = (Element) entryElement.getElementsByTagName("kNearestSensorTypes").item(0);
+							ArrayList<String> kNearestSensorTypes = Utils.stringToStringArrayList(kNearestSensorTypesElement.getTextContent());
+							
 							// create and add entry to the set
 							// note: greyScaleData is NOT being saved / loaded (due to performance reasons)
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, null, histogramData, variance, entropy, kNearestIDs, slicedEntropies);
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, null, histogramData, variance, entropy, kNearestIDs, kNearestSensorTypes, slicedEntropies);
 							set.addEntry(entry);
 						}
 					}
