@@ -15,28 +15,28 @@ public class EvaluationDataSetEntry {
 	protected String fileExtension;
 	protected String sensorType;
 	protected int[][] greyScaleData;
+	protected int[][][][] greyScaleSlicedData;
 	protected int[] histogramData;
 	protected double variance;
 	protected double entropy;
-	protected double localEntropy;
 	protected ArrayList<Integer> kNearestIDs;
 	protected double[][] slicedEntropies;
 
 	/**
 	 * Constructor for a new EvaluationDataSetEntry.
 	 * 
-	 * @param id 				the unique id for this entry (in the set)
-	 * @param fileFolderPath 	the folder path of the file
-	 * @param fileName 			the file name (without extension!)
-	 * @param fileExtension 	the file extension (without .) - e.g. "jpg"
-	 * @param sensorType 		the sensor type
-	 * @param greyScaleData 	the grey scale data as 2d int array
-	 * @param histogramData 	the histogramData data 1d int array
-	 * @param variance 			TODO
-	 * @param entropy 			TODO
-	 * @param localEntropy		TODO
-	 * @param kNearestIDs 		the list with the k-nearest entries (ids)
-	 * @param slicedEntropies 	TODO
+	 * @param id 					the unique id for this entry (in the set)
+	 * @param fileFolderPath 		the folder path of the file
+	 * @param fileName 				the file name (without extension!)
+	 * @param fileExtension 		the file extension (without .) - e.g. "jpg"
+	 * @param sensorType 			the sensor type
+	 * @param greyScaleData 		the grey scale data as 2d int array
+	 * @param greyScaleSlicedData 	the grey scale data as sliced 4d int array
+	 * @param histogramData 		the histogramData data 1d int array
+	 * @param variance 				TODO
+	 * @param entropy 				TODO
+	 * @param kNearestIDs 			the list with the k-nearest entries (ids)
+	 * @param slicedEntropies 		TODO
 	 */
 	public EvaluationDataSetEntry(
 			int id, 
@@ -45,10 +45,10 @@ public class EvaluationDataSetEntry {
 			String fileExtension, 
 			String sensorType, 
 			int[][] greyScaleData, 
+			int[][][][] greyScaleSlicedData, 
 			int[] histogramData, 
 			double variance, 
-			double entropy, 
-			double localEntropy, 
+			double entropy,
 			ArrayList<Integer> kNearestIDs, 
 			double[][] slicedEntropies
 			) {
@@ -58,10 +58,10 @@ public class EvaluationDataSetEntry {
 		this.fileExtension = fileExtension;
 		this.sensorType = sensorType;
 		this.greyScaleData = greyScaleData;
+		this.greyScaleSlicedData = greyScaleSlicedData;
 		this.histogramData = histogramData;
 		this.variance = variance;
 		this.entropy = entropy;
-		this.localEntropy = localEntropy;
 		this.kNearestIDs = kNearestIDs;
 		this.slicedEntropies = slicedEntropies;
 	}
@@ -149,6 +149,20 @@ public class EvaluationDataSetEntry {
 	public void setGreyScaleData(int[][] greyScaleData) {
 		this.greyScaleData = greyScaleData;
 	}
+	
+	/**
+	 * @return the greyScaleSlicedData
+	 */
+	public int[][][][] getGreyScaleSlicedData() {
+		return this.greyScaleSlicedData;
+	}
+
+	/**
+	 * @param greyScaleSlicedData the greyScaleSlicedData to set
+	 */
+	public void setGreyScaleSlicedData(int[][][][] greyScaleSlicedData) {
+		this.greyScaleSlicedData = greyScaleSlicedData;
+	}
 
 	/**
 	 * @return the histogramData
@@ -215,14 +229,6 @@ public class EvaluationDataSetEntry {
 	
 	public double getEntropy() {
 		return this.entropy;
-	}
-	
-	public void setLocalEntropy(double localEntropy) {
-		this.localEntropy = localEntropy;
-	}
-	
-	public double getLocalEntropy() {
-		return this.localEntropy;
 	}
 	
 	public void setSlicedEntropies(double[][] slicedEntropies) {

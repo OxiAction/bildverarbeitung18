@@ -103,13 +103,6 @@ public class Evaluation extends Task<EvaluationDataSet> {
 					entry.addKNearestByID(pairs.get(k).getKey());
 				}
 			}
-			
-			// set variance
-			entry.setVariance(Variance.get(entry.getGreyScaleData(), entry.getHistogramData()));
-			// set entropy
-			entry.setEntropy(Entropy.get(entry.getGreyScaleData(), entry.getHistogramData()));
-			// set local entropy
-			entry.setLocalEntropy(Entropy.get(entry.getGreyScaleData(), entry.getHistogramData(), true));	
 		}
 
 		// return the set, filled with all the entries and values:

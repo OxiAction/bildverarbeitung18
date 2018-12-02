@@ -423,8 +423,8 @@ public class Utils {
 		if (source == null || source.length == 0) {
 			return null;
 		}
-		Debug.log("[source Array]:");
-		printIntArray2D(source);
+		//Debug.log("[source Array]:");
+		//printIntArray2D(source);
 
 		int height = source.length;
 		int divideHeight = height / sliceY; // will be rounded down
@@ -452,31 +452,31 @@ public class Utils {
 
 		for (int h = 0; h < height; ++h) {
 			chunkX = 0;
-			Debug.log("-X rest chunkX to " + chunkX);
+			//Debug.log("-X rest chunkX to " + chunkX);
 
 			x = 0;
 			for (int w = 0; w < width; ++w) {
-				Debug.log("=> set [" + chunkY + "][" + chunkX + "][" + x + "][" + y + "] to " + source[h][w]);
+				//Debug.log("=> set [" + chunkY + "][" + chunkX + "][" + x + "][" + y + "] to " + source[h][w]);
 				result[chunkY][chunkX][y][x] = source[h][w];
 
 				if ((w + 1) % divideWidth == 0) {
 					x = 0;
-					Debug.log("-X reset x to " + x);
+					//Debug.log("-X reset x to " + x);
 					chunkX++;
-					Debug.log("->> inc chunkX to " + chunkX);
+					//Debug.log("->> inc chunkX to " + chunkX);
 				} else {
 					x++;
-					Debug.log("->> inc x to " + x);
+					//Debug.log("->> inc x to " + x);
 				}
 			}
 
 			if ((h + 1) % divideHeight == 0) {
 				y = 0;
 				chunkY++;
-				Debug.log("->> inc chunkY to " + chunkY);
+				//Debug.log("->> inc chunkY to " + chunkY);
 			} else {
 				y++;
-				Debug.log("->> inc y to " + y);
+				//Debug.log("->> inc y to " + y);
 			}
 		}
 

@@ -210,10 +210,6 @@ public class ViewTabScanResults implements ViewInterface {
 			columnEntropy.setMinWidth(50);
 			columnEntropy.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("entropy"));
 			
-			TableColumn columnLocalEntropy = new TableColumn(Translation.fetch("local_entropy"));
-			columnLocalEntropy.setMinWidth(50);
-			columnLocalEntropy.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("localEntropy"));
-			
 			TableColumn columnKNearestIDsAsString = new TableColumn(Translation.fetch("k_nearest_ids"));
 			columnKNearestIDsAsString.setMinWidth(50);
 			columnKNearestIDsAsString.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("KNearestIDsAsString"));
@@ -291,7 +287,7 @@ public class ViewTabScanResults implements ViewInterface {
 			
 			TableView<EvaluationDataSetEntry> table = new TableView();
 	        table.setItems(dataEntry);
-	        table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnVariance, columnEntropy, columnLocalEntropy, columnKNearestIDsAsString, columnSlicedEntropies);
+	        table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnVariance, columnEntropy, columnKNearestIDsAsString, columnSlicedEntropies);
 	        
 	        vBox.getChildren().add(table);
 			

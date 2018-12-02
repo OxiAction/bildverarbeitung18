@@ -21,6 +21,7 @@
 		<k_factor><![CDATA[K-Faktor]]></k_factor>
 		<k_nearest_ids><![CDATA[K-näheste IDs]]></k_nearest_ids>
 		<entropy><![CDATA[Entropie]]></entropy>
+		<variance><![CDATA[Varianz]]></variance>
 		<sensor_type><![CDATA[Sensor-Typ]]></sensor_type>
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Anzeigen]]></show>
@@ -68,6 +69,7 @@
 		<k_factor><![CDATA[K-Factor]]></k_factor>
 		<k_nearest_ids><![CDATA[K-nearest IDs]]></k_nearest_ids>
 		<entropy><![CDATA[Entropie]]></entropy>
+		<variance><![CDATA[Variance]]></variance>
 		<sensor_type><![CDATA[Sensor-Type]]></sensor_type>
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Show]]></show>

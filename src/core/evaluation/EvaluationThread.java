@@ -59,9 +59,13 @@ public class EvaluationThread extends Thread {
 			// create and add entry to set
 			// note: kNearest argument has to be null, as we can not yet calculate metric related stuff
 			int[][] greyScaleData = GreyScale.get(absoluteFilePath);
+			int[][][][] greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, Integer.parseInt(set.getSliceX()), Integer.parseInt(set.getSliceY()));
 			int[] histogramData = Histogram.get(greyScaleData, Integer.parseInt(set.getHistogramSize()));
 			
-			this.set.addEntry(new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, histogramData, 0, 0, 0, null, null));
+			double variance = Variance.get(greyScaleData, histogramData);
+			double entropy = Entropy.get(greyScaleData, histogramData);
+			
+			this.set.addEntry(new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, greyScaleSlicedData, histogramData, variance, entropy, null, null));
 		} catch (IOException e) {
 			Debug.log("IOException: : " + e);
 		}
