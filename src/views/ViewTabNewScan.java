@@ -36,6 +36,8 @@ public class ViewTabNewScan implements ViewInterface {
 	protected String imagePath;
 	
 	protected Label labelNameNotUnique;
+	protected VBox vBox;
+	protected HBox hBoxName;
 	protected ArrayList<EvaluationDataSet> sets;
 
 	/**
@@ -50,6 +52,8 @@ public class ViewTabNewScan implements ViewInterface {
 			throw new Exception("container doesnt seem to be of type TabPane!");
 		}
 		
+		final double labelsWidth = 125;
+		
 		// load sets
 		sets = Data.load();
 		
@@ -59,7 +63,7 @@ public class ViewTabNewScan implements ViewInterface {
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
 		
-		VBox  vBox = new VBox();
+		vBox = new VBox();
 		vBox.setSpacing(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 		
@@ -73,8 +77,9 @@ public class ViewTabNewScan implements ViewInterface {
 	// name
 		
 		Label labelName = new Label(Translation.fetch("name") + ":");
+		labelName.setPrefWidth(labelsWidth);
 		textFieldName = new TextField();
-		HBox hBoxName = new HBox();
+		hBoxName = new HBox();
 		hBoxName.getChildren().addAll(labelName, textFieldName);
 		hBoxName.setSpacing(10);
 		vBox.getChildren().add(hBoxName);
@@ -88,11 +93,10 @@ public class ViewTabNewScan implements ViewInterface {
 			updateButtonStartScan();
 		});
 		
+		// labelNameNotUnique will be added / removed dynamically
 		labelNameNotUnique = new Label(Translation.fetch("name_not_unique"));
 		labelNameNotUnique.setTextFill(Color.RED);
 		labelNameNotUnique.setFont(Font.font(labelNameNotUnique.getFont().getName(), FontWeight.BOLD, labelNameNotUnique.getFont().getSize()));
-		labelNameNotUnique.setVisible(false);
-		vBox.getChildren().add(labelNameNotUnique);
 		
 	// image select
 		
@@ -139,14 +143,21 @@ public class ViewTabNewScan implements ViewInterface {
 	// source folder select
 		
 		Label labelSourceFolder = new Label(Translation.fetch("folder") + ":");
+		labelSourceFolder.setPrefWidth(labelsWidth);
 		textFieldSourceFolder = new TextField();
 		HBox hBoxSourceFolder = new HBox();
 		hBoxSourceFolder.getChildren().addAll(labelSourceFolder, textFieldSourceFolder);
 		hBoxSourceFolder.setSpacing(10);
 		vBox.getChildren().add(hBoxSourceFolder);
 		
+		
+		Label labelSelectSourceFolder = new Label(""); // just empty label for spacing
+		labelSelectSourceFolder.setPrefWidth(labelsWidth);
 		Button buttonSelectSourceFolder = new Button(Translation.fetch("button_new_scan_select_source_folder"));
-		vBox.getChildren().add(buttonSelectSourceFolder);
+		HBox hBoxSelectSourceFolder = new HBox();
+		hBoxSelectSourceFolder.getChildren().addAll(labelSelectSourceFolder, buttonSelectSourceFolder);
+		hBoxSelectSourceFolder.setSpacing(10);
+		vBox.getChildren().add(hBoxSelectSourceFolder);
 		
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		buttonSelectSourceFolder.setOnAction(
@@ -175,12 +186,12 @@ public class ViewTabNewScan implements ViewInterface {
 	// k-factor
 		
 		Label labelKFactor = new Label(Translation.fetch("k_factor") + ":");
+		labelKFactor.setPrefWidth(labelsWidth);
 		// 10 - 50 - 100
 		ComboBox<String> comboBoxKFactor = new ComboBox<String>(FXCollections.observableArrayList(
 		        "8",
 		        "16",
-		        "32",
-		        "64"
+		        "32"
 		    ));
 		comboBoxKFactor.getSelectionModel().select(0);
 		HBox hBoxKFactor = new HBox();
@@ -192,6 +203,7 @@ public class ViewTabNewScan implements ViewInterface {
 		// see: https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/histogram_comparison/histogram_comparison.html
 		
 		Label labelMetric = new Label(Translation.fetch("metric") + ":");
+		labelMetric.setPrefWidth(labelsWidth);
 		ObservableList<String> comboBoxMetricValues = FXCollections.observableArrayList(Metric.getNames());
 		ComboBox<String> comboBoxMetric = new ComboBox<String>(comboBoxMetricValues);
 		comboBoxMetric.getSelectionModel().select(0);
@@ -202,49 +214,51 @@ public class ViewTabNewScan implements ViewInterface {
 		
 	// slice-x
 	
-			Label labelSliceX = new Label(Translation.fetch("slice_x") + ":");
-			ComboBox<String> comboBoxSliceX = new ComboBox<String>(FXCollections.observableArrayList(
-			        "2",
-			        "4",
-			        "8",
-			        "10"
-			    ));
-			comboBoxSliceX.getSelectionModel().select(0);
-			HBox hBoxSliceX = new HBox();
-			hBoxSliceX.getChildren().addAll(labelSliceX, comboBoxSliceX);
-			hBoxSliceX.setSpacing(10);
-			vBox.getChildren().add(hBoxSliceX);
+		Label labelSliceX = new Label(Translation.fetch("slice_x") + ":");
+		labelSliceX.setPrefWidth(labelsWidth);
+		ComboBox<String> comboBoxSliceX = new ComboBox<String>(FXCollections.observableArrayList(
+		        "2",
+		        "4",
+		        "8",
+		        "10"
+		    ));
+		comboBoxSliceX.getSelectionModel().select(0);
+		HBox hBoxSliceX = new HBox();
+		hBoxSliceX.getChildren().addAll(labelSliceX, comboBoxSliceX);
+		hBoxSliceX.setSpacing(10);
+		vBox.getChildren().add(hBoxSliceX);
 			
 	// slice-y
 	
-			Label labelSliceY = new Label(Translation.fetch("slice_y") + ":");
-			ComboBox<String> comboBoxSliceY = new ComboBox<String>(FXCollections.observableArrayList(
-			        "2",
-			        "4",
-			        "8",
-			        "10"
-			    ));
-			comboBoxSliceY.getSelectionModel().select(0);
-			HBox hBoxSliceY = new HBox();
-			hBoxSliceY.getChildren().addAll(labelSliceY, comboBoxSliceY);
-			hBoxSliceY.setSpacing(10);
-			vBox.getChildren().add(hBoxSliceY);
+		Label labelSliceY = new Label(Translation.fetch("slice_y") + ":");
+		labelSliceY.setPrefWidth(labelsWidth);
+		ComboBox<String> comboBoxSliceY = new ComboBox<String>(FXCollections.observableArrayList(
+		        "2",
+		        "4",
+		        "8",
+		        "10"
+		    ));
+		comboBoxSliceY.getSelectionModel().select(0);
+		HBox hBoxSliceY = new HBox();
+		hBoxSliceY.getChildren().addAll(labelSliceY, comboBoxSliceY);
+		hBoxSliceY.setSpacing(10);
+		vBox.getChildren().add(hBoxSliceY);
 			
 	// histogram-size
 	
-			Label labelHistogramSize = new Label(Translation.fetch("histogram_size") + ":");
-			ComboBox<String> comboBoxHistogramSize = new ComboBox<String>(FXCollections.observableArrayList(
-			        "256",
-			        "128",
-			        "64",
-			        "32",
-			        "16"
-			    ));
-			comboBoxHistogramSize.getSelectionModel().select(0);
-			HBox hBoxHistogramSize = new HBox();
-			hBoxHistogramSize.getChildren().addAll(labelHistogramSize, comboBoxHistogramSize);
-			hBoxHistogramSize.setSpacing(10);
-			vBox.getChildren().add(hBoxHistogramSize);
+		Label labelHistogramSize = new Label(Translation.fetch("histogram_size") + ":");
+		labelHistogramSize.setPrefWidth(labelsWidth);
+		ComboBox<String> comboBoxHistogramSize = new ComboBox<String>(FXCollections.observableArrayList(
+		        "256",
+		        "128",
+		        "64",
+		        "32"
+		    ));
+		comboBoxHistogramSize.getSelectionModel().select(0);
+		HBox hBoxHistogramSize = new HBox();
+		hBoxHistogramSize.getChildren().addAll(labelHistogramSize, comboBoxHistogramSize);
+		hBoxHistogramSize.setSpacing(10);
+		vBox.getChildren().add(hBoxHistogramSize);
 		
 	// button start scan
 		
@@ -319,14 +333,17 @@ public class ViewTabNewScan implements ViewInterface {
 	}
 	
 	protected boolean isTextFieldNameValid() {
-		labelNameNotUnique.setVisible(false);
+		vBox.getChildren().remove(labelNameNotUnique);
 		String value = textFieldName.getText().trim();
 		if (value.length() == 0) {
 			return false;
 		} else {
 			for (EvaluationDataSet set : sets) {
 				if (set.getName().trim().equals(value)) {
-					labelNameNotUnique.setVisible(true);
+					if (vBox.getChildren().indexOf(hBoxName) != -1) {
+						// append error message after hBoxName
+						vBox.getChildren().add(vBox.getChildren().indexOf(hBoxName) + 1, labelNameNotUnique);
+					}
 					return false;
 				}
 			}

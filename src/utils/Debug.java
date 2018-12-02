@@ -10,12 +10,12 @@ import java.util.Map;
 public class Debug {
 	
 	/**
-	 * globally enable / disable (debug mode)
+	 * Globally enable / disable (debug mode).
 	 */
 	public static boolean enabled = false;
 
 	/**
-	 * debug / prints HashMap<?, ?> (key and value)
+	 * Debug / prints HashMap<?, ?> (key and value).
 	 * 
 	 * @param data	the HashMap<?, ?> data object
 	 */
@@ -29,7 +29,7 @@ public class Debug {
 	}
 	
 	/**
-	 * wrapper for System.out.println
+	 * Wrapper for System.out.println().
 	 * 
 	 * @param text	the text
 	 */

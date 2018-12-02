@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Be sure that the translations.xml file exists inside the root folder
+ * Be sure that the translations.xml file exists inside the root folder.
  * 
  * XML-structure example:
 
@@ -120,7 +120,7 @@ public class Translation {
 	}
 
 	/**
-	 * change language - the language must be given in the XML otherwise throws exception
+	 * Change language - the language must be given in the XML otherwise throws exception.
 	 * 
 	 * @param lang
 	 */
@@ -135,7 +135,7 @@ public class Translation {
 	}
 
 	/**
-	 * returns current selected language
+	 * Returns current selected language.
 	 * 
 	 * @return
 	 */
@@ -144,10 +144,10 @@ public class Translation {
 	}
 
 	/**
-	 * get translation string by id
+	 * Get translation String by ID.
 	 * 
 	 * @param id
-	 * @return
+	 * @return the translation String
 	 */
 	public static String fetch(String id) {
 		if (translation.containsKey(id)) {

@@ -12,6 +12,11 @@ public class Loader {
 	protected static Pane pane = null;
 	protected static StackPane stackPane = null;
 	
+	/**
+	 * Set the pane, in which the loader will be shown.
+	 * 
+	 * @param pane
+	 */
 	public static void setPane(Pane pane) {
 		Loader.pane = pane;
 		
@@ -25,6 +30,9 @@ public class Loader {
         stackPane.getChildren().add(progressIndicator);
 	}
 	
+	/**
+	 * Show the loader.
+	 */
 	public static void show() {
 		if (pane == null) {
 			return;
@@ -33,6 +41,9 @@ public class Loader {
         pane.getChildren().add(stackPane);
 	}
 	
+	/**
+	 * Hide the loader.
+	 */
 	public static void hide() {
 		if (pane == null) {
 			return;

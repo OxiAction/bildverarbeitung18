@@ -221,7 +221,7 @@ public class EvaluationDataSetEntry {
 	}
 
 	/**
-	 * Add a k-nearest entry by its ID.
+	 * Adds an ID to the ArrayList.
 	 * 
 	 * @param id
 	 */

@@ -534,7 +534,7 @@ public class Utils {
 	}
 
 	/**
-	 * Calculates the mean greyscale value of an image based on its greyscale values and histogram
+	 * Calculates the mean greyscale value of an image based on its greyscale values and histogram.
 	 *
 	 * @param 	greyScaleData
 	 * @param 	histogramData
@@ -551,7 +551,7 @@ public class Utils {
 	}
 
 	/**
-	 * Calculates the number of all greyscale values of an image
+	 * Calculates the number of all greyscale values of an image.
 	 *
 	 * @param 	greyScaleData
 	 * @return	the number of greyscale values
