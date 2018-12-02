@@ -15,9 +15,9 @@ public class EvaluationDataSet {
 	protected String sourceFolder;
 	protected String kFactor;
 	protected String metricName;
-	protected String sliceX;
-	protected String sliceY;
-	protected String histogramSize;
+	protected int sliceX;
+	protected int sliceY;
+	protected int histogramSize;
 	protected EvaluationDataSetEntry sourceEntry;
 	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
 	
@@ -38,7 +38,7 @@ public class EvaluationDataSet {
 	 * @param sliceY		TODO
 	 * @param histogramSize	TODO
 	 */
-	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metricName, String sliceX, String sliceY, String histogramSize) {
+	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metricName, int sliceX, int sliceY, int histogramSize) {
 		this.timestamp = timestamp;
 		this.name = name;
 		this.sourceFolder = sourceFolder;
@@ -149,42 +149,42 @@ public class EvaluationDataSet {
 	/**
 	 * @return the sliceX
 	 */
-	public String getSliceX() {
+	public int getSliceX() {
 		return sliceX;
 	}
 
 	/**
 	 * @param sliceX the sliceX to set
 	 */
-	public void setSliceX(String sliceX) {
+	public void setSliceX(int sliceX) {
 		this.sliceX = sliceX;
 	}
 	
 	/**
 	 * @return the sliceY
 	 */
-	public String getSliceY() {
+	public int getSliceY() {
 		return sliceY;
 	}
 
 	/**
 	 * @param sliceY the sliceY to set
 	 */
-	public void setSliceY(String sliceY) {
+	public void setSliceY(int sliceY) {
 		this.sliceY = sliceY;
 	}
 	
 	/**
 	 * @return the histogramSize
 	 */
-	public String getHistogramSize() {
+	public int getHistogramSize() {
 		return histogramSize;
 	}
 
 	/**
 	 * @param histogramSize the histogramSize to set
 	 */
-	public void setHistogramSize(String histogramSize) {
+	public void setHistogramSize(int histogramSize) {
 		this.histogramSize = histogramSize;
 	}
 	

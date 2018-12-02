@@ -57,9 +57,9 @@ public class EvaluationThread extends Thread {
 			}
 			
 			// set related config
-			int sliceX = Integer.parseInt(set.getSliceX());
-			int sliceY = Integer.parseInt(set.getSliceY());
-			int histogramSize = Integer.parseInt(set.getHistogramSize());
+			int sliceX = set.getSliceX();
+			int sliceY = set.getSliceY();
+			int histogramSize = set.getHistogramSize();
 			
 			// create and add entry to set
 			// note: kNearest argument has to be null, as we can not yet calculate metric related stuff

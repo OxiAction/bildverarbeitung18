@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <translations>
 	<language id="de">
-		<version><![CDATA[0.2]]></version>
+		<version><![CDATA[0.3]]></version>
 		<main_window_title><![CDATA[Grundlagen Bildverarbeitung]]></main_window_title>
 		<new_scan><![CDATA[Neuer Scan]]></new_scan>
 		<config><![CDATA[Einstellungen]]></config>
@@ -49,7 +49,7 @@
 		<text_scan_results_histogram><![CDATA[Durchschnitt der Graustufen Werte, aller gescannten Bilder:]]></text_scan_results_histogram>
 		<text_scan_results_table><![CDATA[Übersicht der gescannten Bilder:]]></text_scan_results_table>
 		<text_scan_results_source_entry><![CDATA[Informationen über die Quelldatei:]]></text_scan_results_source_entry>
-		<text_scan_results_set><![CDATA[Informationen über generellen Einstellungen:]]></text_scan_results_set>
+		<text_scan_results_set><![CDATA[Scan Einstellungen:]]></text_scan_results_set>
 	</language>
 	<language id="en">
 		<version><![CDATA[0.1]]></version>
@@ -100,6 +100,6 @@
 		<text_scan_results_histogram><![CDATA[Average grey-scale histogram, based on all scanned images:]]></text_scan_results_histogram>
 		<text_scan_results_table><![CDATA[Scanned images:]]></text_scan_results_table>
 		<text_scan_results_source_entry><![CDATA[Informations about the source:]]></text_scan_results_source_entry>
-		<text_scan_results_set><![CDATA[Informations about the used options:]]></text_scan_results_set>
+		<text_scan_results_set><![CDATA[Scan settings:]]></text_scan_results_set>
 	</language>
 </translations>

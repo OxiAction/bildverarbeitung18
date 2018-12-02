@@ -37,29 +37,29 @@ public class EvaluationDataSetEntry {
 	 * @param fileFolderPath 		the folder path of the file
 	 * @param fileName 				the file name (without extension!)
 	 * @param fileExtension 		the file extension (without .) - e.g. "jpg"
-	 * @param sensorType 			the sensor type
+	 * @param sensorType 			the sensor type (full name as string)
 	 * @param greyScaleData 		the grey scale data as 2d int array
 	 * @param greyScaleSlicedData 	the grey scale data as sliced 4d int array
 	 * @param histogramData 		the histogramData data 1d int array
-	 * @param variance 				TODO
-	 * @param entropy 				TODO
-	 * @param kNearestIDs 			the list with the k-nearest entries (ids)
-	 * @param kNearestSensorTypes 	the list with the k-nearest entries (sensor types)
-	 * @param slicedEntropies 		TODO
+	 * @param variance 				the variance value - given by the algorithm
+	 * @param entropy 				the entropy value - given by the algorithm
+	 * @param kNearestIDs 			the list with the k-nearest entries (ids as integers)
+	 * @param kNearestSensorTypes 	the list with the k-nearest entries (full names as string)
+	 * @param slicedEntropies 		2d double array with calculated entropies (from slices)
 	 */
 	public EvaluationDataSetEntry(
-			int id, 
-			String fileFolderPath, 
-			String fileName, 
-			String fileExtension, 
-			String sensorType, 
-			int[][] greyScaleData, 
-			int[][][][] greyScaleSlicedData, 
-			int[] histogramData, 
-			double variance, 
+			int id,
+			String fileFolderPath,
+			String fileName,
+			String fileExtension,
+			String sensorType,
+			int[][] greyScaleData,
+			int[][][][] greyScaleSlicedData,
+			int[] histogramData,
+			double variance,
 			double entropy,
-			ArrayList<Integer> kNearestIDs, 
-			ArrayList<String> kNearestSensorTypes, 
+			ArrayList<Integer> kNearestIDs,
+			ArrayList<String> kNearestSensorTypes,
 			double[][] slicedEntropies
 			) {
 		
@@ -202,7 +202,9 @@ public class EvaluationDataSetEntry {
 	}
 
 	/**
-	 * @return the kNearestIDs as String, divided by ", " - returns empty String if no IDs found
+	 * Returns the k-nearest IDs as String (divided by ", ").
+	 * 
+	 * @return the formatted IDs or empty String
 	 */
 	public String getKNearestIDsAsString() {
 		if (this.getKNearestIDs() == null || this.getKNearestIDs().size() == 0) {
@@ -219,7 +221,7 @@ public class EvaluationDataSetEntry {
 	}
 
 	/**
-	 * Add a k-nearest entry by its id.
+	 * Add a k-nearest entry by its ID.
 	 * 
 	 * @param id
 	 */
@@ -239,7 +241,9 @@ public class EvaluationDataSetEntry {
 	}
 	
 	/**
-	 * @return the kNearestSensorTypes as String, divided by ", " - returns empty String if no SensorTypes found
+	 * Returns the k-nearest sensor types as String (divided by ", ").
+	 * 
+	 * @return the formatted sensor types or empty String
 	 */
 	public String getKNearestSensorTypesAsString() {
 		if (this.getKNearestSensorTypes() == null || this.getKNearestSensorTypes().size() == 0) {
@@ -255,6 +259,11 @@ public class EvaluationDataSetEntry {
 		this.kNearestSensorTypes = kNearestSensorTypes;
 	}
 	
+	/**
+	 * Adds a sensor type to the ArrayList.
+	 * 
+	 * @param sensorType
+	 */
 	public void addKNearestBySensorType(String sensorType) {
 		if (this.kNearestSensorTypes == null) {
 			this.kNearestSensorTypes = new ArrayList<String>();
@@ -263,6 +272,11 @@ public class EvaluationDataSetEntry {
 		this.kNearestSensorTypes.add(sensorType);
 	}
 	
+	/**
+	 * Get the most used (k-nearest) sensor type as full name (String).
+	 * 
+	 * @return the most used sensor type or empty String
+	 */
 	public String getNearestSensorType() {
 		if (this.getKNearestSensorTypes() == null || this.getKNearestSensorTypes().size() == 0) {
 			return "";
@@ -281,43 +295,77 @@ public class EvaluationDataSetEntry {
 		return result;
 	}
 	
+	/**
+	 * @param variance the variance to set
+	 */
 	public void setVariance(double variance) {
 		this.variance = variance;
 	}
 	
+	/**
+	 * @return the variance
+	 */
 	public double getVariance() {
 		return this.variance;
 	}
 	
+	/**
+	 * Decimal formatted variance (with limited amount of decimal numbers).
+	 * 
+	 * @return  the variance as String (formatted)
+	 */
 	public String getVarianceAsString() {
 		return this.decimalFormat.format(this.variance);
 	}
 	
+	/**
+	 * @param entropy the entropy to set
+	 */
 	public void setEntropy(double entropy) {
 		this.entropy = entropy;
 	}
 	
+	/**
+	 * @return the entropy
+	 */
 	public double getEntropy() {
 		return this.entropy;
 	}
 	
+	/**
+	 * Decimal formatted entropy (with limited amount of decimal numbers).
+	 * 
+	 * @return the entropy as String (formatted)
+	 */
 	public String getEntropyAsString() {
 		return this.decimalFormat.format(this.entropy);
 	}
 	
+	/**
+	 * @param slicedEntropies the slicedEntropies to set
+	 */
 	public void setSlicedEntropies(double[][] slicedEntropies) {
 		this.slicedEntropies = slicedEntropies;
 	}
 	
+	/**
+	 * @return the slicedEntropies
+	 */
 	public double[][] getSlicedEntropies() {
 		return this.slicedEntropies;
 	}
 	
+	/**
+	 * Returns formatted String with sliced entropies.
+	 * Using \n (newline) and \t (tab) to format the String.
+	 * 
+	 * @return the formatted sliced entropies or empty String
+	 */
 	public String getSlicedEntropiesAsString() {
 		String result = "";
 		
 		if (this.slicedEntropies == null || this.slicedEntropies.length < 1) {
-			return "UNDEFINED";
+			return result;
 		}
 		
 		for (int i = 0; i < this.slicedEntropies.length; ++i) {
@@ -340,7 +388,7 @@ public class EvaluationDataSetEntry {
 	/**
 	 * Returns file name + file extension.
 	 * 
-	 * @return
+	 * @return the file name and its extension
 	 */
 	public String getFileNameAndFileExtension() {
 		return this.getFileName() + this.getFileExtension();

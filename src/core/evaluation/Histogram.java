@@ -12,8 +12,8 @@ public class Histogram {
 	/**
 	 * Takes a two dimensional greyScale value array and generates a histogram with size 256 out of it.
 	 * 
-	 * @param 	greyScaleData	the greyScale values of an image, an 2D int array
-	 * @return	the histogram
+	 * @param greyScaleData		the greyScale values of an image, an 2D int array
+	 * @returnthe histogram
 	 */
 	public static int[] get(int[][] greyScaleData) {
 		return get(greyScaleData, DEF_SIZE);
@@ -24,9 +24,9 @@ public class Histogram {
 	 * 
 	 * TODO implement scalable histogram. Use parameter size for this
 	 * 
-	 * @param 	greyScaleData	the greyScale values of an image, an 2D int array
-	 * @param 	size			the scaled size (e.g. 16 32 64 128 256)
-	 * @return	the histogram
+	 * @param greyScaleData		the greyScale values of an image, an 2D int array
+	 * @param size				the scaled size (e.g. 16 32 64 128 256)
+	 * @return the histogram
 	 */
 	public static int[] get(int[][] greyScaleData, int size) {
 		if (sizeValid(size) == false) {
@@ -52,31 +52,12 @@ public class Histogram {
 	}
 
 	/**
-	 * Checks if input size is of form 2^x with maximum 256
+	 * Checks if input size is of form 2^x with maximum 256.
 	 * @param size
 	 * @return
 	 */
 	private static boolean sizeValid(int size) {
-		/*
-		if (size == 256 || size == 128 || size == 64 || size == 32 || size == 16 || size == 8 || size == 4 || size == 2) {
-			return true;
-		}
-		return false;
-		*/
 		// see: https://graphics.stanford.edu/~seander/bithacks.html#DetermineIfPowerOf2
 		return size > 0 && size <= MAX_SIZE && ((size & (size - 1)) == 0);
 	}
-
-	//	/**
-	//	 * Testing scalability of histogram.data with dummy values
-	//	 */
-	//	public static void main(String[] args) {
-	//		int[][] greyScaleData = {{5, 6, 7}, {1, 2, 3}};
-	//		int[] histogramData = get(greyScaleData, 64);
-	//		System.out.println("histogramdata: ");
-	//		for(int i = 0; i < histogramData.length; i++){
-	//			System.out.print(histogramData[i] + " ");
-	//		}
-	//		System.out.println("\nHistogramData.length(): " + histogramData.length);
-	//	}
 }

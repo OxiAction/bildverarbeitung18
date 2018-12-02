@@ -265,9 +265,9 @@ public class ViewTabNewScan implements ViewInterface {
 								textFieldSourceFolder.getText().trim().replace('\\', '/'),
 								comboBoxKFactor.getValue(),
 								comboBoxMetric.getValue(),
-								comboBoxSliceX.getValue(),
-								comboBoxSliceY.getValue(),
-								comboBoxHistogramSize.getValue());
+								Integer.parseInt(comboBoxSliceX.getValue()),
+								Integer.parseInt(comboBoxSliceY.getValue()),
+								Integer.parseInt(comboBoxHistogramSize.getValue()));
 						
 						/*
 						HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(imagePath);

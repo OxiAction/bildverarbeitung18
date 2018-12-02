@@ -153,16 +153,17 @@ public class Data {
 			setElement.setAttribute("sourceFolder", set.getSourceFolder());
 			setElement.setAttribute("kFactor", set.getKFactor());
 			setElement.setAttribute("metricName", set.getMetricName());
-			setElement.setAttribute("sliceX", set.getSliceX());
-			setElement.setAttribute("sliceY", set.getSliceY());
-			setElement.setAttribute("histogramSize", set.getHistogramSize());
+			setElement.setAttribute("sliceX", String.valueOf(set.getSliceX()));
+			setElement.setAttribute("sliceY", String.valueOf(set.getSliceY()));
+			setElement.setAttribute("histogramSize", String.valueOf(set.getHistogramSize()));
 
 			Element entries = document.createElement("entries");
 
 			for (EvaluationDataSetEntry entry : set.getEntries()) {
-				
 				// create a new <entry> element
+				// IMPORTANT: greyScaleData is NOT being saved / loaded (due to performance reasons)
 				Element entryElement = document.createElement("entry");
+				
 				// add attributes
 				entryElement.setAttribute("id", String.valueOf(entry.getID()));
 				entryElement.setAttribute("fileFolderPath", entry.getFileFolderPath());
@@ -170,8 +171,7 @@ public class Data {
 				entryElement.setAttribute("fileExtension", entry.getFileExtension());
 				entryElement.setAttribute("sensorType", entry.getSensorType());
 				
-				// note: greyScaleData is NOT being saved / loaded (due to performance reasons)
-				
+				// add elements
 				Element histogramData = document.createElement("histogramData");
 				histogramData.setTextContent(Utils.intArray1DToString(entry.getHistogramData()));
 				entryElement.appendChild(histogramData);
@@ -195,7 +195,8 @@ public class Data {
 				Element kNearestSensorTypes = document.createElement("kNearestSensorTypes");
 				kNearestSensorTypes.setTextContent(Utils.stringArrayListToString(entry.getKNearestSensorTypes()));
 				entryElement.appendChild(kNearestSensorTypes);
-
+				
+				// append <entry>
 				entries.appendChild(entryElement);
 			}
 
@@ -249,9 +250,9 @@ public class Data {
 					String sourceFolder = setElement.getAttribute("sourceFolder");
 					String kFactor = setElement.getAttribute("kFactor");
 					String metricName = setElement.getAttribute("metricName");
-					String sliceX = setElement.getAttribute("sliceX");
-					String sliceY = setElement.getAttribute("sliceY");
-					String histogramSize = setElement.getAttribute("histogramSize");
+					int sliceX = Integer.parseInt(setElement.getAttribute("sliceX"));
+					int sliceY = Integer.parseInt(setElement.getAttribute("sliceY"));
+					int histogramSize = Integer.parseInt(setElement.getAttribute("histogramSize"));
 
 					// convert string to timestamp object
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -298,12 +299,29 @@ public class Data {
 							ArrayList<String> kNearestSensorTypes = Utils.stringToStringArrayList(kNearestSensorTypesElement.getTextContent());
 							
 							// create and add entry to the set
-							// note: greyScaleData is NOT being saved / loaded (due to performance reasons)
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, null, histogramData, variance, entropy, kNearestIDs, kNearestSensorTypes, slicedEntropies);
+							// IMPORTANT: greyScaleData is NOT being saved / loaded (due to performance reasons) -> this means it will be "null"
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(
+									id,
+									fileFolderPath,
+									fileName,
+									fileExtension,
+									sensorType,
+									null,
+									null,
+									histogramData,
+									variance,
+									entropy,
+									kNearestIDs,
+									kNearestSensorTypes,
+									slicedEntropies
+									);
+							
+							// add entry to set
 							set.addEntry(entry);
 						}
 					}
-
+					
+					// add set to overall sets
 					sets.add(set);
 				}
 			}
