@@ -222,6 +222,10 @@ public class ViewTabScanResults implements ViewInterface {
 			columnKNearestSensorTypesAsString.setMinWidth(50);
 			columnKNearestSensorTypesAsString.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("KNearestSensorTypesAsString"));
 			
+			TableColumn columnNearestSensorType = new TableColumn(Translation.fetch("nearest_sensor_type"));
+			columnNearestSensorType.setMinWidth(50);
+			columnNearestSensorType.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("nearestSensorType"));
+			
 			/*
 			TableColumn columnFileFolderPath = new TableColumn(Translation.fetch("file_folder_path"));
 			columnFileFolderPath.setMinWidth(150);
@@ -291,7 +295,7 @@ public class ViewTabScanResults implements ViewInterface {
 			
 			TableView<EvaluationDataSetEntry> table = new TableView();
 	        table.setItems(dataEntry);
-	        table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnVariance, columnEntropy, columnSlicedEntropies, columnKNearestIDsAsString, columnKNearestSensorTypesAsString);
+	        table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnVariance, columnEntropy, columnSlicedEntropies, columnKNearestIDsAsString, columnKNearestSensorTypesAsString, columnNearestSensorType);
 	        
 	        vBox.getChildren().add(table);
 			

@@ -3,7 +3,9 @@ package core.evaluation;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import utils.Translation;
@@ -261,6 +263,24 @@ public class EvaluationDataSetEntry {
 		this.kNearestSensorTypes.add(sensorType);
 	}
 	
+	public String getNearestSensorType() {
+		if (this.getKNearestSensorTypes() == null || this.getKNearestSensorTypes().size() == 0) {
+			return "";
+		}
+		
+		String result = 
+			this.getKNearestSensorTypes().stream()
+			.collect(Collectors.groupingBy(w -> w, Collectors.counting()))
+			.entrySet()
+			.stream()
+			.max(Comparator.comparing(Entry::getValue))
+			.get()
+			.getKey();
+		
+		
+		return result;
+	}
+	
 	public void setVariance(double variance) {
 		this.variance = variance;
 	}
@@ -332,6 +352,9 @@ public class EvaluationDataSetEntry {
 				"\n" + Translation.fetch("file_name") + ": " + this.getFileName() + 
 				"\n" + Translation.fetch("file_extension") + ": " + this.getFileExtension() + 
 				"\n" + Translation.fetch("sensor_type") + ": " + this.getSensorType() + 
-				"\n" + Translation.fetch("k_nearest_ids") + ": " + this.getKNearestIDsAsString();
+				"\n" + Translation.fetch("variance") + ": " + this.getVariance() + 
+				"\n" + Translation.fetch("entropy") + ": " + this.getEntropy() + 
+				"\n" + Translation.fetch("k_nearest_ids") + ": " + this.getKNearestIDsAsString() +
+				"\n" + Translation.fetch("k_nearest_sensor_types") + ": " + this.getKNearestSensorTypesAsString();
 	}
 }
