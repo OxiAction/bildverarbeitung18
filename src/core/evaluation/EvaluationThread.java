@@ -61,7 +61,7 @@ public class EvaluationThread extends Thread {
 			int[][] greyScaleData = GreyScale.get(absoluteFilePath);
 			int[] histogramData = Histogram.get(greyScaleData, Integer.parseInt(set.getHistogramSize()));
 			
-			this.set.addEntry(new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, histogramData, 0, null, null));
+			this.set.addEntry(new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, histogramData, 0, 0, 0, null, null));
 		} catch (IOException e) {
 			Debug.log("IOException: : " + e);
 		}

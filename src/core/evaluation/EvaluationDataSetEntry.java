@@ -16,7 +16,9 @@ public class EvaluationDataSetEntry {
 	protected String sensorType;
 	protected int[][] greyScaleData;
 	protected int[] histogramData;
+	protected double variance;
 	protected double entropy;
+	protected double localEntropy;
 	protected ArrayList<Integer> kNearestIDs;
 	protected double[][] slicedEntropies;
 
@@ -30,11 +32,26 @@ public class EvaluationDataSetEntry {
 	 * @param sensorType 		the sensor type
 	 * @param greyScaleData 	the grey scale data as 2d int array
 	 * @param histogramData 	the histogramData data 1d int array
+	 * @param variance 			TODO
 	 * @param entropy 			TODO
+	 * @param localEntropy		TODO
 	 * @param kNearestIDs 		the list with the k-nearest entries (ids)
 	 * @param slicedEntropies 	TODO
 	 */
-	public EvaluationDataSetEntry(int id, String fileFolderPath, String fileName, String fileExtension, String sensorType, int[][] greyScaleData, int[] histogramData, double entropy, ArrayList<Integer> kNearestIDs, double[][] slicedEntropies) {
+	public EvaluationDataSetEntry(
+			int id, 
+			String fileFolderPath, 
+			String fileName, 
+			String fileExtension, 
+			String sensorType, 
+			int[][] greyScaleData, 
+			int[] histogramData, 
+			double variance, 
+			double entropy, 
+			double localEntropy, 
+			ArrayList<Integer> kNearestIDs, 
+			double[][] slicedEntropies
+			) {
 		this.id = id;
 		this.fileFolderPath = fileFolderPath;
 		this.fileName = fileName;
@@ -42,7 +59,9 @@ public class EvaluationDataSetEntry {
 		this.sensorType = sensorType;
 		this.greyScaleData = greyScaleData;
 		this.histogramData = histogramData;
+		this.variance = variance;
 		this.entropy = entropy;
+		this.localEntropy = localEntropy;
 		this.kNearestIDs = kNearestIDs;
 		this.slicedEntropies = slicedEntropies;
 	}
@@ -182,12 +201,28 @@ public class EvaluationDataSetEntry {
 		this.kNearestIDs.add(id);
 	}
 	
+	public void setVariance(double variance) {
+		this.variance = variance;
+	}
+	
+	public double getVariance() {
+		return this.variance;
+	}
+	
 	public void setEntropy(double entropy) {
 		this.entropy = entropy;
 	}
 	
 	public double getEntropy() {
 		return this.entropy;
+	}
+	
+	public void setLocalEntropy(double localEntropy) {
+		this.localEntropy = localEntropy;
+	}
+	
+	public double getLocalEntropy() {
+		return this.localEntropy;
 	}
 	
 	public void setSlicedEntropies(double[][] slicedEntropies) {

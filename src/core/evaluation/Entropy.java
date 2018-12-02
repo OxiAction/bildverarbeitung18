@@ -15,13 +15,24 @@ public class Entropy {
 	 * @param histogramData		the histogram data of the image
 	 * @return the entropy value
 	 */
+	public static double get(int[][] greyScaleData, int[] histogramData) {
+		return get(greyScaleData, histogramData, false);
+	}
+	
+	/**
+	 * Calculates the entropy of an image with the formula E = Sum( p(g) * (-log(p(g)) ).
+	 *
+	 * @param greyScaleData			the grey scale data of the image
+	 * @param histogramData			the histogram data of the image
+	 * @param usingLocalEntropy		boolean - tells us if we are only using part of an image
+	 * @return the entropy value
+	 */
 	public static double get(int[][] greyScaleData, int[] histogramData, boolean usingLocalEntropy) {
 		double numberOfGreyScaleValues = Utils.getNumberOfGreyScaleValues(greyScaleData);
 
-		if(!usingLocalEntropy){
+		if (!usingLocalEntropy) {
 			Debug.log("Calculating Entropy...");
-		}
-		else{
+		} else {
 			Debug.log("Calculating local Entropy...");
 		}
 

@@ -178,9 +178,17 @@ public class Data {
 				histogramData.setTextContent(Utils.intArray1DToString(entry.getHistogramData()));
 				entryElement.appendChild(histogramData);
 				
+				Element variance = document.createElement("variance");
+				variance.setTextContent(String.valueOf(entry.getVariance()));
+				entryElement.appendChild(variance);
+				
 				Element entropy = document.createElement("entropy");
 				entropy.setTextContent(String.valueOf(entry.getEntropy()));
 				entryElement.appendChild(entropy);
+				
+				Element localEntropy = document.createElement("localEntropy");
+				localEntropy.setTextContent(String.valueOf(entry.getLocalEntropy()));
+				entryElement.appendChild(localEntropy);
 				
 				Element kNearestIDs = document.createElement("kNearestIDs");
 				kNearestIDs.setTextContent(Utils.intArrayListToString(entry.getKNearestIDs()));
@@ -275,14 +283,20 @@ public class Data {
 							Element histogramDataElement = (Element) entryElement.getElementsByTagName("histogramData").item(0);
 							int[] histogramData = Utils.stringToIntArray1D(histogramDataElement.getTextContent());
 							
+							Element varianceElement = (Element) entryElement.getElementsByTagName("variance").item(0);
+							double variance = Double.parseDouble(varianceElement.getTextContent());
+							
 							Element entropyElement = (Element) entryElement.getElementsByTagName("entropy").item(0);
 							double entropy = Double.parseDouble(entropyElement.getTextContent());
+							
+							Element localEntropyElement = (Element) entryElement.getElementsByTagName("localEntropy").item(0);
+							double localEntropy = Double.parseDouble(localEntropyElement.getTextContent());
 							
 							Element kNearestIDsElement = (Element) entryElement.getElementsByTagName("kNearestIDs").item(0);
 							ArrayList<Integer> kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
 							
 							// create and add entry to the set
-							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, histogramData, entropy, kNearestIDs, null);
+							EvaluationDataSetEntry entry = new EvaluationDataSetEntry(id, fileFolderPath, fileName, fileExtension, sensorType, null, histogramData, variance, entropy, localEntropy, kNearestIDs, null);
 							set.addEntry(entry);
 						}
 					}
