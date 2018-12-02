@@ -22,6 +22,7 @@
 		<k_nearest_ids><![CDATA[K-näheste IDs]]></k_nearest_ids>
 		<entropy><![CDATA[Entropie]]></entropy>
 		<variance><![CDATA[Varianz]]></variance>
+		<sliced_entropies><![CDATA[Lokale Entropien]]></sliced_entropies>
 		<sensor_type><![CDATA[Sensor-Typ]]></sensor_type>
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Anzeigen]]></show>
@@ -70,6 +71,7 @@
 		<k_nearest_ids><![CDATA[K-nearest IDs]]></k_nearest_ids>
 		<entropy><![CDATA[Entropie]]></entropy>
 		<variance><![CDATA[Variance]]></variance>
+		<sliced_entropies><![CDATA[Local Entropies]]></sliced_entropies>
 		<sensor_type><![CDATA[Sensor-Type]]></sensor_type>
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Show]]></show>

@@ -214,7 +214,7 @@ public class ViewTabScanResults implements ViewInterface {
 			columnKNearestIDsAsString.setMinWidth(50);
 			columnKNearestIDsAsString.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("KNearestIDsAsString"));
 			
-			TableColumn columnSlicedEntropies = new TableColumn(Translation.fetch("sliced_entropies"));
+			TableColumn columnSlicedEntropies = new TableColumn(Translation.fetch("sliced_entropies") + " (x: " + set.getSliceX() + " / y: " + set.getSliceY() + ")");
 			columnSlicedEntropies.setMinWidth(50);
 			columnSlicedEntropies.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("slicedEntropiesAsString"));
 			

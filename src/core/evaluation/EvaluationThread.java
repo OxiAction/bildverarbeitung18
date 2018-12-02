@@ -26,7 +26,7 @@ public class EvaluationThread extends Thread {
 		this.absoluteFilePath = absoluteFilePath;
 		this.set = set;
 	}
-	
+
 	/**
 	 * Run the thread, calculating all the necessary stuff for the entry.
 	 * After everything is finished calculating, the entry will be added to the set.
@@ -55,17 +55,33 @@ public class EvaluationThread extends Thread {
 			if (sensorType == null) {
 				throw new IOException("IOException: Could not determine the sensorType by folder structure!");
 			}
-
+			
+			// set related config
+			int sliceX = Integer.parseInt(set.getSliceX());
+			int sliceY = Integer.parseInt(set.getSliceY());
+			int histogramSize = Integer.parseInt(set.getHistogramSize());
+			
 			// create and add entry to set
 			// note: kNearest argument has to be null, as we can not yet calculate metric related stuff
 			int[][] greyScaleData = GreyScale.get(absoluteFilePath);
-			int[][][][] greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, Integer.parseInt(set.getSliceX()), Integer.parseInt(set.getSliceY()));
-			int[] histogramData = Histogram.get(greyScaleData, Integer.parseInt(set.getHistogramSize()));
-			
+			int[][][][] greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, sliceX, sliceY);
+			int[] histogramData = Histogram.get(greyScaleData, histogramSize);
+
 			double variance = Variance.get(greyScaleData, histogramData);
 			double entropy = Entropy.get(greyScaleData, histogramData);
+
+			double[][] slicedEntropies = new double[sliceY][sliceX];
+			for (int i = 0; i < sliceY; ++i) {
+				for (int j = 0; j < sliceX; ++j) {
+					int[] localHistogramData = Histogram.get(greyScaleSlicedData[i][j], histogramSize);
+					double localEntropy = Entropy.get(greyScaleSlicedData[i][j], localHistogramData);
+					
+					slicedEntropies[i][j] = localEntropy;
+				}
+			}
 			
-			this.set.addEntry(new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, greyScaleSlicedData, histogramData, variance, entropy, null, null));
+			this.set.addEntry(
+					new EvaluationDataSetEntry(this.id, fileFolderPath, fileName, fileExtension, sensorType, greyScaleData, greyScaleSlicedData, histogramData, variance, entropy, null, slicedEntropies));
 		} catch (IOException e) {
 			Debug.log("IOException: : " + e);
 		}

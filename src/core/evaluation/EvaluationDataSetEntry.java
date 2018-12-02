@@ -240,7 +240,27 @@ public class EvaluationDataSetEntry {
 	}
 	
 	public String getSlicedEntropiesAsString() {
-		return "TODO";
+		String result = "";
+		
+		if (this.slicedEntropies == null || this.slicedEntropies.length < 1) {
+			return "UNDEFINED";
+		}
+		
+		for (int i = 0; i < this.slicedEntropies.length; ++i) {
+			if (i > 0) {
+				result += "\n";
+			}
+			
+			for (int j = 0; j < this.slicedEntropies[i].length; ++j) {
+				if (j > 0) {
+					result += ", ";
+				}
+				
+				result += String.valueOf(this.slicedEntropies[i][j]);
+			}
+		}
+		
+		return result;
 	}
 	
 	/**
