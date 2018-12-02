@@ -302,6 +302,8 @@ public class ViewTabNewScan implements ViewInterface {
 				text.setWrappingWidth(newBounds.getWidth() - 25);
 			}  
 		});
+		
+		updateButtonStartScan();
 	}
 	
 	protected void updateButtonStartScan() {
