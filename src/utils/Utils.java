@@ -346,7 +346,7 @@ public class Utils {
 	 */
 	public static void printIntArray1D(int[] arr) {
 		String line = "";
-		for (int k = 0; k < arr.length; k++) {
+		for (int k = 0; k < arr.length; ++k) {
 			line += "\t" + arr[k] + " ";
 		}
 		Debug.log(line + "\n");
@@ -358,9 +358,9 @@ public class Utils {
 	 * @param arr
 	 */
 	public static void printIntArray2D(int[][] arr) {
-		for (int j = 0; j < arr.length; j++) {
+		for (int j = 0; j < arr.length; ++j) {
 			String line = "";
-			for (int k = 0; k < arr[j].length; k++) {
+			for (int k = 0; k < arr[j].length; ++k) {
 				line += "\t" + arr[j][k] + " ";
 			}
 			Debug.log(line + "\n");
@@ -373,18 +373,18 @@ public class Utils {
 	 * @param arr
 	 */
 	public static void printIntArray4D(int[][][][] arr) {
-		for (int j = 0; j < arr.length; j++) {
+		for (int j = 0; j < arr.length; ++j) {
 			if (j > 0) {
 				Debug.log("---");
 			}
 			
-			for (int k = 0; k < arr[j].length; k++) {
+			for (int k = 0; k < arr[j].length; ++k) {
 				String line = "";
-				for (int j2 = 0; j2 < arr[j][k].length; j2++) {
+				for (int j2 = 0; j2 < arr[j][k].length; ++j2) {
 					if (j2 > 0) {
 						line += "\n";
 					}
-					for (int k2 = 0; k2 < arr[j][k][j2].length; k2++) {
+					for (int k2 = 0; k2 < arr[j][k][j2].length; ++k2) {
 						
 						line += "\t" + arr[j][k][j2][k2] + " ";
 					}
@@ -405,7 +405,7 @@ public class Utils {
 	 */
 	public static int[] addIntArrays1D(int[] arr1, int[] arr2) {
 		int[] sum = new int[arr1.length];
-		for (int i = 0; i < arr1.length; i++) {
+		for (int i = 0; i < arr1.length; ++i) {
 			sum[i] = arr1[i] + arr2[i];
 		}
 		return sum;
@@ -420,8 +420,8 @@ public class Utils {
 	 */
 	public static int[][] addIntArrays2D(int[][] arr1, int[][] arr2) {
 		int[][] sum = new int[arr1.length][arr1[0].length];
-		for (int i = 0; i < arr1.length; i++) {
-			for (int j = 0; j < arr1[i].length; j++) {
+		for (int i = 0; i < arr1.length; ++i) {
+			for (int j = 0; j < arr1[i].length; ++j) {
 				sum[i][j] = arr1[i][j] + arr2[i][j];
 			}
 		}
@@ -449,8 +449,8 @@ public class Utils {
 	 * @return
 	 */
 	public static int[][] calculateAverageIntArray2D(int[][] arr1, int i) {
-		for (int j = 0; j < arr1.length; j++) {
-			for (int k = 0; k < arr1[j].length; k++) {
+		for (int j = 0; j < arr1.length; ++j) {
+			for (int k = 0; k < arr1[j].length; ++k) {
 				arr1[j][k] = arr1[j][k] / i;
 			}
 		}
@@ -543,7 +543,7 @@ public class Utils {
 	public static double getMeanGreyScaleValue(int[][] greyScaleData, int[] histogramData){
 		double meanGreyScale = 0.0;
 
-		for(int i = 0; i < histogramData.length; i++){
+		for(int i = 0; i < histogramData.length; ++i){
 			meanGreyScale += i * histogramData[i];
 		}
 		//System.out.println("meanGreyScale: " + meanGreyScale / getNumberOfGreyScaleValues(greyScaleData));

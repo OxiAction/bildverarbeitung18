@@ -52,24 +52,24 @@ public class Histogram {
 
 		ArrayList<int[]> greyScaleValues1D = new ArrayList<int[]>();
 		int i;
-		for (i = 0; i < greyScaleValues.size(); i++) {
+		for (i = 0; i < greyScaleValues.size(); ++i) {
 			greyScaleValues1D.add(core.evaluation.Histogram.get(greyScaleValues.get(i)));
 			//Debug.log("Generated Histogram: " + i);
 			//print1dArray(greyScaleValues1D.get(i));
 		}
 
 		int[] additionOfAll1DArrays = new int[greyScaleValues1D.get(0).length];
-		for (int j = 0; j < greyScaleValues1D.size(); j++) {
+		for (int j = 0; j < greyScaleValues1D.size(); ++j) {
 			additionOfAll1DArrays = Utils.addIntArrays1D(additionOfAll1DArrays, greyScaleValues1D.get(j));
 		}
 
 		//Debug.log("Addition of all 1D arrays: ");
-		//for (int k = 0; k < additionOfAll1DArrays.length; k++) {
+		//for (int k = 0; k < additionOfAll1DArrays.length; ++k) {
 		//	Debug.log(additionOfAll1DArrays[k] + " ");
 		//}
 
 		//Debug.log("\nAverage of all 1D arrays: ");
-		for (int k = 0; k < additionOfAll1DArrays.length; k++) {
+		for (int k = 0; k < additionOfAll1DArrays.length; ++k) {
 			additionOfAll1DArrays[k] = additionOfAll1DArrays[k] / i;
 			//Debug.log(additionOfAll1DArrays[k] + " ");
 		}
@@ -98,7 +98,7 @@ public class Histogram {
 		int[][] greyScaleValuesNORMALIZED = Utils.createNewIntArray2DofSize(greyScaleValues.get(0));
 
 		int i;
-		for (i = 0; i < greyScaleValues.size(); i++) {
+		for (i = 0; i < greyScaleValues.size(); ++i) {
 			greyScaleValuesNORMALIZED = Utils.addIntArrays2D(greyScaleValuesNORMALIZED, greyScaleValues.get(i));
 		}
 		//Debug.log("Addition of all greyScaleValues:");
@@ -191,7 +191,7 @@ public class Histogram {
 		}
 
 		// histogram lines
-		for (int h = 0; h < histogram.length; h++) {
+		for (int h = 0; h < histogram.length; ++h) {
 			graphicsContext2D.setLineWidth(LINEWIDTH / 2);
 			graphicsContext2D.setStroke(Color.DARKBLUE);
 			graphicsContext2D.strokeLine(25 + h * V, height - 25, 25 + h * V, height - 25 - histogram[h] * V);

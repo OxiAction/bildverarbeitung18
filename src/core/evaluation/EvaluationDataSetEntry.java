@@ -28,6 +28,7 @@ public class EvaluationDataSetEntry {
 	protected double entropy;
 	protected ArrayList<Integer> kNearestIDs;
 	protected ArrayList<String> kNearestSensorTypes;
+	protected double[][] slicedVariances;
 	protected double[][] slicedEntropies;
 
 	/**
@@ -46,6 +47,7 @@ public class EvaluationDataSetEntry {
 	 * @param kNearestIDs 			the list with the k-nearest entries (ids as integers)
 	 * @param kNearestSensorTypes 	the list with the k-nearest entries (full names as string)
 	 * @param slicedEntropies 		2d double array with calculated entropies (from slices)
+	 * @param slicedVariances 		2d double array with calculated variances (from slices)
 	 */
 	public EvaluationDataSetEntry(
 			int id,
@@ -57,10 +59,11 @@ public class EvaluationDataSetEntry {
 			int[][][][] greyScaleSlicedData,
 			int[] histogramData,
 			double variance,
+			double[][] slicedVariances,
 			double entropy,
+			double[][] slicedEntropies,
 			ArrayList<Integer> kNearestIDs,
-			ArrayList<String> kNearestSensorTypes,
-			double[][] slicedEntropies
+			ArrayList<String> kNearestSensorTypes
 			) {
 		
 		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
@@ -80,6 +83,7 @@ public class EvaluationDataSetEntry {
 		this.kNearestIDs = kNearestIDs;
 		this.kNearestSensorTypes = kNearestSensorTypes;
 		this.slicedEntropies = slicedEntropies;
+		this.slicedVariances = slicedVariances;
 	}
 
 	/**
@@ -316,6 +320,81 @@ public class EvaluationDataSetEntry {
 	 */
 	public String getVarianceAsString() {
 		return this.decimalFormat.format(this.variance);
+	}
+	
+	/**
+	 * @param slicedVariances the slicedEntropies to set
+	 */
+	public void setSlicedVariances(double[][] slicedVariances) {
+		this.slicedVariances = slicedVariances;
+	}
+	
+	/**
+	 * @return the slicedVariances
+	 */
+	public double[][] getSlicedVariances() {
+		return this.slicedVariances;
+	}
+	
+	/**
+	 * Returns formatted String with sliced variances.
+	 * Using \n (newline) and \t (tab) to format the String.
+	 * 
+	 * @return the formatted sliced variances or empty String
+	 */
+	public String getSlicedVariancesAsString() {
+		String result = "";
+		
+		if (this.slicedVariances == null || this.slicedVariances.length < 1) {
+			return result;
+		}
+		
+		int i;
+		int j;
+		int k;
+		int decimal;
+		
+		int max = 0;
+		for (i = 0; i < this.slicedVariances.length; ++i) {
+			for (j = 0; j < this.slicedVariances[i].length; ++j) {
+				decimal = (int) this.slicedVariances[i][j];
+				max = Math.max(max, decimal);
+			}
+		}
+		
+		int maxLength = (int) (Math.log10(max) + 1);
+		
+		for (i = 0; i < this.slicedVariances.length; ++i) {
+			if (i > 0) {
+				result += "\n";
+			}
+			
+			for (j = 0; j < this.slicedVariances[i].length; ++j) {
+				if (j > 0) {
+					// alignment fix 1
+					if (maxLength < 4) {
+						result += " \t\t";
+					} else {
+						result += " \t";
+					}
+				}
+				
+				decimal = (int) this.slicedVariances[i][j];
+				
+				int length = (int) (Math.log10(decimal) + 1);
+				
+				// alignment fix 2
+				if (length < maxLength) {
+					for (k = 0; k < maxLength - length; ++k) {
+						result += " ";
+					}
+				}
+				
+				result += String.valueOf(this.decimalFormat.format(this.slicedVariances[i][j]));
+			}
+		}
+		
+		return result;
 	}
 	
 	/**

@@ -180,6 +180,10 @@ public class Data {
 				variance.setTextContent(String.valueOf(entry.getVariance()));
 				entryElement.appendChild(variance);
 				
+				Element slicedVariances = document.createElement("slicedVariances");
+				slicedVariances.setTextContent(Utils.doubleArray2DToString(entry.getSlicedVariances()));
+				entryElement.appendChild(slicedVariances);
+				
 				Element entropy = document.createElement("entropy");
 				entropy.setTextContent(String.valueOf(entry.getEntropy()));
 				entryElement.appendChild(entropy);
@@ -286,6 +290,9 @@ public class Data {
 							Element varianceElement = (Element) entryElement.getElementsByTagName("variance").item(0);
 							double variance = Double.parseDouble(varianceElement.getTextContent());
 							
+							Element slicedVariancesElement = (Element) entryElement.getElementsByTagName("slicedVariances").item(0);
+							double[][] slicedVariances = Utils.stringToDoubleArray2D(slicedVariancesElement.getTextContent());
+							
 							Element entropyElement = (Element) entryElement.getElementsByTagName("entropy").item(0);
 							double entropy = Double.parseDouble(entropyElement.getTextContent());
 							
@@ -310,10 +317,11 @@ public class Data {
 									null,
 									histogramData,
 									variance,
+									slicedVariances,
 									entropy,
+									slicedEntropies,
 									kNearestIDs,
-									kNearestSensorTypes,
-									slicedEntropies
+									kNearestSensorTypes
 									);
 							
 							// add entry to set

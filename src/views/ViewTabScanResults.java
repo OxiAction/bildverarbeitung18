@@ -183,7 +183,11 @@ public class ViewTabScanResults implements ViewInterface {
 		TableColumn columnVariance = new TableColumn(Translation.fetch("variance"));
 		columnVariance.setMinWidth(50);
 		columnVariance.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("varianceAsString"));
-
+		
+		TableColumn columnSlicedVariances = new TableColumn(Translation.fetch("sliced_variances") + " (x: " + set.getSliceX() + " / y: " + set.getSliceY() + ")");
+		columnSlicedVariances.setMinWidth(50);
+		columnSlicedVariances.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("slicedVariancesAsString"));
+		
 		TableColumn columnEntropy = new TableColumn(Translation.fetch("entropy"));
 		columnEntropy.setMinWidth(50);
 		columnEntropy.setCellValueFactory(new PropertyValueFactory<EvaluationDataSetEntry, String>("entropyAsString"));
@@ -273,7 +277,7 @@ public class ViewTabScanResults implements ViewInterface {
 
 		TableView<EvaluationDataSetEntry> table = new TableView();
 		table.setItems(dataEntry);
-		table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnVariance, columnEntropy, columnSlicedEntropies, columnKNearestIDsAsString,
+		table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnVariance, columnSlicedVariances, columnEntropy, columnSlicedEntropies, columnKNearestIDsAsString,
 				columnKNearestSensorTypesAsString, columnNearestSensorType);
 
 		vBox.getChildren().add(table);

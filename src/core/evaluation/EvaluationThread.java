@@ -70,12 +70,16 @@ public class EvaluationThread extends Thread {
 			double entropy = Entropy.get(greyScaleData, histogramData);
 
 			double[][] slicedEntropies = new double[sliceY][sliceX];
+			double[][] slicedVariances = new double[sliceY][sliceX];
 			for (int i = 0; i < sliceY; ++i) {
 				for (int j = 0; j < sliceX; ++j) {
 					int[] localHistogramData = Histogram.get(greyScaleSlicedData[i][j], histogramSize);
+					
 					double localEntropy = Entropy.get(greyScaleSlicedData[i][j], localHistogramData);
+					double localVariance = Variance.get(greyScaleSlicedData[i][j], localHistogramData);
 
 					slicedEntropies[i][j] = localEntropy;
+					slicedVariances[i][j] = localVariance;
 				}
 			}
 
@@ -91,10 +95,11 @@ public class EvaluationThread extends Thread {
 							greyScaleSlicedData,
 							histogramData,
 							variance,
+							slicedVariances,
 							entropy,
+							slicedEntropies,
 							null, // kNearestIDs argument has to be null, as we can not yet calculate metric related stuff
-							null, // kNearestSensorTypes argument has to be null, as we can not yet calculate metric related stuff
-							slicedEntropies
+							null  // kNearestSensorTypes argument has to be null, as we can not yet calculate metric related stuff
 							)
 					);
 		} catch (IOException e) {
