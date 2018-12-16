@@ -76,7 +76,7 @@
 		<nearest_sensor_type><![CDATA[Nearest Sensor-Type]]></nearest_sensor_type>
 		<entropy><![CDATA[Entropie]]></entropy>
 		<variance><![CDATA[Variance]]></variance>
-		<sliced_variances><![CDATA[Lokale Variances]]></sliced_variances>
+		<sliced_variances><![CDATA[Local Variances]]></sliced_variances>
 		<sliced_entropies><![CDATA[Local Entropies]]></sliced_entropies>
 		<sensor_type><![CDATA[Sensor-Type]]></sensor_type>
 		<metric><![CDATA[Metric]]></metric>

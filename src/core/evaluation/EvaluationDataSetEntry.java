@@ -353,8 +353,8 @@ public class EvaluationDataSetEntry {
 		int j;
 		int k;
 		int decimal;
-		
 		int max = 0;
+		
 		for (i = 0; i < this.slicedVariances.length; ++i) {
 			for (j = 0; j < this.slicedVariances[i].length; ++j) {
 				decimal = (int) this.slicedVariances[i][j];

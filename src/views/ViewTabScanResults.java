@@ -276,6 +276,7 @@ public class ViewTabScanResults implements ViewInterface {
 		*/
 
 		TableView<EvaluationDataSetEntry> table = new TableView();
+		table.setMinHeight(200);
 		table.setItems(dataEntry);
 		table.getColumns().addAll(columnID, columnFileNameAndFileExtension, columnSensorType, columnVariance, columnSlicedVariances, columnEntropy, columnSlicedEntropies, columnKNearestIDsAsString,
 				columnKNearestSensorTypesAsString, columnNearestSensorType);
@@ -286,7 +287,7 @@ public class ViewTabScanResults implements ViewInterface {
 
 		scrollPane.setContent(vBox);
 		// needs to be disabled in this case
-		scrollPane.setFitToHeight(false);
+		// scrollPane.setFitToHeight(false);
 
 		Tab tab = new Tab(set.getName() + ": " + Translation.fetch("scan_results"));
 		tab.setContent(scrollPane);
@@ -302,6 +303,11 @@ public class ViewTabScanResults implements ViewInterface {
 				for (Text text : texts) {
 					text.setWrappingWidth(newBounds.getWidth() - 25);
 				}
+				
+				// make the table fill the remaining (available) height
+				// cant be smaller then tables minHeight property though!
+				Bounds boundsInScene = table.localToScene(table.getBoundsInLocal());	
+				table.setPrefHeight(newBounds.getHeight() - boundsInScene.getMinY() + 55);
 			}
 		});
 	}
