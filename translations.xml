@@ -30,6 +30,8 @@
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Anzeigen]]></show>
 		<id><![CDATA[ID]]></id>
+		<scanned_entries><![CDATA[Gescannte Einträge]]></scanned_entries>
+		<same_sensor><![CDATA[Gleicher Sensor]]></same_sensor>
 		<slice_x><![CDATA[Aufteilung (X-Achse)]]></slice_x>
 		<slice_y><![CDATA[Aufteilung (Y-Achse)]]></slice_y>
 		<histogram_size><![CDATA[Histogram Größe]]></histogram_size>
@@ -82,6 +84,8 @@
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Show]]></show>
 		<id><![CDATA[ID]]></id>
+		<scanned_entries><![CDATA[Scanned Entries]]></scanned_entries>
+		<same_sensor><![CDATA[Same Sensor]]></same_sensor>
 		<slice_x><![CDATA[Slice (X-Axis)]]></slice_x>
 		<slice_y><![CDATA[Slice (Y-Axis)]]></slice_y>
 		<histogram_size><![CDATA[Histogram Size]]></histogram_size>

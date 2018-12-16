@@ -39,14 +39,14 @@ public class EvaluationDataSet {
 	 * @param histogramSize	size of the histogram
 	 */
 	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metricName, int sliceX, int sliceY, int histogramSize) {
-		this.timestamp = timestamp;
-		this.name = name;
-		this.sourceFolder = sourceFolder;
-		this.kFactor = kFactor;
-		this.metricName = metricName;
-		this.sliceX = sliceX;
-		this.sliceY = sliceY;
-		this.histogramSize = histogramSize;
+		this.setTimestamp(timestamp);
+		this.setName(name);
+		this.setSourceFolder(sourceFolder);
+		this.setKFactor(kFactor);
+		this.setMetricName(metricName);
+		this.setSliceX(sliceX);
+		this.setSliceY(sliceY);
+		this.setHistogramSize(histogramSize);
 	}
 
 	/**
@@ -190,6 +190,13 @@ public class EvaluationDataSet {
 	
 	@Override
 	public String toString() {
+		int sameSensors = 0;
+		for (EvaluationDataSetEntry entry : this.getEntries()) {
+			if (entry.getIsSensorTypeEqualToNearestSensorType()) {
+				sameSensors++;
+			}
+		}
+		
 		return Translation.fetch("timestamp") + ": " + this.getTimestamp() + 
 				"\n" + Translation.fetch("name") + ": " + this.getName() + 
 				"\n" + Translation.fetch("source_folder") + ": " + this.getSourceFolder() + 
@@ -197,7 +204,9 @@ public class EvaluationDataSet {
 				"\n" + Translation.fetch("metric") + ": " + this.getMetricName() + 
 				"\n" + Translation.fetch("slice_x") + ": " + this.getSliceX() + 
 				"\n" + Translation.fetch("slice_y") + ": " + this.getSliceY() + 
-				"\n" + Translation.fetch("histogram_size") + ": " + this.getHistogramSize();
+				"\n" + Translation.fetch("histogram_size") + ": " + this.getHistogramSize() + 
+				"\n" + Translation.fetch("scanned_entries") + ": " + this.getEntriesSize() + 
+				"\n" + Translation.fetch("same_sensor") + ": " + sameSensors; 
 	}
 	
 }

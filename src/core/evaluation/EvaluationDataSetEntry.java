@@ -30,6 +30,8 @@ public class EvaluationDataSetEntry {
 	protected ArrayList<String> kNearestSensorTypes;
 	protected double[][] slicedVariances;
 	protected double[][] slicedEntropies;
+	
+	protected String nearestSensorType;
 
 	/**
 	 * Constructor for a new EvaluationDataSetEntry.
@@ -70,20 +72,20 @@ public class EvaluationDataSetEntry {
 		otherSymbols.setDecimalSeparator('.');
 		this.decimalFormat = new DecimalFormat("0.0000", otherSymbols);
 		
-		this.id = id;
-		this.fileFolderPath = fileFolderPath;
-		this.fileName = fileName;
-		this.fileExtension = fileExtension;
-		this.sensorType = sensorType;
-		this.greyScaleData = greyScaleData;
-		this.greyScaleSlicedData = greyScaleSlicedData;
-		this.histogramData = histogramData;
-		this.variance = variance;
-		this.entropy = entropy;
-		this.kNearestIDs = kNearestIDs;
-		this.kNearestSensorTypes = kNearestSensorTypes;
-		this.slicedEntropies = slicedEntropies;
-		this.slicedVariances = slicedVariances;
+		this.setID(id);
+		this.setFileFolderPath(fileFolderPath);
+		this.setFileName(fileName);
+		this.setFileExtension(fileExtension);
+		this.setSensorType(sensorType);
+		this.setGreyScaleData(greyScaleData);
+		this.setGreyScaleSlicedData(greyScaleSlicedData);
+		this.setHistogramData(histogramData);
+		this.setVariance(variance);
+		this.setEntropy(entropy);
+		this.setKNearestIDs(kNearestIDs);
+		this.setKNearestSensorTypes(kNearestSensorTypes);
+		this.setSlicedEntropies(slicedEntropies);
+		this.setSlicedVariances(slicedVariances);
 	}
 
 	/**
@@ -257,10 +259,29 @@ public class EvaluationDataSetEntry {
 	}
 	
 	/**
+	 * Set the kNearestSensorTypes.
+	 * Also sets the nearestSensorType.
+	 * 
 	 * @param kNearestSensorTypes the kNearestSensorTypes to set
 	 */
 	public void setKNearestSensorTypes(ArrayList<String> kNearestSensorTypes) {
 		this.kNearestSensorTypes = kNearestSensorTypes;
+		
+		if (this.kNearestSensorTypes == null || this.kNearestSensorTypes.size() == 0) {
+			return;
+		}
+		
+		String result = 
+			this.getKNearestSensorTypes().stream()
+			.collect(Collectors.groupingBy(w -> w, Collectors.counting()))
+			.entrySet()
+			.stream()
+			.max(Comparator.comparing(Entry::getValue))
+			.get()
+			.getKey();
+		
+		System.out.println("hm");
+		this.setNearestSensorType(result);
 	}
 	
 	/**
@@ -277,26 +298,21 @@ public class EvaluationDataSetEntry {
 	}
 	
 	/**
+	 * Set nearestSensorType
+	 * 
+	 * @param nearestSensorType
+	 */
+	public void setNearestSensorType(String nearestSensorType) {
+		this.nearestSensorType = nearestSensorType;
+	}
+	
+	/**
 	 * Get the most used (k-nearest) sensor type as full name (String).
 	 * 
 	 * @return the most used sensor type or empty String
 	 */
 	public String getNearestSensorType() {
-		if (this.getKNearestSensorTypes() == null || this.getKNearestSensorTypes().size() == 0) {
-			return "";
-		}
-		
-		String result = 
-			this.getKNearestSensorTypes().stream()
-			.collect(Collectors.groupingBy(w -> w, Collectors.counting()))
-			.entrySet()
-			.stream()
-			.max(Comparator.comparing(Entry::getValue))
-			.get()
-			.getKey();
-		
-		
-		return result;
+		return this.nearestSensorType;
 	}
 	
 	/**
@@ -471,6 +487,15 @@ public class EvaluationDataSetEntry {
 	 */
 	public String getFileNameAndFileExtension() {
 		return this.getFileName() + this.getFileExtension();
+	}
+	
+	/**
+	 * Compares if the sensorType equals the nearestSensorType.
+	 * 
+	 * @return true or false
+	 */
+	public boolean getIsSensorTypeEqualToNearestSensorType() {
+		return this.getSensorType().equals(this.getNearestSensorType());
 	}
 
 	@Override
