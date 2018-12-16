@@ -198,9 +198,6 @@ public class EvaluationDataSet {
 			}
 		}
 		
-		BigDecimal percentBigDecimal = new BigDecimal(sameSensors * 100f / this.getEntriesSize());
-		percentBigDecimal = percentBigDecimal.setScale(4, BigDecimal.ROUND_HALF_UP);
-		
 		return Translation.fetch("timestamp") + ": " + this.getTimestamp() + 
 				"\n" + Translation.fetch("name") + ": " + this.getName() + 
 				"\n" + Translation.fetch("source_folder") + ": " + this.getSourceFolder() + 
@@ -210,7 +207,7 @@ public class EvaluationDataSet {
 				"\n" + Translation.fetch("slice_y") + ": " + this.getSliceY() + 
 				"\n" + Translation.fetch("histogram_size") + ": " + this.getHistogramSize() + 
 				"\n" + Translation.fetch("scanned_entries") + ": " + this.getEntriesSize() + 
-				"\n" + Translation.fetch("same_sensor") + ": " + sameSensors + " ( " + percentBigDecimal.floatValue() + "% )"; 
+				"\n" + Translation.fetch("same_sensor") + ": " + sameSensors + " ( " + String.format("%.4f", sameSensors * 100f / this.getEntriesSize()) + "% )"; 
 	}
 	
 }
