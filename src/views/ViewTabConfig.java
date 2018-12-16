@@ -51,6 +51,7 @@ public class ViewTabConfig implements ViewInterface {
 			public void handle(final ActionEvent e) {
 				try {
 					Data.reset();
+					buttonDataReset.setDisable(true);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

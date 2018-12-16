@@ -107,6 +107,7 @@ public class ViewTabScanResults implements ViewInterface {
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 
 		// histogram
+		/*
 		Canvas histogram = Histogram.get(set);
 		if (histogram != null) {
 			Text textHistogram = new Text();
@@ -119,6 +120,7 @@ public class ViewTabScanResults implements ViewInterface {
 
 			vBox.getChildren().add(histogram);
 		}
+		*/
 
 		// set information
 
@@ -305,7 +307,7 @@ public class ViewTabScanResults implements ViewInterface {
 				}
 				
 				// make the table fill the remaining (available) height
-				// cant be smaller then tables minHeight property though!
+				// can't be smaller then tables minHeight property though!
 				Bounds boundsInScene = table.localToScene(table.getBoundsInLocal());	
 				table.setPrefHeight(newBounds.getHeight() - boundsInScene.getMinY() + 55);
 			}

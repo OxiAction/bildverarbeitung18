@@ -67,7 +67,6 @@ public class Evaluation extends Task<EvaluationDataSet> {
 		List<EvaluationDataSetEntry> setEntries = this.set.getEntries();
 		for (EvaluationDataSetEntry entry : setEntries) {
 			int[] histogramData = entry.getHistogramData();
-
 			// sanity check
 			if (histogramData == null) {
 				continue;
@@ -82,7 +81,11 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				}
 
 				int[] innerHistogramData = innerEntry.getHistogramData();
-
+				// sanity check
+				if (innerHistogramData == null) {
+					continue;
+				}
+					
 				// compare histogramData of two entries by metric (which is chosen by metric name)
 				double distance = Metric.getDataByName(this.set.getMetricName(), histogramData, innerHistogramData);
 				
