@@ -280,7 +280,6 @@ public class EvaluationDataSetEntry {
 			.get()
 			.getKey();
 		
-		System.out.println("hm");
 		this.setNearestSensorType(result);
 	}
 	
