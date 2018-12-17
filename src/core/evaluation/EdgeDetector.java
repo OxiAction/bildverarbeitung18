@@ -8,8 +8,9 @@ import java.io.IOException;
 
 /**
  * Class that detects edges of an image
- * Based on below author, changed a bit
+ * Based on author TheMorpheus407, changed for our purposes
  * @author TheMorpheus407
+ * @author Richard Riediger
  */
 public class EdgeDetector {
 	protected static final int THRESHOLD_1 = 255;
@@ -17,13 +18,13 @@ public class EdgeDetector {
 	protected static final int MAX_VAL = 255;
 	protected static final int MIN_VAL = 0;
 
-	// wie 1. Sobel Operator
+	// like 1st Sobel operator
 	protected static final int[][] OPERATOR_1 = {
 			{-1,0,1},
 			{-2,0,2},
 			{-1,0,1}
 	};
-	// wie 2. Sobel Operator, aber gespiegelt um x-Achse
+	// like 2nd Sobel operator but mirrored to x-axis
 	protected static final int[][] OPERATOR_2 = {
 			{1,2,1},
 			{0,0,0},
@@ -31,7 +32,7 @@ public class EdgeDetector {
 	};
 
 	/**
-	 * Main zum Testen
+	 * Main only to test the class
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -40,7 +41,7 @@ public class EdgeDetector {
 	}
 
 	/**
-	 * Detects edges from an image file of given path
+	 * Detects edges from an image file
 	 * Writes the output file to the same folder as the input file with name "EDGES_<input file>"
 	 * @param image
 	 * @param generateOutput
