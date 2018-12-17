@@ -57,7 +57,7 @@ public class EdgeDetector {
 		int width    = img.getWidth();
 		int height   = img.getHeight();
 
-		double[][] lum = luminanz(img);
+		double[][] lum = luminance(img);
 
 		for(int x = 1; x < width -1 ; x++){
 			for(int y = 1; y < height -1; y++)
@@ -90,7 +90,7 @@ public class EdgeDetector {
 	}
 
 	/**
-	 *
+	 * Apply the two thresholds to the image to detect the edges
 	 * @param alt
 	 * @return
 	 */
@@ -103,7 +103,12 @@ public class EdgeDetector {
 			return alt;
 	}
 
-	private static double[][] luminanz(BufferedImage img)
+	/**
+	 * Calculate the luminance of an image
+	 * @param img 	the image
+	 * @return		the luminance
+	 */
+	private static double[][] luminance(BufferedImage img)
 	{
 		double[][] ret = new double[img.getWidth()][img.getHeight()];
 		for(int x = 0; x < img.getWidth(); x++)
