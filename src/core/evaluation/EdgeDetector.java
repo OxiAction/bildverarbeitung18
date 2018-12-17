@@ -12,8 +12,30 @@ import java.io.IOException;
  * @author TheMorpheus407
  */
 public class EdgeDetector {
+	protected static final int THRESHOLD_1 = 255;
+	protected static final int THRESHOLD_2 = 0;
+	protected static final int MAX_VAL = 255;
+	protected static final int MIN_VAL = 0;
+
+	// wie 1. Sobel Operator
+	protected static final int[][] OPERATOR_1 = {
+			{-1,0,1},
+			{-2,0,2},
+			{-1,0,1}
+	};
+	// wie 2. Sobel Operator, aber gespiegelt um x-Achse
+	protected static final int[][] OPERATOR_2 = {
+			{1,2,1},
+			{0,0,0},
+			{-1,-2,-1}
+	};
+
+	/**
+	 * Main zum Testen
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		detectEdgesFrom(new File("C:\\Users\\Vacou\\Desktop\\test_bilder\\sub1\\sub1_1\\img_sub1_1.jpg"),
+		detectEdgesFrom(new File("C:\\Users\\Vacou\\Desktop\\test_bilder\\clown.jpg"),
 				true);
 	}
 
@@ -25,22 +47,12 @@ public class EdgeDetector {
 	 * @return	the output file
 	 */
 	public static File detectEdgesFrom(File image, boolean generateOutput){
-		int[][] filter1 = {
-				{-1,0,1},
-				{-2,0,2},
-				{-1,0,1}
-		};
-		int[][] filter2 = {
-				{1,2,1},
-				{0,0,0},
-				{-1,-2,-1}
-		};
-
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(image);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
+			return null;
 		}
 		int width    = img.getWidth();
 		int height   = img.getHeight();
@@ -56,8 +68,8 @@ public class EdgeDetector {
 				{
 					for(int j = -1; j < 2; j++)
 					{
-						grayx += (int) Math.round(lum[x+i][y+j] * filter1[1+i][1+j]);
-						grayy += (int) Math.round(lum[x+i][y+j] * filter2[1+i][1+j]);
+						grayx += (int) Math.round(lum[x+i][y+j] * OPERATOR_1[1+i][1+j]);
+						grayy += (int) Math.round(lum[x+i][y+j] * OPERATOR_2[1+i][1+j]);
 					}
 				}
 				int gray = cutEdges((int)Math.sqrt(grayx * grayx + grayy * grayy));
@@ -83,10 +95,10 @@ public class EdgeDetector {
 	 * @return
 	 */
 	private static int cutEdges(int alt){
-		if (alt > 255)
-			return 255;
-		else if (alt < 0)
-			return 0;
+		if (alt > THRESHOLD_1)
+			return MAX_VAL;
+		else if (alt < THRESHOLD_2)
+			return MIN_VAL;
 		else
 			return alt;
 	}
