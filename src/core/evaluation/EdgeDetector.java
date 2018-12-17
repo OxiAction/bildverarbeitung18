@@ -13,16 +13,18 @@ import java.io.IOException;
  */
 public class EdgeDetector {
 	public static void main(String[] args) {
-		detectEdgesFrom("C:\\Users\\Vacou\\Desktop\\test_bilder\\sub1\\sub1_1","img_sub1_1.jpg");
+		detectEdgesFrom(new File("C:\\Users\\Vacou\\Desktop\\test_bilder\\sub1\\sub1_1\\img_sub1_1.jpg"),
+				true);
 	}
 
 	/**
 	 * Detects edges from an image file of given path
 	 * Writes the output file to the same folder as the input file with name "EDGES_<input file>"
-	 * @param path
+	 * @param image
+	 * @param generateOutput
 	 * @return	the output file
 	 */
-	public static File detectEdgesFrom(String path, String fileName){
+	public static File detectEdgesFrom(File image, boolean generateOutput){
 		int[][] filter1 = {
 				{-1,0,1},
 				{-2,0,2},
@@ -36,7 +38,7 @@ public class EdgeDetector {
 
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File(path + "\\" + fileName));
+			img = ImageIO.read(image);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
@@ -65,8 +67,10 @@ public class EdgeDetector {
 
 		File f = null;
 		try{
-			f = new File(path + "\\" + "EDGES_" + fileName);
-			ImageIO.write(img, "jpg", f);
+			f = new File(image.getParent() + "\\" + "EDGES_" + image.getName());
+			if(generateOutput) {
+				ImageIO.write(img, "jpg", f);
+			}
 		}catch(IOException e){
 			System.out.println(e);
 		}
