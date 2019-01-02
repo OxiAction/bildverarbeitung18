@@ -16,7 +16,8 @@ public class Variance {
 	 */
 	public static double get(int[][] greyScaleData, int[] histogramData) {
 		double meanGreyScale = Utils.getMeanGreyScaleValue(greyScaleData, histogramData);
-		double numberOfGreyScaleValues = Utils.getNumberOfGreyScaleValues(greyScaleData);
+		//double numberOfGreyScaleValues = Utils.getNumberOfGreyScaleValues(greyScaleData);
+		int numberOfHistogramValues = Utils.getNumberOfHistogramValues(histogramData);
 		double variance = 0.0;
 
 		for (int j = 0; j < histogramData.length; ++j) {
@@ -25,6 +26,6 @@ public class Variance {
 			}
 		}
 
-		return variance / (numberOfGreyScaleValues - 1);
+		return variance / (numberOfHistogramValues - 1);
 	}
 }

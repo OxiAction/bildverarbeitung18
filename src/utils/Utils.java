@@ -562,4 +562,18 @@ public class Utils {
 		//System.out.println("numberOfGreyScaleValues: " + length * width);
 		return length * width;
 	}
+
+	/**
+	 * Get the number of all histogram entries
+	 *
+	 * @param histogram
+	 * @return
+	 */
+	public static int getNumberOfHistogramValues(int[] histogram){
+		int numberOfHistogramValues = 0;
+		for(int i = 0; i < histogram.length; i++){
+			numberOfHistogramValues += histogram[i];
+		}
+		return numberOfHistogramValues;
+	}
 }

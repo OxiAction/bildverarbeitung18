@@ -15,7 +15,8 @@ public class Entropy {
 	 * @return the entropy value
 	 */
 	public static double get(int[][] greyScaleData, int[] histogramData) {
-		double numberOfGreyScaleValues = Utils.getNumberOfGreyScaleValues(greyScaleData);
+		//double numberOfGreyScaleValues = Utils.getNumberOfGreyScaleValues(greyScaleData);
+		int numberOfHistogramValues = Utils.getNumberOfHistogramValues(histogramData);
 
 		// calculate probabilities of each greyScaleValue
 		// also get Information value with these probabilities with log2
@@ -25,7 +26,7 @@ public class Entropy {
 		double probabilityOfHistogramData = 0;
 		double entropy = 0;
 		for (int j = 0; j < histogramData.length; ++j) {
-			probabilityOfHistogramData = histogramData[j] / numberOfGreyScaleValues;
+			probabilityOfHistogramData = histogramData[j] / (double)numberOfHistogramValues;
 			entropyValues[j] = (-1) * (Math.log(probabilityOfHistogramData) / Math.log(2)) * probabilityOfHistogramData;
 			if (entropyValues[j] > 0) {
 				entropy += entropyValues[j];
