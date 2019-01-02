@@ -1,13 +1,17 @@
 package core.evaluation;
 
 import utils.Debug;
+import utils.Utils;
 
 /**
- * TODO description
+ * Generates histograms based on grey scale data.
+ * The histogram can be absolute or relative and have varying sizes.
  */
 public class Histogram {
 	protected static final int MAX_SIZE = 256;
 	protected static final int DEF_SIZE = 256;
+	protected static final boolean USE_REL_HISTOGRAM = false;
+	protected static final int NR_OF_REL_VALS = 100;
 
 	/**
 	 * Takes a two dimensional greyScale value array and generates a histogram with DEF_SIZE.
@@ -16,7 +20,7 @@ public class Histogram {
 	 * @return the histogram
 	 */
 	public static int[] get(int[][] greyScaleData) {
-		return get(greyScaleData, DEF_SIZE);
+		return get(greyScaleData, DEF_SIZE, USE_REL_HISTOGRAM);
 	}
 
 	/**
@@ -24,9 +28,10 @@ public class Histogram {
 	 * 
 	 * @param greyScaleData		the greyScale values of an image, an 2D int array
 	 * @param size				the scaled size (power of two with maximum MAX_SIZE)
+	 * @param relative			use rounded percentages instead of absolute numbers
 	 * @return the histogram
 	 */
-	public static int[] get(int[][] greyScaleData, int size) {
+	public static int[] get(int[][] greyScaleData, int size, boolean relative) {
 		// check if size is valid (power of two with maximum MAX_SIZE)
 		// see: https://graphics.stanford.edu/~seander/bithacks.html#DetermineIfPowerOf2
 		if (!(size > 0 && size <= MAX_SIZE && ((size & (size - 1)) == 0))) {
@@ -49,6 +54,33 @@ public class Histogram {
 			}
 		}
 
+		if(relative) {
+			generateRelativeHistogram(greyScaleData, histogramData);
+		}
+
 		return histogramData;
 	}
+
+	/**
+	 * Converts a Histogram from absolute values to a Histogram with approximate relative values,
+	 *
+	 * @param greyScaleData	the greyScaleData is needed for getting the absolute number of values
+	 * @param histogramData	the Histogram to be converted
+	 */
+	protected static void generateRelativeHistogram(int[][] greyScaleData, int[] histogramData){
+		int nrOfVals = Utils.getNumberOfGreyScaleValues(greyScaleData);
+		double relativeHistogramValue;
+		for (int i = 0; i < histogramData.length; i++) {
+			relativeHistogramValue = ((double) histogramData[i] / (double) nrOfVals) * NR_OF_REL_VALS;
+			histogramData[i] = (int) Math.round(relativeHistogramValue);
+		}
+	}
+
+//	/**
+//	 * Testing method for relative histogram
+//	 */
+//	public static void main(String[] args) {
+//		int[][] testArray1 = {{1,2,3},{3,4,6}};
+//		get(testArray1, 256, true);
+//	}
 }

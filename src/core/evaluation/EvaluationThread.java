@@ -64,7 +64,7 @@ public class EvaluationThread extends Thread {
 			// calculate data for this entry
 			int[][] greyScaleData = GreyScale.get(absoluteFilePath);
 			int[][][][] greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, sliceX, sliceY);
-			int[] histogramData = Histogram.get(greyScaleData, histogramSize);
+			int[] histogramData = Histogram.get(greyScaleData, histogramSize, true);
 
 			double variance = Variance.get(greyScaleData, histogramData);
 			double entropy = Entropy.get(greyScaleData, histogramData);
@@ -73,7 +73,7 @@ public class EvaluationThread extends Thread {
 			double[][] slicedVariances = new double[sliceY][sliceX];
 			for (int i = 0; i < sliceY; ++i) {
 				for (int j = 0; j < sliceX; ++j) {
-					int[] localHistogramData = Histogram.get(greyScaleSlicedData[i][j], histogramSize);
+					int[] localHistogramData = Histogram.get(greyScaleSlicedData[i][j], histogramSize, true);
 					
 					double localEntropy = Entropy.get(greyScaleSlicedData[i][j], localHistogramData);
 					double localVariance = Variance.get(greyScaleSlicedData[i][j], localHistogramData);

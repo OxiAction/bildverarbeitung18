@@ -461,7 +461,7 @@ public class Utils {
 	 * Divides an 2d int array into an 4d chunks arrays.
 	 * 
 	 * @param source	source 2d int array
-	 * @param slixeX	slice on x-axis
+	 * @param sliceX	slice on x-axis
 	 * @param sliceY	slice on y-axis
 	 * @return
 	 */
