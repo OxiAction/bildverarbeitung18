@@ -2,11 +2,51 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Collection of utilities.
  */
 public class Utils {
+	
+	public static String mostFrequent(ArrayList<String> arr) 
+    { 
+          
+        // Insert all elements in hash 
+        Map<String, Integer> hp = 
+               new HashMap<String, Integer>(); 
+          
+        for(int i = 0; i < arr.size(); i++) 
+        { 
+            String key = arr.get(i); 
+            if(hp.containsKey(key)) 
+            { 
+                int freq = hp.get(key); 
+                freq++; 
+                hp.put(key, freq); 
+            } 
+            else
+            { 
+                hp.put(key, 1); 
+            } 
+        } 
+          
+        // find max frequency. 
+        int max_count = 0;
+        String res = null; 
+          
+        for(Entry<String, Integer> val : hp.entrySet()) 
+        { 
+            if (max_count < val.getValue()) 
+            { 
+                res = val.getKey(); 
+                max_count = val.getValue(); 
+            } 
+        } 
+          
+        return res; 
+    } 
 	
 	/**
 	 * Converts an ArrayList<Integer> to String ("|" is the delimeter).
