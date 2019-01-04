@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.concurrent.Task;
 import javafx.util.Pair;
 import utils.Debug;
+import utils.Utils;
 
 /**
  * The Evaluation class is responsible for processing every entry in a set.
@@ -104,9 +105,9 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				    }
 				});
 				
-				for (i = 0; i < pairs.size(); ++i) {
+				for (i = pairs.size()-1; i > 0; --i) {
 					// make sure we do not exceed the specified k-factor
-					if (i > kFactor - 1) {
+					if (i < pairs.size()- kFactor - 1) {
 						break;
 					}
 					
@@ -121,7 +122,10 @@ public class Evaluation extends Task<EvaluationDataSet> {
 							entry.addKNearestBySensorType(innerEntry2.getSensorType());
 						}
 					}
-						
+					entry.setNearestSensorType(Utils.mostFrequent(entry.getKNearestSensorTypes()));
+					
+					
+					
 				}
 			}
 		}
