@@ -81,11 +81,11 @@ public class EvaluationDataSetEntry {
 		this.setGreyScaleSlicedData(greyScaleSlicedData);
 		this.setHistogramData(histogramData);
 		this.setVariance(variance);
+		this.setSlicedVariances(slicedVariances);
 		this.setEntropy(entropy);
+		this.setSlicedEntropies(slicedEntropies);
 		this.setKNearestIDs(kNearestIDs);
 		this.setKNearestSensorTypes(kNearestSensorTypes);
-		this.setSlicedEntropies(slicedEntropies);
-		this.setSlicedVariances(slicedVariances);
 	}
 
 	/**

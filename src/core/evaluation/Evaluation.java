@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
 import javafx.concurrent.Task;
 import javafx.util.Pair;
 import utils.Debug;
@@ -14,7 +17,7 @@ import utils.Utils;
  */
 public class Evaluation extends Task<EvaluationDataSet> {
 	protected EvaluationDataSet set;
-	
+
 	/**
 	 * Task for evaluating a set based on incoming set.
 	 * Threads (EvaluationThread) are used to speed up the calculation process. 
@@ -26,17 +29,17 @@ public class Evaluation extends Task<EvaluationDataSet> {
 	public Evaluation(EvaluationDataSet set) {
 		this.set = set;
 	}
-	
+
 	@Override
 	protected EvaluationDataSet call() throws Exception {
 		Debug.log("-> EvaluationDataSet values:");
 		Debug.log(this.set.toString());
-		
+
 		// get all valid image (absolute) paths from the source folder
 		ArrayList<String> paths = PathFinder.getPaths(this.set.getSourceFolder());
 		// list which contains all evaluation threads
 		ArrayList<EvaluationThread> evaluationThreads = new ArrayList<EvaluationThread>();
-		
+
 		// the threads unique id
 		int idCounter = 1;
 		// setup and start threads
@@ -49,7 +52,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				idCounter++;
 			}
 		}
-		
+
 		// wait for all threads to die, before we continue with the code
 		for (EvaluationThread evaluationThread : evaluationThreads) {
 			try {
@@ -61,10 +64,10 @@ public class Evaluation extends Task<EvaluationDataSet> {
 
 		// leave one out cross validation:
 		// compare each entry with all other entries (by metric) and set k-nearest entries ids in entry
-		
+
 		int i;
 		int kFactor = Integer.parseInt(this.set.getKFactor());
-		
+
 		List<EvaluationDataSetEntry> setEntries = this.set.getEntries();
 		for (EvaluationDataSetEntry entry : setEntries) {
 			int[] histogramData = entry.getHistogramData();
@@ -72,7 +75,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 			if (histogramData == null) {
 				continue;
 			}
-			
+
 			ArrayList<Pair<Integer, Double>> pairs = new ArrayList<Pair<Integer, Double>>();
 
 			// compare all others with current entry	
@@ -86,47 +89,51 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				if (innerHistogramData == null) {
 					continue;
 				}
-					
+
 				// compare histogramData of two entries by metric (which is chosen by metric name)
 				double distance = Metric.getDataByName(this.set.getMetricName(), histogramData, innerHistogramData);
-				
+
 				// store innerEntry id together with its distance (required for k-nearest stuff)
 				Pair<Integer, Double> pair = new Pair<Integer, Double>(innerEntry.getID(), distance);
 				pairs.add(pair);
 			}
-			
+
 			// check if we found one or more pairs
 			if (pairs.size() > 0) {
 				// sort the pairs by distance (ascending)
 				Collections.sort(pairs, new Comparator<Pair<Integer, Double>>() {
-				    @Override
-				    public int compare(final Pair<Integer, Double> o1, final Pair<Integer, Double> o2) {
+					@Override
+					public int compare(final Pair<Integer, Double> o1, final Pair<Integer, Double> o2) {
 						return Double.compare(o1.getValue(), o2.getValue());
-				    }
+					}
 				});
 				
-				for (i = pairs.size()-1; i > 0; --i) {
+				// list of collected sensor types
+				ArrayList<String> kNearestSensorTypes = new ArrayList<String>();
+
+				for (i = pairs.size() - 1; i > 0; --i) {
 					// make sure we do not exceed the specified k-factor
-					if (i < pairs.size()- kFactor - 1) {
+					if (i < pairs.size() - kFactor - 1) {
 						break;
 					}
-					
+
 					int id = pairs.get(i).getKey();
-					
+
 					// k-nearest id
 					entry.addKNearestByID(id);
-					
+
 					// k-nearest sensor type
 					for (EvaluationDataSetEntry innerEntry2 : setEntries) {
 						if (innerEntry2.getID() == id) {
-							entry.addKNearestBySensorType(innerEntry2.getSensorType());
+							// we found a sensor type - add it to collection
+							kNearestSensorTypes.add(innerEntry2.getSensorType());
 						}
 					}
-					entry.setNearestSensorType(Utils.mostFrequent(entry.getKNearestSensorTypes()));
-					
-					
-					
 				}
+
+				// set the collected sensor types
+				// note: this also sets the nearestSensorType (most common sensor type)
+				entry.setKNearestSensorTypes(kNearestSensorTypes);
 			}
 		}
 

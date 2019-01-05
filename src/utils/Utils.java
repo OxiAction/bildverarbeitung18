@@ -9,45 +9,37 @@ import java.util.Map.Entry;
  * Collection of utilities.
  */
 public class Utils {
-	
-	public static String mostFrequent(ArrayList<String> arr) 
-    { 
-          
-        // Insert all elements in hash 
-        Map<String, Integer> hp = 
-               new HashMap<String, Integer>(); 
-          
-        for(int i = 0; i < arr.size(); i++) 
-        { 
-            String key = arr.get(i); 
-            if(hp.containsKey(key)) 
-            { 
-                int freq = hp.get(key); 
-                freq++; 
-                hp.put(key, freq); 
-            } 
-            else
-            { 
-                hp.put(key, 1); 
-            } 
-        } 
-          
-        // find max frequency. 
-        int max_count = 0;
-        String res = null; 
-          
-        for(Entry<String, Integer> val : hp.entrySet()) 
-        { 
-            if (max_count < val.getValue()) 
-            { 
-                res = val.getKey(); 
-                max_count = val.getValue(); 
-            } 
-        } 
-          
-        return res; 
-    } 
-	
+
+	public static String mostFrequent(ArrayList<String> arr) {
+
+		// Insert all elements in hash 
+		Map<String, Integer> hp = new HashMap<String, Integer>();
+
+		for (int i = 0; i < arr.size(); i++) {
+			String key = arr.get(i);
+			if (hp.containsKey(key)) {
+				int freq = hp.get(key);
+				freq++;
+				hp.put(key, freq);
+			} else {
+				hp.put(key, 1);
+			}
+		}
+
+		// find max frequency. 
+		int max_count = 0;
+		String res = null;
+
+		for (Entry<String, Integer> val : hp.entrySet()) {
+			if (max_count < val.getValue()) {
+				res = val.getKey();
+				max_count = val.getValue();
+			}
+		}
+
+		return res;
+	}
+
 	/**
 	 * Converts an ArrayList<Integer> to String ("|" is the delimeter).
 	 * E.g.: ArrayList<Integer> with entries 1, 2, 4 => "1, 2, 4"
@@ -60,9 +52,9 @@ public class Utils {
 		if (data == null || data.size() == 0) {
 			return "";
 		}
-		
+
 		StringBuffer result = new StringBuffer();
-		
+
 		for (Integer value : data) {
 			if (result.length() > 0) {
 				result.append(", ");
@@ -72,7 +64,7 @@ public class Utils {
 
 		return result.toString();
 	}
-	
+
 	/**
 	 * Converts a String ("|" is the delimeter) to ArrayList<Integer>.
 	 * E.g.: "1, 2, 4" => ArrayList<Integer> with entries 1, 2, 4
@@ -86,15 +78,15 @@ public class Utils {
 		if (values.length == 0) {
 			return null;
 		}
-		
+
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		for (int i = 0; i < values.length; ++i) {
 			result.add(Integer.parseInt(values[i]));
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Converts an ArrayList<String> to String ("|" is the delimeter).
 	 * E.g.: ArrayList<String> with entries 1, 2, 4 => "1, 2, 4"
@@ -107,9 +99,9 @@ public class Utils {
 		if (data == null || data.size() == 0) {
 			return "";
 		}
-		
+
 		StringBuffer result = new StringBuffer();
-		
+
 		for (String value : data) {
 			if (result.length() > 0) {
 				result.append(", ");
@@ -119,7 +111,7 @@ public class Utils {
 
 		return result.toString();
 	}
-	
+
 	/**
 	 * Converts a String ("|" is the delimeter) to ArrayList<String>.
 	 * E.g.: "1, 2, 4" => ArrayList<String> with entries 1, 2, 4
@@ -133,12 +125,12 @@ public class Utils {
 		if (values.length == 0) {
 			return null;
 		}
-		
+
 		ArrayList<String> result = new ArrayList<String>();
 		for (int i = 0; i < values.length; ++i) {
 			result.add(values[i]);
 		}
-		
+
 		return result;
 	}
 
@@ -154,7 +146,7 @@ public class Utils {
 		if (data == null || data.length == 0) {
 			return "";
 		}
-		
+
 		StringBuffer result = new StringBuffer();
 
 		for (int i = 1; i < data.length; i++) {
@@ -166,7 +158,7 @@ public class Utils {
 
 		return result.toString();
 	}
-	
+
 	/**
 	 * Converts a String to int[] array.
 	 * E.g.: "1, 999" => { 1, 999 }
@@ -180,7 +172,7 @@ public class Utils {
 		if (integers.length == 0) {
 			return null;
 		}
-		
+
 		int[] result = new int[integers.length];
 		for (int i = 0; i < integers.length; i++) {
 			result[i] = Integer.parseInt(integers[i]);
@@ -188,7 +180,7 @@ public class Utils {
 
 		return result;
 	}
-	
+
 	/**
 	 * Converts an int[][] array to String.
 	 * Every Integer will be saved in three digit form.
@@ -203,15 +195,15 @@ public class Utils {
 		if (data == null || data.length == 0) {
 			return "";
 		}
-		
+
 		String result = "";
-		
+
 		for (int i = 0; i < data.length; ++i) {
 			if (i > 0) {
 				// use "|" as delimiter
 				result += "|";
 			}
-			
+
 			for (int j = 0; j < data[i].length; ++j) {
 				// converts for example 12 to 012 - or 1 to 001
 				int value = data[i][j];
@@ -226,10 +218,10 @@ public class Utils {
 				//result += String.format("%03d", data[i][j]);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Converts a String to an int[][] array.
 	 * Every Integer (in the String) has to be in three digit form.
@@ -245,35 +237,35 @@ public class Utils {
 		int j = 0;
 		int x = 0;
 		int y = 0;
-		
+
 		String[] parts1 = data.split("\\|");
 		// sanity check
 		if (parts1.length == 0) {
 			return null;
 		}
-		
+
 		String[] parts2 = null;
 		x = parts1.length;
-		
+
 		if (parts1.length == 0) {
 			throw new Exception("The data String is invalid.");
 		}
-		
+
 		parts2 = parts1[0].split("(?<=\\G...)");
 		y = parts2.length;
-		
+
 		int[][] result = new int[x][y];
-		
+
 		for (i = 0; i < parts1.length; ++i) {
 			parts2 = parts1[i].split("(?<=\\G...)");
 			for (j = 0; j < parts2.length; ++j) {
 				result[i][j] = Integer.parseInt(parts2[j]);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Converts an double[][] array to String.
 	 * E.g.: { { 1.1, 9.9 } , { 3.4, 4.5 } } => "1.1-9.9|3.4-4.5"
@@ -286,15 +278,15 @@ public class Utils {
 		if (data == null || data.length == 0) {
 			return "";
 		}
-		
+
 		String result = "";
-		
+
 		for (int i = 0; i < data.length; ++i) {
 			if (i > 0) {
 				// use "|" as delimiter
 				result += "|";
 			}
-			
+
 			for (int j = 0; j < data[i].length; ++j) {
 				if (j > 0) {
 					result += "-";
@@ -302,10 +294,10 @@ public class Utils {
 				result += String.valueOf(data[i][j]);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Converts a String to an double[][] array.
 	 * E.g.: "1.1-9.9|3.4-4.5" => { { 1.1, 9.9 } , { 3.4, 4.5 } }
@@ -319,35 +311,35 @@ public class Utils {
 		int j = 0;
 		int x = 0;
 		int y = 0;
-		
+
 		String[] parts1 = data.split("\\|");
 		// sanity check
 		if (parts1.length == 0) {
 			return null;
 		}
-		
+
 		String[] parts2 = null;
 		x = parts1.length;
-		
+
 		if (parts1.length == 0) {
 			throw new Exception("The data String is invalid.");
 		}
-		
+
 		parts2 = parts1[0].split("-");
 		y = parts2.length;
-		
+
 		double[][] result = new double[x][y];
-		
+
 		for (i = 0; i < parts1.length; ++i) {
 			parts2 = parts1[i].split("-");
 			for (j = 0; j < parts2.length; ++j) {
 				result[i][j] = Double.parseDouble(parts2[j]);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Returns a HashMap with the following keys (keys are null if it could not get the required information):
 	 * - fileExtension
@@ -359,15 +351,15 @@ public class Utils {
 	 */
 	public static HashMap<String, String> getAbsoluteFilePathInfos(String absoluteFilePath) {
 		HashMap<String, String> infos = new HashMap<String, String>();
-		
+
 		if (absoluteFilePath.indexOf('.') != -1) {
 			infos.put("fileExtension", absoluteFilePath.substring(absoluteFilePath.lastIndexOf('.'), absoluteFilePath.length()));
 		}
-		
+
 		if (absoluteFilePath.lastIndexOf('/') > 0) {
 			infos.put("fileFolderPath", absoluteFilePath.substring(0, absoluteFilePath.lastIndexOf('/')));
 		}
-		
+
 		if (absoluteFilePath.indexOf('.') != -1) {
 			if (absoluteFilePath.indexOf('/') != -1) {
 				infos.put("fileName", absoluteFilePath.substring(absoluteFilePath.lastIndexOf('/') + 1, absoluteFilePath.lastIndexOf('.')));
@@ -375,10 +367,10 @@ public class Utils {
 				infos.put("fileName", absoluteFilePath.substring(0, absoluteFilePath.lastIndexOf('.')));
 			}
 		}
-		
+
 		return infos;
 	}
-	
+
 	/**
 	 * Prints an 1d int array to console.
 	 * 
@@ -406,7 +398,7 @@ public class Utils {
 			Debug.log(line + "\n");
 		}
 	}
-	
+
 	/**
 	 * prints an 4d int array to console.
 	 * 
@@ -417,7 +409,7 @@ public class Utils {
 			if (j > 0) {
 				Debug.log("---");
 			}
-			
+
 			for (int k = 0; k < arr[j].length; ++k) {
 				String line = "";
 				for (int j2 = 0; j2 < arr[j][k].length; ++j2) {
@@ -425,17 +417,17 @@ public class Utils {
 						line += "\n";
 					}
 					for (int k2 = 0; k2 < arr[j][k][j2].length; ++k2) {
-						
+
 						line += "\t" + arr[j][k][j2][k2] + " ";
 					}
-					
+
 				}
 				Debug.log(line + "\n");
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * Adds two equally sized 1d int arrays to each other.
 	 * 
@@ -467,7 +459,7 @@ public class Utils {
 		}
 		return sum;
 	}
-	
+
 	/**
 	 * Creates new 2d int array of the same size as the given one.
 	 * 
@@ -496,7 +488,7 @@ public class Utils {
 		}
 		return arr1;
 	}
-	
+
 	/**
 	 * Divides an 2d int array into an 4d chunks arrays.
 	 * 
@@ -525,9 +517,9 @@ public class Utils {
 			Debug.log("Warning: last array column will be ignored (regarding x-dimension of the source array)!");
 		}
 		width = divideWidth * sliceX;
-		
+
 		Debug.log("result dimensions [chunk y][chunk x][source y][source x]: " + "[" + sliceY + "][" + sliceX + "][" + divideHeight + "][" + divideWidth + "]");
-		
+
 		int[][][][] result = new int[sliceY][sliceX][divideHeight][divideWidth];
 
 		int chunkY = 0;
@@ -569,7 +561,7 @@ public class Utils {
 		//Debug.log("[result Array]:");
 		//printIntArray2D(result[0][0]);
 		//printIntArray4D(result);
-		
+
 		return result;
 	}
 
@@ -580,10 +572,10 @@ public class Utils {
 	 * @param 	histogramData
 	 * @return	the mean greyscale value
 	 */
-	public static double getMeanGreyScaleValue(int[][] greyScaleData, int[] histogramData){
+	public static double getMeanGreyScaleValue(int[][] greyScaleData, int[] histogramData) {
 		double meanGreyScale = 0.0;
 
-		for(int i = 0; i < histogramData.length; ++i){
+		for (int i = 0; i < histogramData.length; ++i) {
 			meanGreyScale += i * histogramData[i];
 		}
 		//System.out.println("meanGreyScale: " + meanGreyScale / getNumberOfGreyScaleValues(greyScaleData));
@@ -596,7 +588,7 @@ public class Utils {
 	 * @param 	greyScaleData
 	 * @return	the number of greyscale values
 	 */
-	public static int getNumberOfGreyScaleValues(int[][] greyScaleData){
+	public static int getNumberOfGreyScaleValues(int[][] greyScaleData) {
 		int length = greyScaleData.length;
 		int width = greyScaleData[0].length;
 		//System.out.println("numberOfGreyScaleValues: " + length * width);
@@ -609,9 +601,9 @@ public class Utils {
 	 * @param histogram
 	 * @return
 	 */
-	public static int getNumberOfHistogramValues(int[] histogram){
+	public static int getNumberOfHistogramValues(int[] histogram) {
 		int numberOfHistogramValues = 0;
-		for(int i = 0; i < histogram.length; i++){
+		for (int i = 0; i < histogram.length; i++) {
 			numberOfHistogramValues += histogram[i];
 		}
 		return numberOfHistogramValues;
