@@ -55,7 +55,7 @@ public class Histogram {
 		}
 
 		if(relative) {
-			generateRelativeHistogram(greyScaleData, histogramData);
+			//generateRelativeHistogram(greyScaleData, histogramData);
 		}
 
 		return histogramData;

@@ -67,6 +67,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 
 		int i;
 		int kFactor = Integer.parseInt(this.set.getKFactor());
+		String metricName = this.set.getMetricName();
 
 		List<EvaluationDataSetEntry> setEntries = this.set.getEntries();
 		for (EvaluationDataSetEntry entry : setEntries) {
@@ -91,7 +92,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				}
 
 				// compare histogramData of two entries by metric (which is chosen by metric name)
-				double distance = Metric.getDataByName(this.set.getMetricName(), histogramData, innerHistogramData);
+				double distance = Metric.getDataByName(metricName, histogramData, innerHistogramData);
 
 				// store innerEntry id together with its distance (required for k-nearest stuff)
 				Pair<Integer, Double> pair = new Pair<Integer, Double>(innerEntry.getID(), distance);
@@ -100,14 +101,25 @@ public class Evaluation extends Task<EvaluationDataSet> {
 
 			// check if we found one or more pairs
 			if (pairs.size() > 0) {
-				// sort the pairs by distance (descending)
-				// pairs with HIGHER distance come first (when iterating from 0 to n)
-				Collections.sort(pairs, new Comparator<Pair<Integer, Double>>() {
-					@Override
-					public int compare(final Pair<Integer, Double> o1, final Pair<Integer, Double> o2) {
-						return Double.compare(o2.getValue(), o1.getValue());
-					}
-				});
+				if (metricName == Metric.NAME_CORRELATION || metricName == Metric.NAME_INTERSECTION) {
+					// sort the pairs by distance (descending)
+					// pairs with HIGHER distance come first (when iterating from 0 to n)
+					Collections.sort(pairs, new Comparator<Pair<Integer, Double>>() {
+						@Override
+						public int compare(final Pair<Integer, Double> o1, final Pair<Integer, Double> o2) {
+							return Double.compare(o2.getValue(), o1.getValue());
+						}
+					});
+				} else {
+					// sort the pairs by distance (ascending)
+					// pairs with LOWER distance come first (when iterating from 0 to n)
+					Collections.sort(pairs, new Comparator<Pair<Integer, Double>>() {
+						@Override
+						public int compare(final Pair<Integer, Double> o1, final Pair<Integer, Double> o2) {
+							return Double.compare(o1.getValue(), o2.getValue());
+						}
+					});
+				}
 				
 				// list of collected sensor types
 				ArrayList<String> kNearestSensorTypes = new ArrayList<String>();
