@@ -41,7 +41,15 @@ public class Metric {
 	public static double getChiSquareData(int[] h1, int[] h2) {
 		double d = 0;
 		for (int i = 0; i < h1.length; ++i) {
-			d += (Math.pow((h1[i] - h2[i]), 2)) / h1[i];
+			// see https://stackoverflow.com/questions/21058192/implementing-chi-square-to-find-distance-between-2-sift-feature
+			
+			int div = h1[i]; // + h2[i];
+			
+			// prevent division by zero leading to NaN
+			if (div == 0) {
+				continue;
+			}
+			d += (h1[i] - h2[i]) * (h1[i] - h2[i]) / div;
 		}
 		return d;
 	}
@@ -55,9 +63,9 @@ public class Metric {
 	 */
 	public static double getIntersectionData(int[] h1, int[] h2) {
 		double d = 0;
-		for (int i = 0; i < h1.length; ++i)
+		for (int i = 0; i < h1.length; ++i) {
 			d += Math.min(h1[i], h2[i]);
-
+		}
 		return d;
 	}
 
@@ -70,12 +78,18 @@ public class Metric {
 	 */
 	public static double getBhattacharyyaDistanceData(int[] h1, int[] h2) {
 		double s = 0, q;
-		for (int i = 0; i < h1.length; ++i)
+		for (int i = 0; i < h1.length; ++i) {
 			s += Math.sqrt(h1[i] * h2[i]);
+		}
 
 		q = 1 / (Math.sqrt(getAverage(h1) * getAverage(h2) * Math.pow(h1.length, 2)));
 
-		return Math.sqrt(1 - q * s);
+		double r = q * s;
+		// prevent negative root
+		if (r > 1) {
+			return 0;
+		}
+		return Math.sqrt(1 - r);
 	}
 
 	/**
@@ -118,8 +132,9 @@ public class Metric {
 	 */
 	protected static double getAverage(int[] histogram) {
 		int avg = 0;
-		for (int i = 0; i < histogram.length; ++i)
+		for (int i = 0; i < histogram.length; ++i) {
 			avg += histogram[i];
+		}
 		return (avg / histogram.length);
 
 	}

@@ -143,7 +143,7 @@ public class ViewTabNewScan implements ViewInterface {
 
 		Label labelKFactor = new Label(Translation.fetch("k_factor") + ":");
 		labelKFactor.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxKFactor = new ComboBox<String>(FXCollections.observableArrayList("8", "16", "32"));
+		ComboBox<String> comboBoxKFactor = new ComboBox<String>(FXCollections.observableArrayList("1", "4", "8", "16", "32"));
 		comboBoxKFactor.getSelectionModel().select(0);
 		HBox hBoxKFactor = new HBox();
 		hBoxKFactor.getChildren().addAll(labelKFactor, comboBoxKFactor);

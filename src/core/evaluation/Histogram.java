@@ -11,7 +11,7 @@ public class Histogram {
 	protected static final int MAX_SIZE = 256;
 	protected static final int DEF_SIZE = 256;
 	protected static final boolean USE_REL_HISTOGRAM = false;
-	protected static final int NR_OF_REL_VALS = 100;
+	protected static final int NR_OF_REL_VALS = 10000;
 
 	/**
 	 * Takes a two dimensional greyScale value array and generates a histogram with DEF_SIZE.
@@ -55,7 +55,7 @@ public class Histogram {
 		}
 
 		if(relative) {
-			//generateRelativeHistogram(greyScaleData, histogramData);
+			generateRelativeHistogram(greyScaleData, histogramData);
 		}
 
 		return histogramData;
