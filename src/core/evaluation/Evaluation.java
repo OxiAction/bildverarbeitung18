@@ -100,23 +100,24 @@ public class Evaluation extends Task<EvaluationDataSet> {
 
 			// check if we found one or more pairs
 			if (pairs.size() > 0) {
-				// sort the pairs by distance (ascending)
+				// sort the pairs by distance (descending)
+				// pairs with HIGHER distance come first (when iterating from 0 to n)
 				Collections.sort(pairs, new Comparator<Pair<Integer, Double>>() {
 					@Override
 					public int compare(final Pair<Integer, Double> o1, final Pair<Integer, Double> o2) {
-						return Double.compare(o1.getValue(), o2.getValue());
+						return Double.compare(o2.getValue(), o1.getValue());
 					}
 				});
 				
 				// list of collected sensor types
 				ArrayList<String> kNearestSensorTypes = new ArrayList<String>();
-
-				for (i = pairs.size() - 1; i > 0; --i) {
+				
+				for (i = 0; i < pairs.size(); ++i) {
 					// make sure we do not exceed the specified k-factor
-					if (i < pairs.size() - kFactor - 1) {
+					if (i > kFactor - 1) {
 						break;
 					}
-
+					
 					int id = pairs.get(i).getKey();
 
 					// k-nearest id
