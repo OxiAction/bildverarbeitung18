@@ -157,6 +157,8 @@ public class Data {
 			setElement.setAttribute("sliceX", String.valueOf(set.getSliceX()));
 			setElement.setAttribute("sliceY", String.valueOf(set.getSliceY()));
 			setElement.setAttribute("histogramSize", String.valueOf(set.getHistogramSize()));
+			setElement.setAttribute("varianceHistogramSize", String.valueOf(set.getHistogramSizeForVariance()));
+			setElement.setAttribute("entropyHistogramSize", String.valueOf(set.getHistogramSizeForEntropy()));
 
 			Element entries = document.createElement("entries");
 
@@ -258,6 +260,8 @@ public class Data {
 					int sliceX = Integer.parseInt(setElement.getAttribute("sliceX"));
 					int sliceY = Integer.parseInt(setElement.getAttribute("sliceY"));
 					int histogramSize = Integer.parseInt(setElement.getAttribute("histogramSize"));
+					int varianceHistogramSize = Integer.parseInt(setElement.getAttribute("varianceHistogramSize"));
+					int entropyHistogramSize = Integer.parseInt(setElement.getAttribute("entropyHistogramSize"));
 
 					// convert string to timestamp object
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -265,7 +269,8 @@ public class Data {
 					Timestamp timestampObject = new Timestamp(date.getTime());
 
 					// create and add set to the list of sets
-					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, edgeDetection, kFactor, metricName, sliceX, sliceY, histogramSize);
+					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, edgeDetection, kFactor, metricName, sliceX, sliceY, histogramSize,
+							varianceHistogramSize, entropyHistogramSize);
 
 					Element entriesElement = (Element) setElement.getElementsByTagName("entries").item(0);
 

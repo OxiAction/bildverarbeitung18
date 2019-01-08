@@ -43,7 +43,7 @@ public class ViewTabNewScan implements ViewInterface {
 	/**
 	 * Initialize / show components.
 	 * 
-	 * @param borderPane
+	 * @param container
 	 * @param extraData
 	 * @throws Exception 
 	 */
@@ -197,14 +197,42 @@ public class ViewTabNewScan implements ViewInterface {
 
 		// histogram-size
 
+		RadioButton radioButtonGreyScale = new RadioButton();
+		radioButtonGreyScale.setSelected(true);
 		Label labelHistogramSize = new Label(Translation.fetch("histogram_size") + ":");
 		labelHistogramSize.setPrefWidth(labelsWidth);
 		ComboBox<String> comboBoxHistogramSize = new ComboBox<String>(FXCollections.observableArrayList("256", "128", "64", "32"));
 		comboBoxHistogramSize.getSelectionModel().select(0);
 		HBox hBoxHistogramSize = new HBox();
-		hBoxHistogramSize.getChildren().addAll(labelHistogramSize, comboBoxHistogramSize);
+		hBoxHistogramSize.getChildren().addAll(radioButtonGreyScale, labelHistogramSize, comboBoxHistogramSize);
 		hBoxHistogramSize.setSpacing(10);
 		vBox.getChildren().add(hBoxHistogramSize);
+
+		// variance-histogram-size
+
+		RadioButton radioButtonVariance = new RadioButton();
+		radioButtonVariance.setSelected(false);
+		Label labelVarianceHistogramSize = new Label(Translation.fetch("variance_histogram_size") + ":");
+		labelVarianceHistogramSize.setPrefWidth(labelsWidth);
+		ComboBox<String> comboBoxVarianceHistogramSize = new ComboBox<String>(FXCollections.observableArrayList("256", "128", "64", "32"));
+		comboBoxVarianceHistogramSize.getSelectionModel().select(0);
+		HBox hBoxVarianceHistogramSize = new HBox();
+		hBoxVarianceHistogramSize.getChildren().addAll(radioButtonVariance, labelVarianceHistogramSize, comboBoxVarianceHistogramSize);
+		hBoxVarianceHistogramSize.setSpacing(10);
+		vBox.getChildren().add(hBoxVarianceHistogramSize);
+
+		// entropy-histogram-size
+
+		RadioButton radioButtonEntropy = new RadioButton();
+		radioButtonEntropy.setSelected(false);
+		Label labelEntropyHistogramSize = new Label(Translation.fetch("entropy_histogram_size") + ":");
+		labelEntropyHistogramSize.setPrefWidth(labelsWidth);
+		ComboBox<String> comboBoxEntropyHistogramSize = new ComboBox<String>(FXCollections.observableArrayList("256", "128", "64", "32"));
+		comboBoxEntropyHistogramSize.getSelectionModel().select(0);
+		HBox hBoxEntropyHistogramSize = new HBox();
+		hBoxEntropyHistogramSize.getChildren().addAll(radioButtonEntropy, labelEntropyHistogramSize, comboBoxEntropyHistogramSize);
+		hBoxEntropyHistogramSize.setSpacing(10);
+		vBox.getChildren().add(hBoxEntropyHistogramSize);
 
 		// button start scan
 
@@ -227,7 +255,9 @@ public class ViewTabNewScan implements ViewInterface {
 						comboBoxMetric.getValue(),
 						Integer.parseInt(comboBoxSliceX.getValue()),
 						Integer.parseInt(comboBoxSliceY.getValue()),
-						Integer.parseInt(comboBoxHistogramSize.getValue())
+						Integer.parseInt(comboBoxHistogramSize.getValue()),
+						Integer.parseInt(comboBoxVarianceHistogramSize.getValue()),
+						Integer.parseInt(comboBoxEntropyHistogramSize.getValue())
 						);
 
 				EventManager.dispatch(new EventButtonStartScanClicked(), set);

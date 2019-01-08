@@ -19,6 +19,8 @@ public class EvaluationDataSet {
 	protected int sliceX;
 	protected int sliceY;
 	protected int histogramSize;
+	protected int histogramSizeForVariance;
+	protected int histogramSizeForEntropy;
 	protected EvaluationDataSetEntry sourceEntry;
 	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
 
@@ -40,7 +42,8 @@ public class EvaluationDataSet {
 	 * @param sliceY		number of slices on the y-axis of the images (e.g. for sliced entropy)
 	 * @param histogramSize	size of the histogram
 	 */
-	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, boolean edgeDetection, String kFactor, String metricName, int sliceX, int sliceY, int histogramSize) {
+	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, boolean edgeDetection, String kFactor, String metricName, int sliceX, int sliceY, int histogramSize,
+							 int varianceHistogramSize, int entropyHistogramSize) {
 		this.setTimestamp(timestamp);
 		this.setName(name);
 		this.setSourceFolder(sourceFolder);
@@ -50,6 +53,8 @@ public class EvaluationDataSet {
 		this.setSliceX(sliceX);
 		this.setSliceY(sliceY);
 		this.setHistogramSize(histogramSize);
+		this.setHistogramSizeForVariance(varianceHistogramSize);
+		this.setHistogramSizeForEntropy(entropyHistogramSize);
 	}
 
 	/**
@@ -157,7 +162,7 @@ public class EvaluationDataSet {
 	}
 
 	/**
-	 * @param metric the metric name to set
+	 * @param metricName the metric name to set
 	 */
 	public void setMetricName(String metricName) {
 		this.metricName = metricName;
@@ -204,7 +209,35 @@ public class EvaluationDataSet {
 	public void setHistogramSize(int histogramSize) {
 		this.histogramSize = histogramSize;
 	}
-	
+
+	/**
+	 * @return the histogrma size for the local variance histogram
+	 */
+	public int getHistogramSizeForVariance() {
+		return histogramSizeForVariance;
+	}
+
+	/**
+	 * @param histogramSizeForVariance the histogramSize for the local variance histogram to set
+	 */
+	public void setHistogramSizeForVariance(int histogramSizeForVariance) {
+		this.histogramSizeForVariance = histogramSizeForVariance;
+	}
+
+	/**
+	 * @return the histogrma size for the local entropy histogram
+	 */
+	public int getHistogramSizeForEntropy() {
+		return histogramSizeForEntropy;
+	}
+
+	/**
+	 * @param histogramSizeForEntropy the histogramSize for the local entropy histogram to set
+	 */
+	public void setHistogramSizeForEntropy(int histogramSizeForEntropy) {
+		this.histogramSizeForEntropy = histogramSizeForEntropy;
+	}
+
 	@Override
 	public String toString() {
 		int sameSensors = 0;

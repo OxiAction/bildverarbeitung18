@@ -36,6 +36,8 @@
 		<slice_x><![CDATA[Aufteilung (X-Achse)]]></slice_x>
 		<slice_y><![CDATA[Aufteilung (Y-Achse)]]></slice_y>
 		<histogram_size><![CDATA[Histogram Größe]]></histogram_size>
+		<variance_histogram_size><![CDATA[Varianz-His. Größe]]></variance_histogram_size>
+		<entropy_histogram_size><![CDATA[Entropie-His. Größe]]></entropy_histogram_size>
 		<name_not_unique><![CDATA[Name bereits vorhanden]]></name_not_unique>
 		<scan_results_overview><![CDATA[Scan Ergebnisse]]></scan_results_overview>
 		<scan_results><![CDATA[Scan Ergebnisse]]></scan_results>

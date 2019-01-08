@@ -107,6 +107,12 @@ public class EvaluationThread extends Thread {
 				}
 			}
 
+			// TODO: Use one of these instead of (local (?)) histogramData
+			int[] entropyHistogramData = Histogram.getIntHistogramForDoubleValues(slicedEntropies,
+					set.histogramSizeForEntropy);
+			int[] varianceHistogramData = Histogram.getIntHistogramForDoubleValues(slicedVariances,
+					set.histogramSizeForVariance);
+
 			// create and add entry to set
 			this.set.addEntry(
 					new EvaluationDataSetEntry(
