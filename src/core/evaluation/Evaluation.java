@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
 import javafx.concurrent.Task;
 import javafx.util.Pair;
 import utils.Debug;
-import utils.Utils;
 
 /**
  * The Evaluation class is responsible for processing every entry in a set.

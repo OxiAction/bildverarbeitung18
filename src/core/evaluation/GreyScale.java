@@ -19,20 +19,42 @@ public class GreyScale {
 	 * @throws IOException
 	 */
 	public static int[][] get(String absoluteFilePath) throws IOException {
+		return get(absoluteFilePath, null);
+	}
+	
+	/**
+	 * Load an image, based on its absolute file path and fetches / returns its grey scale data (using crop data).
+	 * 
+	 * @param absoluteFilePath
+	 * @param cropData
+	 * @return
+	 * @throws IOException
+	 */
+	public static int[][] get(String absoluteFilePath, CropData cropData) throws IOException {
 		BufferedImage image;
 
 		try {
 			image = new BufferedImage(1, 1, BufferedImage.TYPE_BYTE_GRAY);
 			image = ImageIO.read(new File(absoluteFilePath));
-
-			int height = image.getHeight();
+			
+			int x = 0;
 			int width = image.getWidth();
+			int y = 0;
+			int height = image.getHeight();
+			
+			if (cropData != null) {
+				x = cropData.x;
+				width = cropData.width;
+				y = cropData.y;
+				height = cropData.height;
+			}
+			
 			int[][] result = new int[width][height];
 			Raster raster = image.getData();
 
-			for (int col = 0; col < height; ++col) {
-				for (int row = 0; row < width; ++row) {
-					result[row][col] = raster.getSample(row, col, 0);
+			for (x = 0; x < width; ++x) {
+				for (y = 0; y < height; ++y) {
+					result[x][y] = raster.getSample(x, y, 0);
 				}
 			}
 

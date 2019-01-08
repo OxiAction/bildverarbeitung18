@@ -5,7 +5,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.concurrent.Task;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -22,7 +21,6 @@ import java.util.List;
 import utils.*;
 import core.data.Data;
 import core.evaluation.*;
-import core.graphic.Histogram;
 
 /**
  * Tab content for the "scan results" section of the App.
