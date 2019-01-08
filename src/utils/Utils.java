@@ -289,7 +289,7 @@ public class Utils {
 
 			for (int j = 0; j < data[i].length; ++j) {
 				if (j > 0) {
-					result += "-";
+					result += ",";
 				}
 				result += String.valueOf(data[i][j]);
 			}
@@ -325,13 +325,13 @@ public class Utils {
 			throw new Exception("The data String is invalid.");
 		}
 
-		parts2 = parts1[0].split("-");
+		parts2 = parts1[0].split(",");
 		y = parts2.length;
 
 		double[][] result = new double[x][y];
 
 		for (i = 0; i < parts1.length; ++i) {
-			parts2 = parts1[i].split("-");
+			parts2 = parts1[i].split(",");
 			for (j = 0; j < parts2.length; ++j) {
 				result[i][j] = Double.parseDouble(parts2[j]);
 			}
@@ -506,19 +506,19 @@ public class Utils {
 
 		int height = source.length;
 		int divideHeight = height / sliceY; // will be rounded down
-		if (height % sliceY != 0) {
-			Debug.log("Warning: last array row will be ignored (regarding y-dimension of the source array)!");
-		}
+//		if (height % sliceY != 0) {
+//			Debug.log("Warning: last array row will be ignored (regarding y-dimension of the source array)!");
+//		}
 		height = divideHeight * sliceY;
 
 		int width = source[0].length;
 		int divideWidth = width / sliceX; // will be rounded down
-		if (width % sliceX != 0) {
-			Debug.log("Warning: last array column will be ignored (regarding x-dimension of the source array)!");
-		}
+//		if (width % sliceX != 0) {
+//			Debug.log("Warning: last array column will be ignored (regarding x-dimension of the source array)!");
+//		}
 		width = divideWidth * sliceX;
 
-		Debug.log("result dimensions [chunk y][chunk x][source y][source x]: " + "[" + sliceY + "][" + sliceX + "][" + divideHeight + "][" + divideWidth + "]");
+//		Debug.log("result dimensions [chunk y][chunk x][source y][source x]: " + "[" + sliceY + "][" + sliceX + "][" + divideHeight + "][" + divideWidth + "]");
 
 		int[][][][] result = new int[sliceY][sliceX][divideHeight][divideWidth];
 

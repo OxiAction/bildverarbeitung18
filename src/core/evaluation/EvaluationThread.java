@@ -1,8 +1,13 @@
 package core.evaluation;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
+
+import core.data.Config;
 import utils.Debug;
 import utils.Utils;
 
@@ -33,8 +38,6 @@ public class EvaluationThread extends Thread {
 	 */
 	@Override
 	public void run() {
-		Debug.log("EvaluationThread @ running with ID: " + this.id);
-
 		try {
 			HashMap<String, String> infos = Utils.getAbsoluteFilePathInfos(this.absoluteFilePath);
 			String fileName = infos.get("fileName");
@@ -60,9 +63,30 @@ public class EvaluationThread extends Thread {
 			int sliceX = set.getSliceX();
 			int sliceY = set.getSliceY();
 			int histogramSize = set.getHistogramSize();
+			
+			BufferedImage bufferedImage = new BufferedImage(1, 1, BufferedImage.TYPE_BYTE_GRAY);
+			bufferedImage = ImageIO.read(new File(absoluteFilePath));
 
 			// calculate data for this entry
-			int[][] greyScaleData = GreyScale.get(absoluteFilePath);
+			CropData cropData = null;
+			if (set.getEdgeDetection()) {
+				EdgeDetectionConfig edgeDetectionConfig = null;
+				if (Config.sensorsEdgeDetectionConfig.containsKey(sensorType)) {
+					// fetch config
+					edgeDetectionConfig = Config.sensorsEdgeDetectionConfig.get(sensorType);
+				} else {
+					// default config
+					edgeDetectionConfig = new EdgeDetectionConfig();
+				}
+				Debug.log("thread id: " + this.id + " path: " + this.absoluteFilePath + " config: " + edgeDetectionConfig);
+				cropData = EdgeDetection.getCropData(bufferedImage, edgeDetectionConfig);
+			} else {
+				Debug.log("thread id: " + this.id + " path: " + this.absoluteFilePath);
+			}
+			
+			
+			
+			int[][] greyScaleData = GreyScale.get(bufferedImage, cropData);
 			int[][][][] greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, sliceX, sliceY);
 			int[] histogramData = Histogram.get(greyScaleData, histogramSize, true);
 

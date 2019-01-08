@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <translations>
 	<language id="de">
-		<version><![CDATA[0.3]]></version>
+		<version><![CDATA[0.5a]]></version>
 		<main_window_title><![CDATA[Grundlagen Bildverarbeitung]]></main_window_title>
 		<new_scan><![CDATA[Neuer Scan]]></new_scan>
 		<config><![CDATA[Einstellungen]]></config>
@@ -30,6 +30,7 @@
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Anzeigen]]></show>
 		<id><![CDATA[ID]]></id>
+		<edge_detection><![CDATA[Kanten Erkennung]]></edge_detection>
 		<scanned_entries><![CDATA[Gescannte Einträge]]></scanned_entries>
 		<same_sensor><![CDATA[Gleicher Sensor]]></same_sensor>
 		<slice_x><![CDATA[Aufteilung (X-Achse)]]></slice_x>
@@ -84,6 +85,7 @@
 		<metric><![CDATA[Metric]]></metric>
 		<show><![CDATA[Show]]></show>
 		<id><![CDATA[ID]]></id>
+		<edge_detection><![CDATA[Edge Detection]]></edge_detection>
 		<scanned_entries><![CDATA[Scanned Entries]]></scanned_entries>
 		<same_sensor><![CDATA[Same Sensor]]></same_sensor>
 		<slice_x><![CDATA[Slice (X-Axis)]]></slice_x>

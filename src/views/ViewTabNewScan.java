@@ -138,7 +138,18 @@ public class ViewTabNewScan implements ViewInterface {
 		textFieldSourceFolder.textProperty().addListener((observable, oldValue, newValue) -> {
 			updateButtonStartScan();
 		});
-
+		
+		// edge detection
+		
+		Label labelEdgeDetection = new Label(Translation.fetch("edge_detection") + ":");
+		labelEdgeDetection.setPrefWidth(labelsWidth);
+		CheckBox checkBoxEdgeDetection = new CheckBox();
+		checkBoxEdgeDetection.setSelected(false);
+		HBox hBoxEdgeDetection = new HBox();
+		hBoxEdgeDetection.getChildren().addAll(labelEdgeDetection, checkBoxEdgeDetection);
+		hBoxEdgeDetection.setSpacing(10);
+		vBox.getChildren().add(hBoxEdgeDetection);
+		
 		// k-factor
 
 		Label labelKFactor = new Label(Translation.fetch("k_factor") + ":");
@@ -211,6 +222,7 @@ public class ViewTabNewScan implements ViewInterface {
 						new Timestamp(System.currentTimeMillis()),
 						textFieldName.getText().trim(),
 						textFieldSourceFolder.getText().trim().replace('\\', '/'),
+						checkBoxEdgeDetection.isSelected() ? true : false,
 						comboBoxKFactor.getValue(),
 						comboBoxMetric.getValue(),
 						Integer.parseInt(comboBoxSliceX.getValue()),

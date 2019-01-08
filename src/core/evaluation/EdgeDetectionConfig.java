@@ -1,5 +1,7 @@
 package core.evaluation;
 
+import utils.Translation;
+
 public class EdgeDetectionConfig {
 	// black / white tresholds
 	public int threshold1 = 255;
@@ -31,5 +33,18 @@ public class EdgeDetectionConfig {
 		this.offsetY = offsetY;
 		this.clearTop = clearTop;
 		this.clearBottom = clearBottom;
+	}
+	
+	@Override
+	public String toString() {
+		return "threshold1: " + String.format("%1$-3s", this.threshold1) +
+				" threshold2: " + String.format("%1$-3s", this.threshold2) +
+				" fingerPosition: " + this.fingerPosition +
+				" fixedSizeFromMiddle: " + this.fixedSizeFromMiddle +
+				" findAdjacentLinesFromMiddle: " + String.format("%1$-5s", this.findAdjacentLinesFromMiddle) +
+				" offsetX: " + this.offsetX +
+				" offsetY: " + this.offsetY +
+				" clearTop: " + String.format("%1$-5s", this.clearTop) +
+				" clearBottom: " + String.format("%1$-5s", this.clearBottom);
 	}
 }

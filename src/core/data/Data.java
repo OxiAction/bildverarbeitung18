@@ -151,6 +151,7 @@ public class Data {
 			setElement.setAttribute("timestamp", set.getTimestamp().toString());
 			setElement.setAttribute("name", set.getName());
 			setElement.setAttribute("sourceFolder", set.getSourceFolder());
+			setElement.setAttribute("edgeDetection", set.getEdgeDetection() ? "1" : "0");
 			setElement.setAttribute("kFactor", set.getKFactor());
 			setElement.setAttribute("metricName", set.getMetricName());
 			setElement.setAttribute("sliceX", String.valueOf(set.getSliceX()));
@@ -238,7 +239,6 @@ public class Data {
 			catch (IOException ignore) {
 				document = create();
 			}
-			;
 
 			// get set nodes
 			NodeList setNodes = document.getElementsByTagName("set");
@@ -252,6 +252,7 @@ public class Data {
 					String timestamp = setElement.getAttribute("timestamp");
 					String name = setElement.getAttribute("name");
 					String sourceFolder = setElement.getAttribute("sourceFolder");
+					boolean edgeDetection = Integer.parseInt(setElement.getAttribute("edgeDetection")) == 1 ? true : false;
 					String kFactor = setElement.getAttribute("kFactor");
 					String metricName = setElement.getAttribute("metricName");
 					int sliceX = Integer.parseInt(setElement.getAttribute("sliceX"));
@@ -264,7 +265,7 @@ public class Data {
 					Timestamp timestampObject = new Timestamp(date.getTime());
 
 					// create and add set to the list of sets
-					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, kFactor, metricName, sliceX, sliceY, histogramSize);
+					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, edgeDetection, kFactor, metricName, sliceX, sliceY, histogramSize);
 
 					Element entriesElement = (Element) setElement.getElementsByTagName("entries").item(0);
 

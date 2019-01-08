@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class EdgeDetection {
 	
-	protected static CropData getCropData(BufferedImage bufferedImage, EdgeDetectionConfig config) {
+	public static CropData getCropData(BufferedImage bufferedImage, EdgeDetectionConfig edgeDetectionConfig) {
 		// general iterators
 		int x = 0;
 		int y = 0;
@@ -37,21 +37,21 @@ public class EdgeDetection {
 		int outputStartY = 0;
 		
 		// black / white tresholds
-		int threshold1 = config.threshold1;
-		int threshold2 = config.threshold2;
+		int threshold1 = edgeDetectionConfig.threshold1;
+		int threshold2 = edgeDetectionConfig.threshold2;
 		// position of the finger -> 1 = horizontal, 2 = vertical
-		int fingerPosition = config.fingerPosition;
+		int fingerPosition = edgeDetectionConfig.fingerPosition;
 		// fixed (cropping) size (origin -> middle)
-		int fixedSizeFromMiddle = config.fixedSizeFromMiddle;
+		int fixedSizeFromMiddle = edgeDetectionConfig.fixedSizeFromMiddle;
 		// find adjacent lines (origin -> middle)
-		boolean findAdjacentLinesFromMiddle = config.findAdjacentLinesFromMiddle;
+		boolean findAdjacentLinesFromMiddle = edgeDetectionConfig.findAdjacentLinesFromMiddle;
 		// edge offset - used for ALL calculations
-		int offsetX = config.offsetX;
-		int offsetY = config.offsetY;
+		int offsetX = edgeDetectionConfig.offsetX;
+		int offsetY = edgeDetectionConfig.offsetY;
 		// clear top
-		boolean clearTop = false;
+		boolean clearTop = edgeDetectionConfig.clearTop;
 		// clear bottom
-		boolean clearBottom = false;
+		boolean clearBottom = edgeDetectionConfig.clearBottom;
 
 		int[][] edgeRGBData = new int[orgWidth][orgHeight];
 		int[][] orgRGBData = getRGB(orgWidth, orgHeight, bufferedImage);

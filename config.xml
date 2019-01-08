@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sensors>
+	<sensor name="FV-USM" threshold1="255" threshold2="150" fingerPosition="1" findAdjacentLinesFromMiddle="1"/>
+	<sensor name="HKPU-FV"/>
+	<sensor name="IDIAP-real"/>
+	<sensor name="MMCBNU_6000" threshold1="255" threshold2="240" fingerPosition="1" findAdjacentLinesFromMiddle="1"/>
+	<sensor name="PLUS-FV3-Laser_PALMAR" threshold1="255" threshold2="240" fingerPosition="2" findAdjacentLinesFromMiddle="1" clearBottom="1" offsetX="20" offsetY="20"/>
+	<sensor name="SDUMLA-HMT" threshold1="255" threshold2="150" fingerPosition="1" findAdjacentLinesFromMiddle="1"/>
+	<sensor name="THU-FVFDT" threshold1="255" threshold2="50" fingerPosition="2" fixedSizeFromMiddle="250" clearTop="1"/>
+	<sensor name="UTFVP" threshold1="255" threshold2="150" fingerPosition="1" findAdjacentLinesFromMiddle="1"/>
+</sensors>

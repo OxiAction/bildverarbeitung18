@@ -1,3 +1,4 @@
+import core.data.Config;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -26,6 +27,9 @@ public class Main extends Application {
 	public void start(final Stage stage) throws Exception {
 		// enable / disable Debug mode
 		Debug.enabled = true;
+		
+		// initialize config
+		Config.load();
 		
 		// initialize translation singleton
 		Translation.getInstance();

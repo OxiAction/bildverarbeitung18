@@ -13,6 +13,7 @@ public class EvaluationDataSet {
 	protected Timestamp timestamp;
 	protected String name;
 	protected String sourceFolder;
+	protected boolean edgeDetection;
 	protected String kFactor;
 	protected String metricName;
 	protected int sliceX;
@@ -32,16 +33,18 @@ public class EvaluationDataSet {
 	 * @param timestamp		the timestamp (creation date of this set)
 	 * @param name			the name of the set
 	 * @param sourceFolder	the full path of the selected scan folder
+	 * @param edgeDetection	additional scan with results of cropped images
 	 * @param kFactor		maximum number of files to be scanned
 	 * @param metricName	the metric name which was used for the scan
 	 * @param sliceX		number of slices on the x-axis of the images (e.g. for sliced entropy)
 	 * @param sliceY		number of slices on the y-axis of the images (e.g. for sliced entropy)
 	 * @param histogramSize	size of the histogram
 	 */
-	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, String kFactor, String metricName, int sliceX, int sliceY, int histogramSize) {
+	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, boolean edgeDetection, String kFactor, String metricName, int sliceX, int sliceY, int histogramSize) {
 		this.setTimestamp(timestamp);
 		this.setName(name);
 		this.setSourceFolder(sourceFolder);
+		this.setEdgeDetection(edgeDetection);
 		this.setKFactor(kFactor);
 		this.setMetricName(metricName);
 		this.setSliceX(sliceX);
@@ -116,6 +119,20 @@ public class EvaluationDataSet {
 	 */
 	public void setSourceFolder(String sourceFolder) {
 		this.sourceFolder = sourceFolder;
+	}
+	
+	/**
+	 * @return the edgeDetection
+	 */
+	public boolean getEdgeDetection() {
+		return edgeDetection;
+	}
+
+	/**
+	 * @param edgeDetection true or false
+	 */
+	public void setEdgeDetection(boolean edgeDetection) {
+		this.edgeDetection = edgeDetection;
 	}
 
 	/**
@@ -200,6 +217,7 @@ public class EvaluationDataSet {
 		return Translation.fetch("timestamp") + ": " + this.getTimestamp() + 
 				"\n" + Translation.fetch("name") + ": " + this.getName() + 
 				"\n" + Translation.fetch("source_folder") + ": " + this.getSourceFolder() + 
+				"\n" + Translation.fetch("edge_detection") + ": " + this.getEdgeDetection() + 
 				"\n" + Translation.fetch("k_factor") + ": " + this.getKFactor() + 
 				"\n" + Translation.fetch("metric") + ": " + this.getMetricName() + 
 				"\n" + Translation.fetch("slice_x") + ": " + this.getSliceX() + 
