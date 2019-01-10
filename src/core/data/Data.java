@@ -152,7 +152,7 @@ public class Data {
 			setElement.setAttribute("name", set.getName());
 			setElement.setAttribute("sourceFolder", set.getSourceFolder());
 			setElement.setAttribute("edgeDetection", set.getEdgeDetection() ? "1" : "0");
-			setElement.setAttribute("kFactor", set.getKFactor());
+			setElement.setAttribute("kFactor", String.valueOf(set.getKFactor()));
 			setElement.setAttribute("metricName", set.getMetricName());
 			setElement.setAttribute("sliceX", String.valueOf(set.getSliceX()));
 			setElement.setAttribute("sliceY", String.valueOf(set.getSliceY()));
@@ -238,7 +238,7 @@ public class Data {
 					String name = setElement.getAttribute("name");
 					String sourceFolder = setElement.getAttribute("sourceFolder");
 					boolean edgeDetection = Integer.parseInt(setElement.getAttribute("edgeDetection")) == 1 ? true : false;
-					String kFactor = setElement.getAttribute("kFactor");
+					int kFactor = Integer.parseInt(setElement.getAttribute("kFactor"));
 					String metricName = setElement.getAttribute("metricName");
 					int sliceX = Integer.parseInt(setElement.getAttribute("sliceX"));
 					int sliceY = Integer.parseInt(setElement.getAttribute("sliceY"));

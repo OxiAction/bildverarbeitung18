@@ -14,7 +14,7 @@ import views.ViewMain;
 /**
  * Class for main app.
  */
-public class Main extends Application {
+public class GUI extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);

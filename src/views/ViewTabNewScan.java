@@ -178,8 +178,8 @@ public class ViewTabNewScan implements ViewInterface {
 
 		Label labelSliceX = new Label(Translation.fetch("slice_x") + ":");
 		labelSliceX.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxSliceX = new ComboBox<String>(FXCollections.observableArrayList("2", "4", "8", "10"));
-		comboBoxSliceX.getSelectionModel().select(3);
+		ComboBox<String> comboBoxSliceX = new ComboBox<String>(FXCollections.observableArrayList("2", "4", "8", "10", "20", "50", "100"));
+		comboBoxSliceX.getSelectionModel().select(6);
 		HBox hBoxSliceX = new HBox();
 		hBoxSliceX.getChildren().addAll(labelSliceX, comboBoxSliceX);
 		hBoxSliceX.setSpacing(10);
@@ -189,8 +189,8 @@ public class ViewTabNewScan implements ViewInterface {
 
 		Label labelSliceY = new Label(Translation.fetch("slice_y") + ":");
 		labelSliceY.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxSliceY = new ComboBox<String>(FXCollections.observableArrayList("2", "4", "8", "10"));
-		comboBoxSliceY.getSelectionModel().select(3);
+		ComboBox<String> comboBoxSliceY = new ComboBox<String>(FXCollections.observableArrayList("2", "4", "8", "10", "20", "50", "100"));
+		comboBoxSliceY.getSelectionModel().select(6);
 		HBox hBoxSliceY = new HBox();
 		hBoxSliceY.getChildren().addAll(labelSliceY, comboBoxSliceY);
 		hBoxSliceY.setSpacing(10);
@@ -266,7 +266,7 @@ public class ViewTabNewScan implements ViewInterface {
 						textFieldName.getText().trim(),
 						textFieldSourceFolder.getText().trim().replace('\\', '/'),
 						checkBoxEdgeDetection.isSelected() ? true : false,
-						comboBoxKFactor.getValue(),
+						Integer.parseInt(comboBoxKFactor.getValue()),
 						comboBoxMetric.getValue(),
 						Integer.parseInt(comboBoxSliceX.getValue()),
 						Integer.parseInt(comboBoxSliceY.getValue()),

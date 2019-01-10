@@ -1,5 +1,6 @@
 package core.evaluation;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,11 +29,15 @@ public class Evaluation extends Task<EvaluationDataSet> {
 
 	@Override
 	protected EvaluationDataSet call() throws Exception {
+		return this.process(this.set);
+	}
+	
+	public EvaluationDataSet process(EvaluationDataSet set) throws IOException {
 		Debug.log("-> EvaluationDataSet values:");
-		Debug.log(this.set.toString());
+		Debug.log(set.toString());
 
 		// get all valid image (absolute) paths from the source folder
-		ArrayList<String> paths = PathFinder.getPaths(this.set.getSourceFolder());
+		ArrayList<String> paths = PathFinder.getPaths(set.getSourceFolder());
 		// list which contains all evaluation threads
 		ArrayList<EvaluationThread> evaluationThreads = new ArrayList<EvaluationThread>();
 
@@ -41,7 +46,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 		// setup and start threads
 		for (String absoluteFilePath : paths) {
 			if (absoluteFilePath != "") {
-				EvaluationThread evaluationThread = new EvaluationThread(idCounter, absoluteFilePath, this.set);
+				EvaluationThread evaluationThread = new EvaluationThread(idCounter, absoluteFilePath, set);
 				evaluationThreads.add(evaluationThread);
 				evaluationThread.start();
 
@@ -62,11 +67,15 @@ public class Evaluation extends Task<EvaluationDataSet> {
 		// compare each entry with all other entries (by metric) and set k-nearest entries ids in entry
 
 		int i;
-		int kFactor = Integer.parseInt(this.set.getKFactor());
-		String metricName = this.set.getMetricName();
+		int kFactor = set.getKFactor();
+		String metricName = set.getMetricName();
 
-		List<EvaluationDataSetEntry> setEntries = this.set.getEntries();
+		List<EvaluationDataSetEntry> setEntries = set.getEntries();
 		for (EvaluationDataSetEntry entry : setEntries) {
+			if (entry == null) {
+				// actually... this should never happen
+				continue;
+			}
 			int[] histogramData = entry.getHistogramData();
 			// sanity check
 			if (histogramData == null) {
@@ -77,7 +86,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 
 			// compare all others with current entry	
 			for (EvaluationDataSetEntry innerEntry : setEntries) {
-				if (entry == innerEntry) {
+				if (innerEntry == null || entry == innerEntry) {
 					continue;
 				}
 
@@ -133,7 +142,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 
 					// k-nearest sensor type
 					for (EvaluationDataSetEntry innerEntry2 : setEntries) {
-						if (innerEntry2.getID() == id) {
+						if (innerEntry2 != null && innerEntry2.getID() == id) {
 							// we found a sensor type - add it to collection
 							kNearestSensorTypes.add(innerEntry2.getSensorType());
 						}
@@ -147,6 +156,6 @@ public class Evaluation extends Task<EvaluationDataSet> {
 		}
 
 		// return the set, filled with all the entries and values:
-		return this.set;
+		return set;
 	}
 }

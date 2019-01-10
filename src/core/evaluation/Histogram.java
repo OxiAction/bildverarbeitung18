@@ -12,6 +12,8 @@ public class Histogram {
 	public static final String TYPE_ENTROPY = "histogram_entropy";
 	public static final String TYPE_VARIANCE = "histogram_variance";
 	
+	protected static final String[] TYPES = { TYPE_GREY_SCALE, TYPE_ENTROPY, TYPE_VARIANCE };
+	
 	protected static final int MAX_SIZE = 256;
 	protected static final int DEF_SIZE = 256;
 	protected static final int DEF_SIZE_DOUBLE_TO_INT = 32;
@@ -115,8 +117,10 @@ public class Histogram {
 		}
 		// 2) now generate an array with "size" (def. 32) values between min and max
 		double[] allowedValues = new double[size];
+		double val = min + (max-min);
+		size--; // size - 1
 		for (i = 0; i < allowedValues.length; i++){
-			allowedValues[i] = min + (max-min) / (size-1) * i;
+			allowedValues[i] = val / size * i;
 //			System.out.println("allowedValues[" + i + "]: " + allowedValues[i]);
 		}
 //		System.out.println("min: " + min);
@@ -125,12 +129,13 @@ public class Histogram {
 		// 3) now go through all entropy values that we have and assign each one to the closest value
 		//    in our allowedEntropyValues array
 		// 4) then generate the histogram with the closest index
+		int index = 0;
 		for (i = 0; i < doubleValues.length; ++i) {
 			for (int j = 0; j < doubleValues[i].length; ++j) {
 				// here we do 3)
-				int index = getNearestAllowedValue(allowedValues, doubleValues[i][j]);
+				index = getNearestAllowedValue(allowedValues, doubleValues[i][j]);
 				// here 4)
-				intHistogramForDoubleValues[index /* /scaleFactor */] += 1;
+				intHistogramForDoubleValues[index] += 1;
 			}
 		}
 
@@ -182,6 +187,15 @@ public class Histogram {
 			relativeHistogramValue = ((double) histogramData[i] / (double) nrOfVals) * NR_OF_REL_VALS;
 			histogramData[i] = (int) Math.round(relativeHistogramValue);
 		}
+	}
+	
+	/**
+	 * Returns all available histogram types as array.
+	 * 
+	 * @return
+	 */
+	public static String[] getTypes() {
+		return TYPES;
 	}
 
 //	/**

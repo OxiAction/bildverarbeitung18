@@ -14,7 +14,7 @@ public class EvaluationDataSet {
 	protected String name;
 	protected String sourceFolder;
 	protected boolean edgeDetection;
-	protected String kFactor;
+	protected int kFactor;
 	protected String metricName;
 	protected int sliceX;
 	protected int sliceY;
@@ -42,7 +42,7 @@ public class EvaluationDataSet {
 	 * @param histogramType				which histogram type to use - see Histogram.TYPE_XXX
 	 * @param histogramSize				size of the histogram
 	 */
-	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, boolean edgeDetection, String kFactor, String metricName, int sliceX, int sliceY, String histogramType,
+	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, boolean edgeDetection, int kFactor, String metricName, int sliceX, int sliceY, String histogramType,
 			int histogramSize) {
 		this.setTimestamp(timestamp);
 		this.setName(name);
@@ -142,14 +142,14 @@ public class EvaluationDataSet {
 	/**
 	 * @return the kFactor
 	 */
-	public String getKFactor() {
+	public int getKFactor() {
 		return kFactor;
 	}
 
 	/**
 	 * @param kFactor the kFactor to set
 	 */
-	public void setKFactor(String kFactor) {
+	public void setKFactor(int kFactor) {
 		this.kFactor = kFactor;
 	}
 

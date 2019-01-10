@@ -30,7 +30,7 @@ public class PathFinder {
 
 				for (String extension : validExtensions) {
 					if (pathString.contains(extension)) {
-						Debug.log("adding path: " + pathString);
+//						Debug.log("adding path: " + pathString);
 						paths.add(pathString.replace('\\', '/'));
 						break;
 					}
