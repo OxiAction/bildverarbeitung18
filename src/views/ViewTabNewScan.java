@@ -20,6 +20,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import core.data.*;
 import core.evaluation.EvaluationDataSet;
+import core.evaluation.Histogram;
 import core.evaluation.Metric;
 import events.*;
 import utils.*;
@@ -52,7 +53,7 @@ public class ViewTabNewScan implements ViewInterface {
 			throw new Exception("container doesnt seem to be of type TabPane!");
 		}
 
-		final double labelsWidth = 125;
+		final double labelsWidth = 150;
 
 		// load sets
 		sets = Data.load();
@@ -194,45 +195,59 @@ public class ViewTabNewScan implements ViewInterface {
 		hBoxSliceY.getChildren().addAll(labelSliceY, comboBoxSliceY);
 		hBoxSliceY.setSpacing(10);
 		vBox.getChildren().add(hBoxSliceY);
+		
+		// histogram size
 
-		// histogram-size
-
-		RadioButton radioButtonGreyScale = new RadioButton();
-		radioButtonGreyScale.setSelected(true);
 		Label labelHistogramSize = new Label(Translation.fetch("histogram_size") + ":");
 		labelHistogramSize.setPrefWidth(labelsWidth);
 		ComboBox<String> comboBoxHistogramSize = new ComboBox<String>(FXCollections.observableArrayList("256", "128", "64", "32"));
 		comboBoxHistogramSize.getSelectionModel().select(0);
 		HBox hBoxHistogramSize = new HBox();
-		hBoxHistogramSize.getChildren().addAll(radioButtonGreyScale, labelHistogramSize, comboBoxHistogramSize);
+		hBoxHistogramSize.getChildren().addAll(labelHistogramSize, comboBoxHistogramSize);
 		hBoxHistogramSize.setSpacing(10);
 		vBox.getChildren().add(hBoxHistogramSize);
+		
+		// radio buttons toggle group
+		ToggleGroup radioButtonsToggleGroup = new ToggleGroup();
+		
+		// histogram grey scale
 
-		// variance-histogram-size
+		RadioButton radioButtonHistogramGreyScale = new RadioButton(Translation.fetch("histogram_grey_scale"));
+		radioButtonHistogramGreyScale.setUserData(Histogram.TYPE_GREY_SCALE);
+		radioButtonHistogramGreyScale.setToggleGroup(radioButtonsToggleGroup);
+		radioButtonHistogramGreyScale.setSelected(true);
+		Label labelHistogramGreyScale = new Label(Translation.fetch("histogram_type") + ":");
+		labelHistogramGreyScale.setPrefWidth(labelsWidth);
+		HBox hBoxHistogramGreyScale = new HBox();
+		hBoxHistogramGreyScale.getChildren().addAll(labelHistogramGreyScale, radioButtonHistogramGreyScale);
+		hBoxHistogramGreyScale.setSpacing(10);
+		vBox.getChildren().add(hBoxHistogramGreyScale);
 
-		RadioButton radioButtonVariance = new RadioButton();
-		radioButtonVariance.setSelected(false);
-		Label labelVarianceHistogramSize = new Label(Translation.fetch("variance_histogram_size") + ":");
-		labelVarianceHistogramSize.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxVarianceHistogramSize = new ComboBox<String>(FXCollections.observableArrayList("256", "128", "64", "32"));
-		comboBoxVarianceHistogramSize.getSelectionModel().select(0);
-		HBox hBoxVarianceHistogramSize = new HBox();
-		hBoxVarianceHistogramSize.getChildren().addAll(radioButtonVariance, labelVarianceHistogramSize, comboBoxVarianceHistogramSize);
-		hBoxVarianceHistogramSize.setSpacing(10);
-		vBox.getChildren().add(hBoxVarianceHistogramSize);
+		// histogram variance
 
-		// entropy-histogram-size
+		RadioButton radioButtonHistogramVariance = new RadioButton(Translation.fetch("histogram_variance"));
+		radioButtonHistogramVariance.setUserData(Histogram.TYPE_VARIANCE);
+		radioButtonHistogramVariance.setToggleGroup(radioButtonsToggleGroup);
+		radioButtonHistogramVariance.setSelected(false);
+		Label labelHistogramVariance = new Label("");
+		labelHistogramVariance.setPrefWidth(labelsWidth);
+		HBox hBoxHistogramVariance = new HBox();
+		hBoxHistogramVariance.getChildren().addAll(labelHistogramVariance, radioButtonHistogramVariance);
+		hBoxHistogramVariance.setSpacing(10);
+		vBox.getChildren().add(hBoxHistogramVariance);
 
-		RadioButton radioButtonEntropy = new RadioButton();
-		radioButtonEntropy.setSelected(false);
-		Label labelEntropyHistogramSize = new Label(Translation.fetch("entropy_histogram_size") + ":");
-		labelEntropyHistogramSize.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxEntropyHistogramSize = new ComboBox<String>(FXCollections.observableArrayList("256", "128", "64", "32"));
-		comboBoxEntropyHistogramSize.getSelectionModel().select(0);
-		HBox hBoxEntropyHistogramSize = new HBox();
-		hBoxEntropyHistogramSize.getChildren().addAll(radioButtonEntropy, labelEntropyHistogramSize, comboBoxEntropyHistogramSize);
-		hBoxEntropyHistogramSize.setSpacing(10);
-		vBox.getChildren().add(hBoxEntropyHistogramSize);
+		// histogram entropy
+
+		RadioButton radioButtonHistogramEntropy = new RadioButton(Translation.fetch("histogram_entropy"));
+		radioButtonHistogramEntropy.setUserData(Histogram.TYPE_ENTROPY);
+		radioButtonHistogramEntropy.setToggleGroup(radioButtonsToggleGroup);
+		radioButtonHistogramEntropy.setSelected(false);
+		Label labelHistogramEntropy = new Label("");
+		labelHistogramEntropy.setPrefWidth(labelsWidth);
+		HBox hBoxHistogramEntropy = new HBox();
+		hBoxHistogramEntropy.getChildren().addAll(labelHistogramEntropy, radioButtonHistogramEntropy);
+		hBoxHistogramEntropy.setSpacing(10);
+		vBox.getChildren().add(hBoxHistogramEntropy);
 
 		// button start scan
 
@@ -255,9 +270,8 @@ public class ViewTabNewScan implements ViewInterface {
 						comboBoxMetric.getValue(),
 						Integer.parseInt(comboBoxSliceX.getValue()),
 						Integer.parseInt(comboBoxSliceY.getValue()),
-						Integer.parseInt(comboBoxHistogramSize.getValue()),
-						Integer.parseInt(comboBoxVarianceHistogramSize.getValue()),
-						Integer.parseInt(comboBoxEntropyHistogramSize.getValue())
+						radioButtonsToggleGroup.getSelectedToggle().getUserData().toString(),
+						Integer.parseInt(comboBoxHistogramSize.getValue())
 						);
 
 				EventManager.dispatch(new EventButtonStartScanClicked(), set);

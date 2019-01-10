@@ -12,7 +12,6 @@ import javax.xml.transform.stream.StreamResult;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.w3c.dom.Document;
@@ -95,8 +94,6 @@ public class Config {
 	 */
 	public static void load() throws IOException {
 		Debug.log("--- load and store data from: " + xmlName);
-		
-		ArrayList<EvaluationDataSet> sensors = new ArrayList<EvaluationDataSet>();
 		
 		try {
 			Document document = null;

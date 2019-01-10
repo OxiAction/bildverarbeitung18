@@ -63,26 +63,26 @@ public class EdgeDetection {
 			for (y = 0; y < orgHeight; ++y) {
 
 				if (x > 0 && x < orgWidth - 1 && y > 0 && y < orgHeight - 1) {
-					int grayX = 0;
-					int grayY = 0;
+					int greyX = 0;
+					int greyY = 0;
 					
 					for (int i = -1; i < 2; ++i) {
 						for (int j = -1; j < 2; j++) {
-							grayX += Math.round(luminanceData[x + i][y + j] * sobelX[1 + i][1 + j]);
-							grayY += Math.round(luminanceData[x + i][y + j] * sobelY[1 + i][1 + j]);
+							greyX += Math.round(luminanceData[x + i][y + j] * sobelX[1 + i][1 + j]);
+							greyY += Math.round(luminanceData[x + i][y + j] * sobelY[1 + i][1 + j]);
 						}
 					}
 					
-					int gray = (int) Math.sqrt(grayX * grayX + grayY * grayY);
+					int grey = (int) Math.sqrt(greyX * greyX + greyY * greyY);
 					
 					// threshold
-					if (gray > threshold1) {
-						gray = 255;
-					} else if (gray < threshold2) {
-						gray = 0;
+					if (grey > threshold1) {
+						grey = 255;
+					} else if (grey < threshold2) {
+						grey = 0;
 					}
 					
-					int color = new Color(gray, gray, gray).getRGB();
+					int color = new Color(grey, grey, grey).getRGB();
 					edgeRGBData[x][y] = color;
 				} else {
 					edgeRGBData[x][y] = black;

@@ -8,6 +8,10 @@ import utils.Utils;
  * The histogram can be absolute or relative and have varying sizes.
  */
 public class Histogram {
+	public static final String TYPE_GREY_SCALE = "histogram_grey_scale";
+	public static final String TYPE_ENTROPY = "histogram_entropy";
+	public static final String TYPE_VARIANCE = "histogram_variance";
+	
 	protected static final int MAX_SIZE = 256;
 	protected static final int DEF_SIZE = 256;
 	protected static final int DEF_SIZE_DOUBLE_TO_INT = 32;
@@ -113,10 +117,10 @@ public class Histogram {
 		double[] allowedValues = new double[size];
 		for (i = 0; i < allowedValues.length; i++){
 			allowedValues[i] = min + (max-min) / (size-1) * i;
-			System.out.println("allowedValues[" + i + "]: " + allowedValues[i]);
+//			System.out.println("allowedValues[" + i + "]: " + allowedValues[i]);
 		}
-		System.out.println("min: " + min);
-		System.out.println("max: " + max);
+//		System.out.println("min: " + min);
+//		System.out.println("max: " + max);
 
 		// 3) now go through all entropy values that we have and assign each one to the closest value
 		//    in our allowedEntropyValues array
@@ -150,7 +154,7 @@ public class Histogram {
 			}
 			else{
 				i = i - 1;
-				System.out.println("allowed value: " + elements[i]);
+//				System.out.println("allowed value: " + elements[i]);
 				break;
 			}
 		}
@@ -160,8 +164,8 @@ public class Histogram {
 			i = i - 1;
 		}
 
-		System.out.println("allowed value: " + elements[i]);
-		System.out.println("Returning i: " + i);
+//		System.out.println("allowed value: " + elements[i]);
+//		System.out.println("Returning i: " + i);
 		return i;
 	}
 

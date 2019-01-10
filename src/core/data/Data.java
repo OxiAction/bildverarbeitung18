@@ -156,9 +156,8 @@ public class Data {
 			setElement.setAttribute("metricName", set.getMetricName());
 			setElement.setAttribute("sliceX", String.valueOf(set.getSliceX()));
 			setElement.setAttribute("sliceY", String.valueOf(set.getSliceY()));
+			setElement.setAttribute("histogramType", set.getHistogramType());
 			setElement.setAttribute("histogramSize", String.valueOf(set.getHistogramSize()));
-			setElement.setAttribute("varianceHistogramSize", String.valueOf(set.getHistogramSizeForVariance()));
-			setElement.setAttribute("entropyHistogramSize", String.valueOf(set.getHistogramSizeForEntropy()));
 
 			Element entries = document.createElement("entries");
 
@@ -178,22 +177,6 @@ public class Data {
 				Element histogramData = document.createElement("histogramData");
 				histogramData.setTextContent(Utils.intArray1DToString(entry.getHistogramData()));
 				entryElement.appendChild(histogramData);
-				
-				Element variance = document.createElement("variance");
-				variance.setTextContent(String.valueOf(entry.getVariance()));
-				entryElement.appendChild(variance);
-				
-				Element slicedVariances = document.createElement("slicedVariances");
-				slicedVariances.setTextContent(Utils.doubleArray2DToString(entry.getSlicedVariances()));
-				entryElement.appendChild(slicedVariances);
-				
-				Element entropy = document.createElement("entropy");
-				entropy.setTextContent(String.valueOf(entry.getEntropy()));
-				entryElement.appendChild(entropy);
-				
-				Element slicedEntropies = document.createElement("slicedEntropies");
-				slicedEntropies.setTextContent(Utils.doubleArray2DToString(entry.getSlicedEntropies()));
-				entryElement.appendChild(slicedEntropies);
 				
 				Element kNearestIDs = document.createElement("kNearestIDs");
 				kNearestIDs.setTextContent(Utils.intArrayListToString(entry.getKNearestIDs()));
@@ -259,9 +242,8 @@ public class Data {
 					String metricName = setElement.getAttribute("metricName");
 					int sliceX = Integer.parseInt(setElement.getAttribute("sliceX"));
 					int sliceY = Integer.parseInt(setElement.getAttribute("sliceY"));
+					String histogramType = setElement.getAttribute("histogramType");
 					int histogramSize = Integer.parseInt(setElement.getAttribute("histogramSize"));
-					int varianceHistogramSize = Integer.parseInt(setElement.getAttribute("varianceHistogramSize"));
-					int entropyHistogramSize = Integer.parseInt(setElement.getAttribute("entropyHistogramSize"));
 
 					// convert string to timestamp object
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -269,8 +251,7 @@ public class Data {
 					Timestamp timestampObject = new Timestamp(date.getTime());
 
 					// create and add set to the list of sets
-					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, edgeDetection, kFactor, metricName, sliceX, sliceY, histogramSize,
-							varianceHistogramSize, entropyHistogramSize);
+					EvaluationDataSet set = new EvaluationDataSet(timestampObject, name, sourceFolder, edgeDetection, kFactor, metricName, sliceX, sliceY, histogramType, histogramSize);
 
 					Element entriesElement = (Element) setElement.getElementsByTagName("entries").item(0);
 
@@ -293,18 +274,6 @@ public class Data {
 							Element histogramDataElement = (Element) entryElement.getElementsByTagName("histogramData").item(0);
 							int[] histogramData = Utils.stringToIntArray1D(histogramDataElement.getTextContent());
 							
-							Element varianceElement = (Element) entryElement.getElementsByTagName("variance").item(0);
-							double variance = Double.parseDouble(varianceElement.getTextContent());
-							
-							Element slicedVariancesElement = (Element) entryElement.getElementsByTagName("slicedVariances").item(0);
-							double[][] slicedVariances = Utils.stringToDoubleArray2D(slicedVariancesElement.getTextContent());
-							
-							Element entropyElement = (Element) entryElement.getElementsByTagName("entropy").item(0);
-							double entropy = Double.parseDouble(entropyElement.getTextContent());
-							
-							Element slicedEntropiesElement = (Element) entryElement.getElementsByTagName("slicedEntropies").item(0);
-							double[][] slicedEntropies = Utils.stringToDoubleArray2D(slicedEntropiesElement.getTextContent());
-							
 							Element kNearestIDsElement = (Element) entryElement.getElementsByTagName("kNearestIDs").item(0);
 							ArrayList<Integer> kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
 							
@@ -319,13 +288,8 @@ public class Data {
 									fileName,
 									fileExtension,
 									sensorType,
-									null,
-									null,
+									null, // greyScaleData
 									histogramData,
-									variance,
-									slicedVariances,
-									entropy,
-									slicedEntropies,
 									kNearestIDs,
 									kNearestSensorTypes
 									);

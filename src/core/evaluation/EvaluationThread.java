@@ -84,35 +84,43 @@ public class EvaluationThread extends Thread {
 				Debug.log("thread id: " + this.id + " path: " + this.absoluteFilePath);
 			}
 			
-			
-			
 			int[][] greyScaleData = GreyScale.get(bufferedImage, cropData);
-			int[][][][] greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, sliceX, sliceY);
-			int[] histogramData = Histogram.get(greyScaleData, histogramSize, true);
-
-			double variance = Variance.get(greyScaleData, histogramData);
-			double entropy = Entropy.get(greyScaleData, histogramData);
-
-			double[][] slicedEntropies = new double[sliceY][sliceX];
-			double[][] slicedVariances = new double[sliceY][sliceX];
-			for (int i = 0; i < sliceY; ++i) {
-				for (int j = 0; j < sliceX; ++j) {
-					int[] localHistogramData = Histogram.get(greyScaleSlicedData[i][j], histogramSize, true);
-					
-					double localEntropy = Entropy.get(greyScaleSlicedData[i][j], localHistogramData);
-					double localVariance = Variance.get(greyScaleSlicedData[i][j], localHistogramData);
-
-					slicedEntropies[i][j] = localEntropy;
-					slicedVariances[i][j] = localVariance;
+			
+			int[] histogramData = null;
+			int[][][][] greyScaleSlicedData = null;
+			
+			switch (set.getHistogramType()) {
+			case Histogram.TYPE_GREY_SCALE:
+				histogramData = Histogram.get(greyScaleData, histogramSize, true);
+				break;
+			case Histogram.TYPE_VARIANCE:
+				greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, sliceX, sliceY);
+				double[][] slicedVariances = new double[sliceY][sliceX];
+				
+				for (int i = 0; i < sliceY; ++i) {
+					for (int j = 0; j < sliceX; ++j) {
+						slicedVariances[i][j] = Variance.get(greyScaleSlicedData[i][j], Histogram.get(greyScaleSlicedData[i][j], histogramSize, true));
+					}
 				}
+				
+				histogramData = Histogram.getIntHistogramForDoubleValues(slicedVariances, set.getHistogramSize());
+				break;
+			case Histogram.TYPE_ENTROPY:
+				greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, sliceX, sliceY);
+				double[][] slicedEntropies = new double[sliceY][sliceX];
+				
+				for (int i = 0; i < sliceY; ++i) {
+					for (int j = 0; j < sliceX; ++j) {
+						slicedEntropies[i][j] = Entropy.get(greyScaleSlicedData[i][j], Histogram.get(greyScaleSlicedData[i][j], histogramSize, true));
+					}
+				}
+				
+				histogramData = Histogram.getIntHistogramForDoubleValues(slicedEntropies, set.getHistogramSize());
+				break;
+			default:
+				throw new IOException("IOException: Could not determine the histogramType of the set!");
 			}
-
-			// TODO: Use one of these instead of (local (?)) histogramData
-			int[] entropyHistogramData = Histogram.getIntHistogramForDoubleValues(slicedEntropies,
-					set.histogramSizeForEntropy);
-			int[] varianceHistogramData = Histogram.getIntHistogramForDoubleValues(slicedVariances,
-					set.histogramSizeForVariance);
-
+			
 			// create and add entry to set
 			this.set.addEntry(
 					new EvaluationDataSetEntry(
@@ -122,12 +130,7 @@ public class EvaluationThread extends Thread {
 							fileExtension,
 							sensorType,
 							greyScaleData,
-							greyScaleSlicedData,
 							histogramData,
-							variance,
-							slicedVariances,
-							entropy,
-							slicedEntropies,
 							null, // kNearestIDs argument has to be null, as we can not yet calculate metric related stuff
 							null  // kNearestSensorTypes argument has to be null, as we can not yet calculate metric related stuff
 							)

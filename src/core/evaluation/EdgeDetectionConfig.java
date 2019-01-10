@@ -1,7 +1,5 @@
 package core.evaluation;
 
-import utils.Translation;
-
 public class EdgeDetectionConfig {
 	// black / white tresholds
 	public int threshold1 = 255;

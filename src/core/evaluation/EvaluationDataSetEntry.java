@@ -24,12 +24,8 @@ public class EvaluationDataSetEntry {
 	protected int[][] greyScaleData;
 	protected int[][][][] greyScaleSlicedData;
 	protected int[] histogramData;
-	protected double variance;
-	protected double entropy;
 	protected ArrayList<Integer> kNearestIDs;
 	protected ArrayList<String> kNearestSensorTypes;
-	protected double[][] slicedVariances;
-	protected double[][] slicedEntropies;
 	
 	protected String nearestSensorType;
 
@@ -42,14 +38,9 @@ public class EvaluationDataSetEntry {
 	 * @param fileExtension 		the file extension (without .) - e.g. "jpg"
 	 * @param sensorType 			the sensor type (full name as string)
 	 * @param greyScaleData 		the grey scale data as 2d int array
-	 * @param greyScaleSlicedData 	the grey scale data as sliced 4d int array
 	 * @param histogramData 		the histogramData data 1d int array
-	 * @param variance 				the variance value - given by the algorithm
-	 * @param entropy 				the entropy value - given by the algorithm
 	 * @param kNearestIDs 			the list with the k-nearest entries (ids as integers)
 	 * @param kNearestSensorTypes 	the list with the k-nearest entries (full names as string)
-	 * @param slicedEntropies 		2d double array with calculated entropies (from slices)
-	 * @param slicedVariances 		2d double array with calculated variances (from slices)
 	 */
 	public EvaluationDataSetEntry(
 			int id,
@@ -58,12 +49,7 @@ public class EvaluationDataSetEntry {
 			String fileExtension,
 			String sensorType,
 			int[][] greyScaleData,
-			int[][][][] greyScaleSlicedData,
 			int[] histogramData,
-			double variance,
-			double[][] slicedVariances,
-			double entropy,
-			double[][] slicedEntropies,
 			ArrayList<Integer> kNearestIDs,
 			ArrayList<String> kNearestSensorTypes
 			) {
@@ -78,12 +64,7 @@ public class EvaluationDataSetEntry {
 		this.setFileExtension(fileExtension);
 		this.setSensorType(sensorType);
 		this.setGreyScaleData(greyScaleData);
-		this.setGreyScaleSlicedData(greyScaleSlicedData);
 		this.setHistogramData(histogramData);
-		this.setVariance(variance);
-		this.setSlicedVariances(slicedVariances);
-		this.setEntropy(entropy);
-		this.setSlicedEntropies(slicedEntropies);
 		this.setKNearestIDs(kNearestIDs);
 		this.setKNearestSensorTypes(kNearestSensorTypes);
 	}
@@ -315,171 +296,6 @@ public class EvaluationDataSetEntry {
 	}
 	
 	/**
-	 * @param variance the variance to set
-	 */
-	public void setVariance(double variance) {
-		this.variance = variance;
-	}
-	
-	/**
-	 * @return the variance
-	 */
-	public double getVariance() {
-		return this.variance;
-	}
-	
-	/**
-	 * Decimal formatted variance (with limited amount of decimal numbers).
-	 * 
-	 * @return  the variance as String (formatted)
-	 */
-	public String getVarianceAsString() {
-		return this.decimalFormat.format(this.variance);
-	}
-	
-	/**
-	 * @param slicedVariances the slicedEntropies to set
-	 */
-	public void setSlicedVariances(double[][] slicedVariances) {
-		this.slicedVariances = slicedVariances;
-	}
-	
-	/**
-	 * @return the slicedVariances
-	 */
-	public double[][] getSlicedVariances() {
-		return this.slicedVariances;
-	}
-	
-	/**
-	 * Returns formatted String with sliced variances.
-	 * Using \n (newline) and \t (tab) to format the String.
-	 * 
-	 * @return the formatted sliced variances or empty String
-	 */
-	public String getSlicedVariancesAsString() {
-		String result = "";
-		
-		if (this.slicedVariances == null || this.slicedVariances.length < 1) {
-			return result;
-		}
-		
-		int i;
-		int j;
-		int k;
-		int decimal;
-		int max = 0;
-		
-		for (i = 0; i < this.slicedVariances.length; ++i) {
-			for (j = 0; j < this.slicedVariances[i].length; ++j) {
-				decimal = (int) this.slicedVariances[i][j];
-				max = Math.max(max, decimal);
-			}
-		}
-		
-		int maxLength = (int) (Math.log10(max) + 1);
-		
-		for (i = 0; i < this.slicedVariances.length; ++i) {
-			if (i > 0) {
-				result += "\n";
-			}
-			
-			for (j = 0; j < this.slicedVariances[i].length; ++j) {
-				if (j > 0) {
-					// alignment fix 1
-					if (maxLength < 4) {
-						result += " \t\t";
-					} else {
-						result += " \t";
-					}
-				}
-				
-				decimal = (int) this.slicedVariances[i][j];
-				
-				int length = (int) (Math.log10(decimal) + 1);
-				
-				// alignment fix 2
-				if (length < maxLength) {
-					for (k = 0; k < maxLength - length; ++k) {
-						result += " ";
-					}
-				}
-				
-				result += String.valueOf(this.decimalFormat.format(this.slicedVariances[i][j]));
-			}
-		}
-		
-		return result;
-	}
-	
-	/**
-	 * @param entropy the entropy to set
-	 */
-	public void setEntropy(double entropy) {
-		this.entropy = entropy;
-	}
-	
-	/**
-	 * @return the entropy
-	 */
-	public double getEntropy() {
-		return this.entropy;
-	}
-	
-	/**
-	 * Decimal formatted entropy (with limited amount of decimal numbers).
-	 * 
-	 * @return the entropy as String (formatted)
-	 */
-	public String getEntropyAsString() {
-		return this.decimalFormat.format(this.entropy);
-	}
-	
-	/**
-	 * @param slicedEntropies the slicedEntropies to set
-	 */
-	public void setSlicedEntropies(double[][] slicedEntropies) {
-		this.slicedEntropies = slicedEntropies;
-	}
-	
-	/**
-	 * @return the slicedEntropies
-	 */
-	public double[][] getSlicedEntropies() {
-		return this.slicedEntropies;
-	}
-	
-	/**
-	 * Returns formatted String with sliced entropies.
-	 * Using \n (newline) and \t (tab) to format the String.
-	 * 
-	 * @return the formatted sliced entropies or empty String
-	 */
-	public String getSlicedEntropiesAsString() {
-		String result = "";
-		
-		if (this.slicedEntropies == null || this.slicedEntropies.length < 1) {
-			return result;
-		}
-		
-		for (int i = 0; i < this.slicedEntropies.length; ++i) {
-			if (i > 0) {
-				result += "\n";
-			}
-			
-			for (int j = 0; j < this.slicedEntropies[i].length; ++j) {
-				if (j > 0) {
-					result += " \t";
-				}
-				
-				result += String.valueOf(this.decimalFormat.format(this.slicedEntropies[i][j]));
-			}
-		}
-		
-		return result;
-	}
-	
-	/**
 	 * Returns file name + file extension.
 	 * 
 	 * @return the file name and its extension
@@ -503,8 +319,6 @@ public class EvaluationDataSetEntry {
 				"\n" + Translation.fetch("file_name") + ": " + this.getFileName() + 
 				"\n" + Translation.fetch("file_extension") + ": " + this.getFileExtension() + 
 				"\n" + Translation.fetch("sensor_type") + ": " + this.getSensorType() + 
-				"\n" + Translation.fetch("variance") + ": " + this.getVariance() + 
-				"\n" + Translation.fetch("entropy") + ": " + this.getEntropy() + 
 				"\n" + Translation.fetch("k_nearest_ids") + ": " + this.getKNearestIDsAsString() +
 				"\n" + Translation.fetch("k_nearest_sensor_types") + ": " + this.getKNearestSensorTypesAsString();
 	}

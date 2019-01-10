@@ -18,9 +18,8 @@ public class EvaluationDataSet {
 	protected String metricName;
 	protected int sliceX;
 	protected int sliceY;
+	protected String histogramType;
 	protected int histogramSize;
-	protected int histogramSizeForVariance;
-	protected int histogramSizeForEntropy;
 	protected EvaluationDataSetEntry sourceEntry;
 	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
 
@@ -32,18 +31,19 @@ public class EvaluationDataSet {
 	/**
 	 * Constructor for a new EvaluationDataSet.
 	 * 
-	 * @param timestamp		the timestamp (creation date of this set)
-	 * @param name			the name of the set
-	 * @param sourceFolder	the full path of the selected scan folder
-	 * @param edgeDetection	additional scan with results of cropped images
-	 * @param kFactor		maximum number of files to be scanned
-	 * @param metricName	the metric name which was used for the scan
-	 * @param sliceX		number of slices on the x-axis of the images (e.g. for sliced entropy)
-	 * @param sliceY		number of slices on the y-axis of the images (e.g. for sliced entropy)
-	 * @param histogramSize	size of the histogram
+	 * @param timestamp					the timestamp (creation date of this set)
+	 * @param name						the name of the set
+	 * @param sourceFolder				the full path of the selected scan folder
+	 * @param edgeDetection				additional scan with results of cropped images
+	 * @param kFactor					maximum number of files to be scanned
+	 * @param metricName				the metric name which was used for the scan
+	 * @param sliceX					number of slices on the x-axis of the images (e.g. for sliced entropy)
+	 * @param sliceY					number of slices on the y-axis of the images (e.g. for sliced entropy)
+	 * @param histogramType				which histogram type to use - see Histogram.TYPE_XXX
+	 * @param histogramSize				size of the histogram
 	 */
-	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, boolean edgeDetection, String kFactor, String metricName, int sliceX, int sliceY, int histogramSize,
-							 int varianceHistogramSize, int entropyHistogramSize) {
+	public EvaluationDataSet(Timestamp timestamp, String name, String sourceFolder, boolean edgeDetection, String kFactor, String metricName, int sliceX, int sliceY, String histogramType,
+			int histogramSize) {
 		this.setTimestamp(timestamp);
 		this.setName(name);
 		this.setSourceFolder(sourceFolder);
@@ -52,9 +52,8 @@ public class EvaluationDataSet {
 		this.setMetricName(metricName);
 		this.setSliceX(sliceX);
 		this.setSliceY(sliceY);
+		this.setHistogramType(histogramType);
 		this.setHistogramSize(histogramSize);
-		this.setHistogramSizeForVariance(varianceHistogramSize);
-		this.setHistogramSizeForEntropy(entropyHistogramSize);
 	}
 
 	/**
@@ -195,7 +194,21 @@ public class EvaluationDataSet {
 	public void setSliceY(int sliceY) {
 		this.sliceY = sliceY;
 	}
+	
+	/**
+	 * @return the histogramType
+	 */
+	public String getHistogramType() {
+		return histogramType;
+	}
 
+	/**
+	 * @param histogramType the histogramType to set
+	 */
+	public void setHistogramType(String histogramType) {
+		this.histogramType = histogramType;
+	}
+	
 	/**
 	 * @return the histogramSize
 	 */
@@ -208,34 +221,6 @@ public class EvaluationDataSet {
 	 */
 	public void setHistogramSize(int histogramSize) {
 		this.histogramSize = histogramSize;
-	}
-
-	/**
-	 * @return the histogrma size for the local variance histogram
-	 */
-	public int getHistogramSizeForVariance() {
-		return histogramSizeForVariance;
-	}
-
-	/**
-	 * @param histogramSizeForVariance the histogramSize for the local variance histogram to set
-	 */
-	public void setHistogramSizeForVariance(int histogramSizeForVariance) {
-		this.histogramSizeForVariance = histogramSizeForVariance;
-	}
-
-	/**
-	 * @return the histogrma size for the local entropy histogram
-	 */
-	public int getHistogramSizeForEntropy() {
-		return histogramSizeForEntropy;
-	}
-
-	/**
-	 * @param histogramSizeForEntropy the histogramSize for the local entropy histogram to set
-	 */
-	public void setHistogramSizeForEntropy(int histogramSizeForEntropy) {
-		this.histogramSizeForEntropy = histogramSizeForEntropy;
 	}
 
 	@Override
@@ -255,6 +240,7 @@ public class EvaluationDataSet {
 				"\n" + Translation.fetch("metric") + ": " + this.getMetricName() + 
 				"\n" + Translation.fetch("slice_x") + ": " + this.getSliceX() + 
 				"\n" + Translation.fetch("slice_y") + ": " + this.getSliceY() + 
+				"\n" + Translation.fetch("histogram_type") + ": " + Translation.fetch(this.getHistogramType()) + 
 				"\n" + Translation.fetch("histogram_size") + ": " + this.getHistogramSize() + 
 				"\n" + Translation.fetch("scanned_entries") + ": " + this.getEntriesSize() + 
 				"\n" + Translation.fetch("same_sensor") + ": " + sameSensors + " ( " + String.format("%.4f", sameSensors * 100f / this.getEntriesSize()) + "% )"; 

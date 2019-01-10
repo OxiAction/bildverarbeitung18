@@ -35,9 +35,11 @@
 		<same_sensor><![CDATA[Gleicher Sensor]]></same_sensor>
 		<slice_x><![CDATA[Aufteilung (X-Achse)]]></slice_x>
 		<slice_y><![CDATA[Aufteilung (Y-Achse)]]></slice_y>
-		<histogram_size><![CDATA[Histogram Größe]]></histogram_size>
-		<variance_histogram_size><![CDATA[Varianz-His. Größe]]></variance_histogram_size>
-		<entropy_histogram_size><![CDATA[Entropie-His. Größe]]></entropy_histogram_size>
+		<histogram_type><![CDATA[Histogramm Typ]]></histogram_type>
+		<histogram_size><![CDATA[Histogramm Größe]]></histogram_size>
+		<histogram_grey_scale><![CDATA[Graustufen Histogramm]]></histogram_grey_scale>
+		<histogram_variance><![CDATA[Varianz Histogramm]]></histogram_variance>
+		<histogram_entropy><![CDATA[Entropie Histogramm]]></histogram_entropy>
 		<name_not_unique><![CDATA[Name bereits vorhanden]]></name_not_unique>
 		<scan_results_overview><![CDATA[Scan Ergebnisse]]></scan_results_overview>
 		<scan_results><![CDATA[Scan Ergebnisse]]></scan_results>
@@ -92,7 +94,11 @@
 		<same_sensor><![CDATA[Same Sensor]]></same_sensor>
 		<slice_x><![CDATA[Slice (X-Axis)]]></slice_x>
 		<slice_y><![CDATA[Slice (Y-Axis)]]></slice_y>
+		<histogram_type><![CDATA[Histogram Type]]></histogram_type>
 		<histogram_size><![CDATA[Histogram Size]]></histogram_size>
+		<histogram_grey_scale><![CDATA[Grey-Scale Histogram]]></histogram_grey_scale>
+		<histogram_variance><![CDATA[Variance Histogram]]></histogram_variance>
+		<histogram_entropy><![CDATA[Entropy Histogram]]></histogram_entropy>
 		<name_not_unique><![CDATA[Name is not available]]></name_not_unique>
 		<scan_results_overview><![CDATA[Scan Results]]></scan_results_overview>
 		<scan_results><![CDATA[Scan Results]]></scan_results>
