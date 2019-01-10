@@ -4,9 +4,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 
-import com.panayotis.gnuplot.JavaPlot;
-import com.panayotis.gnuplot.terminal.PostscriptTerminal;
-
 import core.data.Config;
 import core.evaluation.Evaluation;
 import core.evaluation.EvaluationDataSet;
@@ -38,65 +35,11 @@ public class AutomatedTests {
 		
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter("C:\\Users\\Michi\\Desktop\\grundlagen_bildv_results\\bildverarbeitung_results.txt", "UTF-8");
+			writer = new PrintWriter("C:\\Users\\Michi\\Desktop\\grundlagen_bildv_results\\ed_bildverarbeitung_results.txt", "UTF-8");
 		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		// http://javaplot.panayotis.com/
-		/*
-		JavaPlot p = new JavaPlot();
-
-        PostscriptTerminal epsf = new PostscriptTerminal("C:\\Users\\Michi\\Desktop\\grundlagen_bildv_results\\output.eps");
-        epsf.setColor(true);
-        p.setTerminal(epsf);
-
-        p.setTitle("Postscript Terminal Title");
-        p.addPlot("sin (x)");
-        p.addPlot("sin(x)*cos(x)");
-        p.newGraph();
-        p.addPlot("cos(x)");
-        p.setTitle("Trigonometric functions -1");
-        p.setMultiTitle("Trigonometric functions");
-        p.plot();
-        */
-		
-		/*
-		EvaluationDataSet result = null;
-		EvaluationDataSet input = new EvaluationDataSet(
-				new Timestamp(System.currentTimeMillis()),
-				"foo", // name
-				"C:/Users/Michi/Desktop/testb_bildv_full", // source
-				true, // edge detection
-				1, // k factor
-				"Correlation", // metric name
-				10, // slices x
-				10, // slices y
-				"histogram_grey_scale", // histogram type
-				256 // histogram size
-				);
-		
-		Evaluation evaluation = new Evaluation(input);
-		try {
-			result = evaluation.process(input);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if (result != null) {
-			int sameSensors = 0;
-			for (EvaluationDataSetEntry entry : result.getEntries()) {
-				if (entry.getIsSensorTypeEqualToNearestSensorType()) {
-					sameSensors++;
-				}
-			}
-			System.out.println(sameSensors);
-			System.out.println(result.getEntriesSize());
-			System.out.println(String.format("%.4f", sameSensors * 100f / result.getEntriesSize()));
-		}
-		*/
         
 		String[] metrics = Metric.getNames();
 		int[] kFactors = {1, 8, 16};
@@ -118,7 +61,7 @@ public class AutomatedTests {
 									new Timestamp(System.currentTimeMillis()),
 									String.valueOf(resultSetIndex) + " / " + String.valueOf(numSetsToTest), // name
 									"C:/Users/Michi/Desktop/testb_bildv_full", // source
-									false, // edge detection
+									true, // edge detection
 									kFactors[kFactorIndex], // k factor
 									metrics[metricIndex], // metric name
 									slices[sliceIndex], // slices x
