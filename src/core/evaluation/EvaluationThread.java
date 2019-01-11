@@ -46,7 +46,7 @@ public class EvaluationThread extends Thread {
 			String sensorType = null;
 
 			// get sensor type by folder structure...
-			String[] partAfterSourceFolder = fileFolderPath.split(this.set.getSourceFolder());
+			String[] partAfterSourceFolder = fileFolderPath.split(set.getSourceFolder());
 			if (partAfterSourceFolder.length > 0) {
 				partAfterSourceFolder = partAfterSourceFolder[1].split("/");
 				if (partAfterSourceFolder.length > 0) {
@@ -100,6 +100,7 @@ public class EvaluationThread extends Thread {
 				for (int i = 0; i < sliceY; ++i) {
 					for (int j = 0; j < sliceX; ++j) {
 						slicedVariances[i][j] = Variance.get(greyScaleSlicedData[i][j], Histogram.get(greyScaleSlicedData[i][j], histogramSize, true));
+						Config.foo(slicedVariances[i][j]);
 					}
 				}
 				
@@ -122,7 +123,7 @@ public class EvaluationThread extends Thread {
 			}
 			
 			// create and add entry to set
-			this.set.addEntry(
+			set.addEntry(
 					new EvaluationDataSetEntry(
 							this.id,
 							fileFolderPath,

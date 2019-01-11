@@ -232,7 +232,7 @@ public class Data {
 
 				if (setNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element setElement = (Element) setNode;
-
+					
 					// get attributes
 					String timestamp = setElement.getAttribute("timestamp");
 					String name = setElement.getAttribute("name");
@@ -274,11 +274,17 @@ public class Data {
 							Element histogramDataElement = (Element) entryElement.getElementsByTagName("histogramData").item(0);
 							int[] histogramData = Utils.stringToIntArray1D(histogramDataElement.getTextContent());
 							
-							Element kNearestIDsElement = (Element) entryElement.getElementsByTagName("kNearestIDs").item(0);
-							ArrayList<Integer> kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
+							ArrayList<Integer> kNearestIDs = new ArrayList<Integer>();
+							if (entryElement.getElementsByTagName("kNearestIDs").getLength() > 1) {
+								Element kNearestIDsElement = (Element) entryElement.getElementsByTagName("kNearestIDs").item(0);
+								kNearestIDs = Utils.stringToIntArrayList(kNearestIDsElement.getTextContent());
+							}
 							
-							Element kNearestSensorTypesElement = (Element) entryElement.getElementsByTagName("kNearestSensorTypes").item(0);
-							ArrayList<String> kNearestSensorTypes = Utils.stringToStringArrayList(kNearestSensorTypesElement.getTextContent());
+							ArrayList<String> kNearestSensorTypes = new ArrayList<String>();
+							if (entryElement.getElementsByTagName("kNearestSensorTypes").getLength() > 1) {
+								Element kNearestSensorTypesElement = (Element) entryElement.getElementsByTagName("kNearestSensorTypes").item(0);
+								kNearestSensorTypes = Utils.stringToStringArrayList(kNearestSensorTypesElement.getTextContent());
+							}
 							
 							// create and add entry to the set
 							// IMPORTANT: greyScaleData is NOT being saved / loaded (due to performance reasons) -> this means it will be "null"

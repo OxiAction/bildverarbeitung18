@@ -21,11 +21,9 @@ public class Variance {
 		double variance = 0.0;
 
 		for (int j = 0; j < histogramData.length; ++j) {
-			for (int k = 0; k < histogramData[j]; ++k) {
-				variance += Math.pow((j - meanGreyScale), 2);
-			}
+			variance += histogramData[j] * Math.pow(j - meanGreyScale, 2);
 		}
-
+		
 		return variance / (numberOfHistogramValues - 1);
 	}
 }

@@ -2,6 +2,7 @@ package core.evaluation;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import utils.Translation;
@@ -21,7 +22,8 @@ public class EvaluationDataSet {
 	protected String histogramType;
 	protected int histogramSize;
 	protected EvaluationDataSetEntry sourceEntry;
-	protected List<EvaluationDataSetEntry> entries = new ArrayList<EvaluationDataSetEntry>();
+	// list holding all the entries - must be synchronized for threads!
+	protected List<EvaluationDataSetEntry> entries = Collections.synchronizedList(new ArrayList<EvaluationDataSetEntry>());
 
 	/**
 	 * indicates if this set needs to be updated or is just read
