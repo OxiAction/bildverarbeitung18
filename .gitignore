@@ -3,6 +3,8 @@
 #
 data.xml
 tomcat
+src/MS.java
+src/RR.java
 
 #
 # Default excludes

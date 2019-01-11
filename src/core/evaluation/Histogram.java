@@ -69,7 +69,8 @@ public class Histogram {
 	}
 
 //	public static void main(String[] args) {
-//		double[][] localEntropies = {{-7, 1.0, 5.0}, {-6.0, 7.0, 8.0}};
+////		double[][] localEntropies = {{-7, 1.0, 5.0}, {-6.0, 7.0, 8.0}};
+//		double[][] localEntropies = {{-8, -4}, {4.0, 8.0}};
 //		int[] x = getIntHistogramForDoubleValues(localEntropies, 4);
 //		System.out.println("Local entropies: ");
 //		for(int i = 0; i < x.length; i++){
@@ -117,10 +118,11 @@ public class Histogram {
 		}
 		// 2) now generate an array with "size" (def. 32) values between min and max
 		double[] allowedValues = new double[size];
-		double val = min + (max-min);
-		size--; // size - 1
+		
+		size--;
+		double diff = max - min;
 		for (i = 0; i < allowedValues.length; i++){
-			allowedValues[i] = val / size * i;
+			allowedValues[i] = min + diff / size * i;
 //			System.out.println("allowedValues[" + i + "]: " + allowedValues[i]);
 		}
 //		System.out.println("min: " + min);
@@ -202,7 +204,11 @@ public class Histogram {
 //	 * Testing method for relative histogram
 //	 */
 //	public static void main(String[] args) {
-//		int[][] testArray1 = {{1,2,3},{3,4,6}};
-//		get(testArray1, 256, true);
+//		int[][] testArray1 = {{1,2,3}, {3,4,255}};
+//		int[] x = get(testArray1, 16, true);
+//		
+//		for(int i = 0; i < x.length; i++){
+//			System.out.println("x[" + i +"]: " + x[i]);
+//		}
 //	}
 }

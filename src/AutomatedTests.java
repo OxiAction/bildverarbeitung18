@@ -35,7 +35,7 @@ public class AutomatedTests {
 		
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter("C:\\Users\\Michi\\Desktop\\grundlagen_bildv_results\\ed_bildverarbeitung_results.txt", "UTF-8");
+			writer = new PrintWriter("C:\\Users\\Michi\\Desktop\\grundlagen_bildv_results\\bildverarbeitung_results.txt", "UTF-8");
 		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
