@@ -158,7 +158,7 @@ public class Evaluation extends Task<EvaluationDataSet> {
 			}
 		}
 		
-		Config.foog();
+		//Config.foog();
 		
 		// return the set, filled with all the entries and values:
 		return set;

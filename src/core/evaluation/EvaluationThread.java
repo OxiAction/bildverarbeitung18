@@ -104,7 +104,7 @@ public class EvaluationThread extends Thread {
 					}
 				}
 				
-				histogramData = Histogram.getIntHistogramForDoubleValues(slicedVariances, set.getHistogramSize());
+				histogramData = Histogram.getIntHistogramForDoubleValues(slicedVariances, set.getHistogramSize(), "Variance", sliceX, sliceY);
 				break;
 			case Histogram.TYPE_ENTROPY:
 				greyScaleSlicedData = Utils.getChunksFromIntArray2D(greyScaleData, sliceX, sliceY);
@@ -116,7 +116,7 @@ public class EvaluationThread extends Thread {
 					}
 				}
 				
-				histogramData = Histogram.getIntHistogramForDoubleValues(slicedEntropies, set.getHistogramSize());
+				histogramData = Histogram.getIntHistogramForDoubleValues(slicedEntropies, set.getHistogramSize(), "Variance", sliceX, sliceY);
 				break;
 			default:
 				throw new IOException("IOException: Could not determine the histogramType of the set!");

@@ -51,7 +51,7 @@ public class Config {
         }
     }
     
-    public static void foog() {
+    /*public static void foog() {
     	PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("C:\\Users\\Michi\\Desktop\\grundlagen_bildv_results\\variances.txt", "UTF-8");
@@ -65,7 +65,7 @@ public class Config {
 		}
 		
 		writer.close();
-    }
+    }*/
     
     public static void foor2() {
     	var_max = 0;
