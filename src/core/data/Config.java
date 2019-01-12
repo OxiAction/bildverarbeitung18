@@ -11,11 +11,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.w3c.dom.Document;
@@ -35,46 +31,6 @@ public class Config {
 	public static String xmlName = "config.xml";
 	
 	public static HashMap<String, EdgeDetectionConfig> sensorsEdgeDetectionConfig = new HashMap<String, EdgeDetectionConfig>();
-	
-	private static double var_max = 0.0;
-	private static ArrayList<Double> vars = new ArrayList<Double>();
-
-    public static void foo(double var) {
-        synchronized (Config.class) {
-        	vars.add(var);
-        }
-    }
-    
-    public static void foo2(double var) {
-        synchronized (Config.class) {
-            var_max = Math.max(var_max, var);
-        }
-    }
-    
-    /*public static void foog() {
-    	PrintWriter writer = null;
-		try {
-			writer = new PrintWriter("C:\\Users\\Michi\\Desktop\\grundlagen_bildv_results\\variances.txt", "UTF-8");
-		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		for (double var : vars) {
-			writer.println(var);
-		}
-		
-		writer.close();
-    }*/
-    
-    public static void foor2() {
-    	var_max = 0;
-    }
-    
-    public static void foor() {
-    	vars = new ArrayList<Double>();
-    }
-
 
 	/**
 	 * Loads a .xml file and returns its document object.

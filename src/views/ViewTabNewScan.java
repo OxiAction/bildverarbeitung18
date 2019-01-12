@@ -156,7 +156,7 @@ public class ViewTabNewScan implements ViewInterface {
 		Label labelKFactor = new Label(Translation.fetch("k_factor") + ":");
 		labelKFactor.setPrefWidth(labelsWidth);
 		ComboBox<String> comboBoxKFactor = new ComboBox<String>(FXCollections.observableArrayList("1", "4", "8", "16", "32"));
-		comboBoxKFactor.getSelectionModel().select(0);
+		comboBoxKFactor.getSelectionModel().select(2);
 		HBox hBoxKFactor = new HBox();
 		hBoxKFactor.getChildren().addAll(labelKFactor, comboBoxKFactor);
 		hBoxKFactor.setSpacing(10);
@@ -178,8 +178,8 @@ public class ViewTabNewScan implements ViewInterface {
 
 		Label labelSliceX = new Label(Translation.fetch("slice_x") + ":");
 		labelSliceX.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxSliceX = new ComboBox<String>(FXCollections.observableArrayList("2", "4", "8", "10", "20", "50", "100"));
-		comboBoxSliceX.getSelectionModel().select(6);
+		ComboBox<String> comboBoxSliceX = new ComboBox<String>(FXCollections.observableArrayList("4", "10", "20"));
+		comboBoxSliceX.getSelectionModel().select(1);
 		HBox hBoxSliceX = new HBox();
 		hBoxSliceX.getChildren().addAll(labelSliceX, comboBoxSliceX);
 		hBoxSliceX.setSpacing(10);
@@ -189,8 +189,8 @@ public class ViewTabNewScan implements ViewInterface {
 
 		Label labelSliceY = new Label(Translation.fetch("slice_y") + ":");
 		labelSliceY.setPrefWidth(labelsWidth);
-		ComboBox<String> comboBoxSliceY = new ComboBox<String>(FXCollections.observableArrayList("2", "4", "8", "10", "20", "50", "100"));
-		comboBoxSliceY.getSelectionModel().select(6);
+		ComboBox<String> comboBoxSliceY = new ComboBox<String>(FXCollections.observableArrayList("4", "10", "20"));
+		comboBoxSliceY.getSelectionModel().select(1);
 		HBox hBoxSliceY = new HBox();
 		hBoxSliceY.getChildren().addAll(labelSliceY, comboBoxSliceY);
 		hBoxSliceY.setSpacing(10);

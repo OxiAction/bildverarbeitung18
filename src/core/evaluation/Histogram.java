@@ -11,9 +11,9 @@ public class Histogram {
 	public static final String TYPE_GREY_SCALE = "histogram_grey_scale";
 	public static final String TYPE_ENTROPY = "histogram_entropy";
 	public static final String TYPE_VARIANCE = "histogram_variance";
-	
+
 	protected static final String[] TYPES = { TYPE_GREY_SCALE, TYPE_ENTROPY, TYPE_VARIANCE };
-	
+
 	protected static final int MAX_SIZE = 256;
 	protected static final int DEF_SIZE = 256;
 	protected static final int DEF_SIZE_DOUBLE_TO_INT = 32;
@@ -61,34 +61,26 @@ public class Histogram {
 			}
 		}
 
-		if(relative) {
+		if (relative) {
 			generateRelativeHistogram(greyScaleData, histogramData);
 		}
 
 		return histogramData;
 	}
 
-//	public static void main(String[] args) {
-////		double[][] localEntropies = {{-7, 1.0, 5.0}, {-6.0, 7.0, 8.0}};
-//		double[][] localEntropies = {{-8, -4}, {4.0, 8.0}};
-//		int[] x = getIntHistogramForDoubleValues(localEntropies, 4);
-//		System.out.println("Local entropies: ");
-//		for(int i = 0; i < x.length; i++){
-//			System.out.println("x[" + i +"]: " + x[i]);
-//		}
-//	}
-
 	/**
 	 * Takes a two dimensional double array (e.g. of local entropies / variances) and generates an int histogram
 	 * of given size that "tries to" represent the double values as good as possible.
-	 *
-	 * @param doubleValues		the double values to be represented (e.g. local entropies / variances)
-	 * @param size				the size (power of two with maximum MAX_SIZE)
-	 * @return the histogram
+	 * 
+	 * @param doubleValues
+	 * @param size
+	 * @param type
+	 * @param sliceX
+	 * @param sliceY
+	 * @return
 	 */
 	public static int[] getIntHistogramForDoubleValues(double[][] doubleValues, int size, String type, int sliceX, int sliceY) {
 		// check if size is valid (power of two with maximum MAX_SIZE)
-		// see: https://graphics.stanford.edu/~seander/bithacks.html#DetermineIfPowerOf2
 		if (!(size > 0 && size <= MAX_SIZE && ((size & (size - 1)) == 0))) {
 			Debug.log("Invalid histogram size, please use 256, 128, 64, 32, 16, 8, 4 or 2.");
 			Debug.log("Using default size " + DEF_SIZE_DOUBLE_TO_INT + ".");
@@ -101,74 +93,53 @@ public class Histogram {
 			intHistogramForDoubleValues[i] = 0;
 		}
 
-		//int scaleFactor = MAX_SIZE / size;	// seems to be not needed anymore
-
 		// now try to generate a perfect histogram for the different entropies
-		// 1) first find min and max values
-		/*double min = doubleValues[0][0], max = doubleValues[0][0];
-		for (i = 0; i < doubleValues.length; i++){
-			for (int j = 0; j < doubleValues[i].length; ++j) {
-				if(doubleValues[i][j] < min){
-					min = doubleValues[i][j];
-				}
-				if(doubleValues[i][j] > max){
-					max = doubleValues[i][j];
-				}
-			}
-		}*/
+		// 1) first get min and max values
 		double min, max;
-		if(type.equals("Entropy")){
+		if (type.equals(Histogram.TYPE_ENTROPY)) {
 			min = 0;
 			max = 8;
-		}
-		else if(type.equals("Variance")){
-			if(sliceX == 4 && sliceY == 4) {
-//				min = 1.986029372515949;	// 5%-95%% (result: 14%)
-//				max = 9082.468083259373;
+		} else if (type.equals(Histogram.TYPE_VARIANCE)) {
+			if (sliceX == 4 && sliceY == 4) {
+				//min = 1.986029372515949;	// 5%-95%% (result: 14%)
+				//max = 9082.468083259373;
 				//min = 2.999892274383688E-4; // 2.5%-97.5%% (result: 14%-26%)
 				//max = 11840.080689736023;
-				min = 21.378638265041502;		// 10%-90% (result: 22%-32%)
+				min = 21.378638265041502; // 10%-90% (result: 22%-32%)
 				max = 6792.04574964503;
 				//min = 325.296819604574;		// 20-80% (result: 4%))
 				//max = 4544.297120470115;
 				//min = 100.78968320383647;		// 15-85% (result: 22-25%)
 				//max = 5546.6457249204905;
-			}
-			else if(sliceX == 10 && sliceY == 10){
-//				min = 0.0;						// 5%-95%% (result: <80)
-//				max = 1912411.4115113223;
-				min = 2.379072109440856;		// 10%-90% (result: 83-86%)
-				max =  1098258.5777420376;
-//				min = 280.96180477694037;		// 15-85% (result: <83)
-//				max = 745976.322822115;
-			}
-			else if(sliceX == 21 && sliceY == 20){
-//				min = 0.0;						// 5%-95%% (result: 89%)
-//				max = 3.926542259883886E7;
-				min = 12.521160256272704;		// 10%-90% (result: 86% (aber bei 128 bins: 89%))
-				max =  2.359251175568138E7;
-//				min = 5646.846325511509;		// 15-85% (result: worst)
-//				max = 1.6063655037549574E7;
-			}
-			else{
+			} else if (sliceX == 10 && sliceY == 10) {
+				//min = 0.0;						// 5%-95%% (result: <80)
+				//max = 1912411.4115113223;
+				min = 2.379072109440856; // 10%-90% (result: 83-86%)
+				max = 1098258.5777420376;
+				//min = 280.96180477694037;		// 15-85% (result: <83)
+				//max = 745976.322822115;
+			} else if (sliceX == 20 && sliceY == 20) {
+				//min = 0.0;						// 5%-95%% (result: 89%)
+				//max = 3.926542259883886E7;
+				min = 12.521160256272704; // 10%-90% (result: 86% (aber bei 128 bins: 89%))
+				max = 2.359251175568138E7;
+				//min = 5646.846325511509;		// 15-85% (result: worst)
+				//max = 1.6063655037549574E7;
+			} else {
 				min = 0;
 				max = 7000000;
 			}
-		}
-		else{
+		} else {
 			throw new IllegalArgumentException("Please choose \"Entropy\" or \"Variance\" as type parameter!");
 		}
 		// 2) now generate an array with "size" (def. 32) values between min and max
 		double[] allowedValues = new double[size];
-		
+
 		size--;
 		double diff = max - min;
-		for (i = 0; i < allowedValues.length; i++){
+		for (i = 0; i < allowedValues.length; i++) {
 			allowedValues[i] = min + diff / size * i;
-//			System.out.println("allowedValues[" + i + "]: " + allowedValues[i]);
 		}
-//		System.out.println("min: " + min);
-//		System.out.println("max: " + max);
 
 		// 3) now go through all entropy values that we have and assign each one to the closest value
 		//    in our allowedEntropyValues array
@@ -193,28 +164,24 @@ public class Histogram {
 	 * @param value		the value
 	 * @return		the index of this value
 	 */
-	protected static int getNearestAllowedValue(double[] elements, double value){
+	protected static int getNearestAllowedValue(double[] elements, double value) {
 		double difference = Math.abs(elements[0] - value);
 
 		int i = 0;
-		for(i = 1; i < elements.length; i++){
-			if(Math.abs(elements[i] - value) < difference){
+		for (i = 1; i < elements.length; i++) {
+			if (Math.abs(elements[i] - value) < difference) {
 				difference = Math.abs(elements[i] - value);
-			}
-			else{
+			} else {
 				i = i - 1;
-//				System.out.println("allowed value: " + elements[i]);
 				break;
 			}
 		}
 
 		// special case
-		if(i == elements.length){
+		if (i == elements.length) {
 			i = i - 1;
 		}
 
-//		System.out.println("allowed value: " + elements[i]);
-//		System.out.println("Returning i: " + i);
 		return i;
 	}
 
@@ -224,7 +191,7 @@ public class Histogram {
 	 * @param greyScaleData	the greyScaleData is needed for getting the absolute number of values
 	 * @param histogramData	the Histogram to be converted
 	 */
-	protected static void generateRelativeHistogram(int[][] greyScaleData, int[] histogramData){
+	protected static void generateRelativeHistogram(int[][] greyScaleData, int[] histogramData) {
 		int nrOfVals = Utils.getNumberOfGreyScaleValues(greyScaleData);
 		double relativeHistogramValue;
 		for (int i = 0; i < histogramData.length; i++) {
@@ -232,7 +199,7 @@ public class Histogram {
 			histogramData[i] = (int) Math.round(relativeHistogramValue);
 		}
 	}
-	
+
 	/**
 	 * Returns all available histogram types as array.
 	 * 
@@ -241,16 +208,4 @@ public class Histogram {
 	public static String[] getTypes() {
 		return TYPES;
 	}
-
-//	/**
-//	 * Testing method for relative histogram
-//	 */
-//	public static void main(String[] args) {
-//		int[][] testArray1 = {{1,2,3}, {3,4,255}};
-//		int[] x = get(testArray1, 16, true);
-//		
-//		for(int i = 0; i < x.length; i++){
-//			System.out.println("x[" + i +"]: " + x[i]);
-//		}
-//	}
 }

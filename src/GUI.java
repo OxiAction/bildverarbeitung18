@@ -33,6 +33,7 @@ public class GUI extends Application {
 		
 		// initialize translation singleton
 		Translation.getInstance();
+		Translation.setLanguage("en");
 		
 		// setup panes
 		StackPane stackPane = new StackPane();

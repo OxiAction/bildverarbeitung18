@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import core.data.Config;
 import javafx.concurrent.Task;
 import javafx.util.Pair;
 import utils.Debug;
@@ -35,7 +34,6 @@ public class Evaluation extends Task<EvaluationDataSet> {
 	}
 	
 	public EvaluationDataSet process(EvaluationDataSet set) throws IOException {
-		Config.foor();
 		Debug.log("-> EvaluationDataSet values:");
 		Debug.log(set.toString());
 
@@ -157,8 +155,6 @@ public class Evaluation extends Task<EvaluationDataSet> {
 				entry.setKNearestSensorTypes(kNearestSensorTypes);
 			}
 		}
-		
-		//Config.foog();
 		
 		// return the set, filled with all the entries and values:
 		return set;
